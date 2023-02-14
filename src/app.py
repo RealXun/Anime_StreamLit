@@ -11,7 +11,7 @@ from streamlit_option_menu import option_menu
 
 
 with st.sidebar:
-    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Other", "Based on Features2"],
+    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Other", "Testing"],
                          icons=['house', 'camera fill', 'kanban', 'book','person lines fill', 'book'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
@@ -172,7 +172,7 @@ elif choose == "Other":
 
 
 
-elif choose == "Based on Features2":
+elif choose == "Testing":
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
     st.markdown(""" <style> .font {
@@ -189,21 +189,9 @@ elif choose == "Based on Features2":
     number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
     st.write('The current number is ', number_of_recommendations)
 
-    def fetch_poster(movie_id):
-        response = requests.get('https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg')
-        data = response.json()
-        return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
-
-    def features_based(name,genre,type,n):
-        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n)
-        recommended_movies = []
-        recommended_movies_posters = []
-        for x in similar_animes:
-            #movie_id = movies.iloc[x[0]].movie_id
-            recommended_movies.append(x["name"])
-            #recommended_movies_posters.append(fetch_poster(movie_id))
-        return recommended_movies
-
+    def testing(name,genre,type,n):
+        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name),genre,type,n)
+        return similar_animes
 
     ## Drop down menu to select the genre
     option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',('All','Email', 'Home phone', 'Mobile phone'))
@@ -214,32 +202,17 @@ elif choose == "Based on Features2":
     st.write('You selected:', option_type)
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
-        st.title("\n")
-        # recommendations show
-        st.subheader("Recommendations for you")
-        st.subheader("\n")
+        result = testing(to_search,option_gere,option_type,number_of_recommendations)
+        num_cols = 4
+        num_rows = len(result) // num_cols + 1
 
-        my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        
-        n = 3 #elements per sublist
-        
-        final_list = [my_list[i * n:(i + 1) * n] for i in range((len(my_list) + n - 1) // n )]
+        for row_idx in range(num_rows):
+            cols = st.beta_columns(num_cols)
+            for col_idx, key in enumerate(list(result.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                result = result[key]
+                #cols[col_idx].image(result['cover_image'], width=200)
+                cols[col_idx].write(result['name'])
+                cols[col_idx].write(result['type'])
+                cols[col_idx].write(result['episodes'])
+                cols[col_idx].write(f"Rating: {result['rating']}/5")
 
-
-        names = features_based(to_search,option_gere,option_type,number_of_recommendations)
-        col1, col2, col3, col4, col5 = st.columns(5)
-        with col1:
-            st.text(names[0])
-            #st.markdown("![Alt Text](https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg)")
-        with col2:
-            st.text(names[1])
-            #st.markdown("![Alt Text](https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg)")
-        with col3:
-            st.text(names[2])
-            #st.markdown("![Alt Text](https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg)")
-        with col4:
-            st.text(names[3])
-            #st.markdown("![Alt Text](https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg)")
-        with col5:
-            st.text(names[4])
-            #st.markdown("![Alt Text](https://cconnect.s3.amazonaws.com/wp-content/uploads/2020/03/Funko-Pop-Hunter-x-Hunter-Figures-thumb-600.jpg)")
