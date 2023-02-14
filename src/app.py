@@ -220,7 +220,7 @@ elif choose == "Testing":
                 result = new_dict[key]
                 #cols[col_idx].image(result['cover_image'], width=200)
                 cols[col_idx].write(key)
-                cols[col_idx].write(result['type'])
-                cols[col_idx].write(result['episodes'])
+                cols[col_idx].write(f"{result['type']} Series")
+                cols[col_idx].write(f"Episodes: {result['episodes']}")
                 cols[col_idx].write(f"Rating: {result['rating']}/10")
 
