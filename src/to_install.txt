@@ -1,0 +1,14 @@
+pip install streamlit
+pip install streamlit-option-menu
+pip install joblib
+pip install fuzzywuzzy
+pip install numpy
+pip install scikit-learn
+pip install scikit-surprise
+pip install fastparquet
+pip install matplotlib
+
+
+conda install -c conda-forge scikit-surprise
+
+Microsoft Visual C++ 14.0 or greater is required
