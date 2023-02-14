@@ -203,13 +203,21 @@ elif choose == "Testing":
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
         result = testing(to_search,option_gere,option_type,number_of_recommendations)
+
+        new_dict={}
+        for di in result:
+            new_dict[di['name']]={}
+            for k in di.keys():
+                if k =='name': continue
+                new_dict[di['name']][k]=di[k]
+                
         num_cols = 4
         num_rows = len(result) // num_cols + 1
 
         for row_idx in range(num_rows):
             cols = st.beta_columns(num_cols)
-            for col_idx, key in enumerate(list(result.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
-                result = result[key]
+            for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                result = new_dict[key]
                 #cols[col_idx].image(result['cover_image'], width=200)
                 cols[col_idx].write(result['name'])
                 cols[col_idx].write(result['type'])
