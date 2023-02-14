@@ -221,6 +221,6 @@ elif choose == "Testing":
                 #cols[col_idx].image(result['cover_image'], width=200)
                 cols[col_idx].write(key)
                 cols[col_idx].write(f"{result['type']} Series")
-                cols[col_idx].write(f"Episodes: {result['episodes']}")
+                cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
                 cols[col_idx].write(f"Rating: {result['rating']}/10")
 
