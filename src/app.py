@@ -219,7 +219,7 @@ elif choose == "Testing":
             for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
                 result = new_dict[key]
                 #cols[col_idx].image(result['cover_image'], width=200)
-                cols[col_idx].write(result)
+                cols[col_idx].write(key)
                 cols[col_idx].write(result['type'])
                 cols[col_idx].write(result['episodes'])
                 cols[col_idx].write(f"Rating: {result['rating']}/5")
