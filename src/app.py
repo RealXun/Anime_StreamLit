@@ -222,5 +222,5 @@ elif choose == "Testing":
                 cols[col_idx].write(key)
                 cols[col_idx].write(result['type'])
                 cols[col_idx].write(result['episodes'])
-                cols[col_idx].write(f"Rating: {result['rating']}/5")
+                cols[col_idx].write(f"Rating: {result['rating']}/10")
 
