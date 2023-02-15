@@ -56,7 +56,7 @@ elif choose == "Based on ratings":
     number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
     st.write('The current number is ', number_of_recommendations)
 
-    def unsupervised_user_explicit_rating_based(name,genre,type,n):
+    def unsupervised_user_explicit_rating_based(name,n,genre,type):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
         return similar_animes
 
