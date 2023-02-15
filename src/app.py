@@ -50,7 +50,14 @@ elif choose == "Based on ratings":
     st.title('Unsupervised user based collaborative filtering')
 
     # Get the user's favorite movie
-    to_search = st.text_input('What anime would you like to search for recommendations?')
+    #to_search = st.text_input('What anime would you like to search for recommendations?')
+
+    to_search = st.text_input("Enter a string:")
+    if to_search:
+        if to_search.isnumeric():
+            st.write("Input contains only numbers. Please enter a string with at least one non-numeric character.")
+        else:
+            st.write(f"Input is valid: {to_search}")
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
@@ -101,7 +108,7 @@ elif choose == "Based on ratings":
                     
             num_cols = 3
             num_rows = len(result) // num_cols + 1
-            
+
             for row_idx in range(num_rows):
                 cols = st.columns(num_cols)
                 for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
