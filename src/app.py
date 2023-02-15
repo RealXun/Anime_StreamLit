@@ -176,8 +176,8 @@ elif choose == "Based on Features":
     ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
 
-    if to_search and number_of_recommendations:
-        if number_of_recommendations in to_search:
+    if to_search and user_input:
+        if user_input in to_search:
             button_enabled = True
             if button_enabled:
                     if st.button("Click me!"):
