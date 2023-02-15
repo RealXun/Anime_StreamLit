@@ -254,7 +254,7 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
     lowertittle = movie_user_likes.lower() # Pasamos el titulo a minúsculas
     #pivot_df_try = joblib.load(processed_data + "/" + "_to_find_index_user_based_unsupervised.pkl")
     pivot_df_try = pd.read_csv(processed_data + "/" + "_to_find_index_user_based_unsupervised.csv")# load anime df
-    closest_title, distance_score = finding_the_closest_title(lowertittle,pivot_df_try)
+    closest_title, distance_score = finding_the_closest_title(lowertittle,df)
     # When a user does not make misspellings
     if distance_score == 100:
         print('These are the recommendations for similar animes to '+'\033[1m'+str(closest_title)+'\033[0m'+'','\n')
