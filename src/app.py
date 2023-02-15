@@ -7,6 +7,9 @@ import pickle
 import requests
 from pathlib import Path
 from streamlit_option_menu import option_menu
+import requests
+from PIL import Image
+from io import BytesIO
 
 
 
@@ -219,8 +222,20 @@ elif choose == "Testing":
             for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
                 result = new_dict[key]
                 #cols[col_idx].image(result['cover_image'], width=200)
-                cols[col_idx].write(key)
-                cols[col_idx].write(f"{result['type']} Series")
+                cols[col_idx].write(f"{result['english_title']}")
+                cols[col_idx].write(f"{result['japanses_title']}")
+                url = cols[col_idx].write(f"{result['img']}")
+
+                if url:
+                    # Fetch the image from the URL
+                    response = requests.get(url)
+                    img = Image.open(BytesIO(response.content))
+
+                    # Display the image in Streamlit
+                cols[col_idx].image(img)
+                cols[col_idx].write(f"{result['type']}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
-                cols[col_idx].write(f"Rating: {result['rating']}/10")
+                cols[col_idx].write(f"{result['duration']}")
+                cols[col_idx].write(f"{result['rating']}")
+                cols[col_idx].write(f"Score: {result['score']}/10")
 
