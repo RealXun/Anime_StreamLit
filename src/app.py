@@ -233,7 +233,7 @@ elif choose == "Testing":
                 # Display image, title, and rating
                 cols[col_idx].image(img, use_column_width=True)
 
-                cols[col_idx].write(f"{result['type']}",f"Episodes: {int(result['episodes'])}")
+                cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
                 cols[col_idx].write(f"{result['duration']}")
                 cols[col_idx].write(f"{result['rating']}")
