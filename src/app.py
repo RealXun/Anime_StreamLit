@@ -224,15 +224,15 @@ elif choose == "Testing":
                 #cols[col_idx].image(result['cover_image'], width=200)
                 cols[col_idx].write(f"{result['english_title']}")
                 cols[col_idx].write(f"{result['japanses_title']}")
-                url = cols[col_idx].write(f"{result['img']}")
-
-                if url:
-                    # Fetch the image from the URL
-                    response = requests.get(url)
-                    img = Image.open(BytesIO(response.content))
-
-                    # Display the image in Streamlit
-                cols[col_idx].image(img)
+                #url = cols[col_idx].write(f"{result['img']}")
+#
+                #if url:
+                #    # Fetch the image from the URL
+                #    response = requests.get(url)
+                #    img = Image.open(BytesIO(response.content))
+#
+                #    # Display the image in Streamlit
+                #cols[col_idx].image(img)
                 cols[col_idx].write(f"{result['type']}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
                 cols[col_idx].write(f"{result['duration']}")
