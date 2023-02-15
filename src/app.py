@@ -53,9 +53,9 @@ elif choose == "Based on ratings":
     to_search = st.text_input('What anime would you like to search for recommendations?')
 
     # Get the number of the recomemendations the users wants
-    number_of_recommendations = st.text_input("Enter an integer:")
+    user_input  = st.text_input("Write how many recommendations you want to get:")
     try:
-        user_input = int(number_of_recommendations)
+        number_of_recommendations = int(user_input)
     except ValueError:
         st.error("Please enter a valid integer.")
 
@@ -129,14 +129,15 @@ elif choose == "Based on Features":
     to_search = st.text_input('What anime would you like to search for recommendations?')
 
     # Get the number of the recomemendations the users wants
-    number_of_recommendations = st.text_input("Enter an integer:")
+    user_input  = st.text_input("Write how many recommendations you want to get:")
     try:
-        user_input = int(number_of_recommendations)
+        number_of_recommendations = int(user_input)
     except ValueError:
         st.error("Please enter a valid integer.")
 
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
+
     def features_based(name,genre,type,n):
         similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n)
         return similar_animes
@@ -206,9 +207,9 @@ elif choose == "Using user ID":
     st.write('The current number is ', users_id)
 
     # Get the number of the recomemendations the users wants
-    number_of_recommendations = st.text_input("Enter an integer:")
+    user_input  = st.text_input("Write how many recommendations you want to get:")
     try:
-        user_input = int(number_of_recommendations)
+        number_of_recommendations = int(user_input)
     except ValueError:
         st.error("Please enter a valid integer.")
 
