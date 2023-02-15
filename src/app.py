@@ -312,4 +312,4 @@ elif choose == "Other":
 
 
 elif choose == "Testing":
-    test_it()
+    testing.test_it()
