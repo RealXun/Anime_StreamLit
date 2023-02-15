@@ -231,7 +231,7 @@ elif choose == "Testing":
                 img = Image.open(BytesIO(response.content))
                 
                 # Display image, title, and rating
-                cols[col_idx].image(img, width=50)
+                cols[col_idx].image(img, width=200)
 
                 cols[col_idx].write(f"{result['type']}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
