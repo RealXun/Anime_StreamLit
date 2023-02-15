@@ -53,19 +53,36 @@ elif choose == "Based on ratings":
     to_search = st.text_input('What anime would you like to search for recommendations?')
 
     # Get the user's favorite movie
-    number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
-    st.write('The current number is ', number_of_recommendations)
+    #number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
+    #st.write('The current number is ', number_of_recommendations)
+    user_input = st.text_input("Enter an integer:")
+    try:
+        user_input = int(user_input)
+    except ValueError:
+        st.error("Please enter a valid integer.")
+
+    if isinstance(user_input, int):
+        st.success(f"You entered the integer: {user_input}")
 
     def unsupervised_user_explicit_rating_based(name,n,genre,type):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
         return similar_animes
 
     ## Drop down menu to select the genre
-    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',('All','Email', 'Home phone', 'Mobile phone'))
+    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',
+        ('All','Drama', 'Romance', 'School', 'Supernatural', 'Action',
+       'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+       'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+       'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+       'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+       'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+       'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+       'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri'))
     st.write('You selected:', option_gere)
 
     ## Drop down menu to select the type
-    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',('All','TV', 'OVA', 'ONA'))
+    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
+    ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
@@ -122,11 +139,20 @@ elif choose == "Based on Features":
         return similar_animes
 
     ## Drop down menu to select the genre
-    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',('All','Email', 'Home phone', 'Mobile phone'))
+    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',
+        ('All','Drama', 'Romance', 'School', 'Supernatural', 'Action',
+       'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+       'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+       'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+       'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+       'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+       'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+       'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri'))
     st.write('You selected:', option_gere)
 
     ## Drop down menu to select the type
-    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',('All','TV', 'OVA', 'ONA'))
+    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
+    ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
@@ -173,7 +199,7 @@ elif choose == "Using user ID":
 
 
      # Get the user's favorite movie
-    users_id = st.slider('How many recommendations would you like to get?', min_value=1, max_value=25000, value=5, step=1)
+    users_id = st.slider('Choose the ID of the user you would like to see recommendations?', min_value=1, max_value=25000, value=5, step=1)
     st.write('The current number is ', users_id)
 
     # Get the user's favorite movie
@@ -186,11 +212,20 @@ elif choose == "Using user ID":
 
 
     ## Drop down menu to select the genre
-    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',('All','Email', 'Home phone', 'Mobile phone'))
+    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',
+        ('All','Drama', 'Romance', 'School', 'Supernatural', 'Action',
+       'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+       'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+       'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+       'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+       'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+       'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+       'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri'))
     st.write('You selected:', option_gere)
 
     ## Drop down menu to select the type
-    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',('All','TV', 'OVA', 'ONA'))
+    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
+    ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
