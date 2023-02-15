@@ -205,8 +205,22 @@ elif choose == "Using user ID":
 
 
      # Get the user's favorite movie
-    users_id = st.slider('Choose the ID of the user you would like to see recommendations?', min_value=1, max_value=25000, value=5, step=1)
-    st.write('The current number is ', users_id)
+    #users_id = st.slider('Choose the ID of the user you would like to see recommendations?', min_value=1, max_value=25000, value=5, step=1)
+    #st.write('The current number is ', users_id)
+
+    user_input  = st.text_input("Choose the ID of the user you would like to see recommendations?")
+    try:
+        users_id = int(user_input)
+    except ValueError:
+        st.error("Please enter a valid integer.")
+
+    if isinstance(user_input, int):
+        st.success(f"You entered the integer: {user_input}")
+
+    def super_ratings_based(id,n,genre,type):
+        similar_animes =recommend.df_recommendation(id,n,genre,type)
+        return similar_animes
+
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
