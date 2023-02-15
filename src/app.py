@@ -175,39 +175,55 @@ elif choose == "Based on Features":
     option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
     ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
-    if (st.button('Get the Recommendation')):
-        # dataframe = load('../models/df.pkl')
-        result = features_based(to_search,option_gere,option_type,number_of_recommendations)
 
-        new_dict={}
-        for di in result:
-            new_dict[di['name']]={}
-            for k in di.keys():
-                if k =='name': continue
-                new_dict[di['name']][k]=di[k]
-                
-        num_cols = 3
-        num_rows = len(result) // num_cols + 1
+    if to_search and user_input:
+        if user_input in to_search:
+            button_enabled = True
+        else:
+            button_enabled = False
+    else:
+        button_enabled = False
 
-        for row_idx in range(num_rows):
-            cols = st.columns(num_cols)
-            for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
-                result = new_dict[key]
+    if button_enabled:
+        if st.button("Click me!"):
+            st.write("Button clicked!")
 
-                # Fetch image from URL
-                response = requests.get(result['cover'])
-                img = Image.open(BytesIO(response.content))
-                
-                # Display image, title, and rating
-                cols[col_idx].image(img, use_column_width=True)
+        if (st.button('Get the Recommendation')):
+            st.write("Button clicked!")
+            # dataframe = load('../models/df.pkl')
+            result = features_based(to_search,option_gere,option_type,number_of_recommendations)
 
-                cols[col_idx].write(f"{result['english_title']}")
-                cols[col_idx].write(f"{result['japanses_title']}")
+            new_dict={}
+            for di in result:
+                new_dict[di['name']]={}
+                for k in di.keys():
+                    if k =='name': continue
+                    new_dict[di['name']][k]=di[k]
+                    
+            num_cols = 3
+            num_rows = len(result) // num_cols + 1
 
-                cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
-                cols[col_idx].write(f"{result['duration']}")
-                cols[col_idx].write(f"{result['rating']}")
-                cols[col_idx].write(f"Score: {result['score']}/10")
+            for row_idx in range(num_rows):
+                cols = st.columns(num_cols)
+                for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    result = new_dict[key]
+
+                    # Fetch image from URL
+                    response = requests.get(result['cover'])
+                    img = Image.open(BytesIO(response.content))
+                    
+                    # Display image, title, and rating
+                    cols[col_idx].image(img, use_column_width=True)
+
+                    cols[col_idx].write(f"{result['english_title']}")
+                    cols[col_idx].write(f"{result['japanses_title']}")
+
+                    cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
+                    cols[col_idx].write(f"{result['duration']}")
+                    cols[col_idx].write(f"{result['rating']}")
+                    cols[col_idx].write(f"Score: {result['score']}/10")
+    else:
+        st.write("Button disabled. Please enter values for both text inputs, and make sure the user input is in the text to search.")
 
 elif choose == "Using user ID":
     #Add the cover image for the cover page. Used a little trick to center the image
