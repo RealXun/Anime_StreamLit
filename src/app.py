@@ -54,6 +54,7 @@ elif choose == "Based on ratings":
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
+    st.text_input("Note that the results are based on the filter. More filters might lead to less recommendations")
     try:
         number_of_recommendations = int(user_input)
     except ValueError:
@@ -130,6 +131,7 @@ elif choose == "Based on Features":
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
+    st.text_input("Note that the results are based on the filter. More filters might lead to less recommendations")
     try:
         number_of_recommendations = int(user_input)
     except ValueError:
@@ -208,6 +210,7 @@ elif choose == "Using user ID":
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
+    st.text_input("Note that the results are based on the filter. More filters might lead to less recommendations")
     try:
         number_of_recommendations = int(user_input)
     except ValueError:
