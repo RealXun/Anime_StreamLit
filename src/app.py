@@ -57,7 +57,7 @@ elif choose == "Based on ratings":
     st.write('The current number is ', number_of_recommendations)
 
     def unsupervised_user_explicit_rating_based(name,genre,type,n):
-        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name),genre,type,n)
+        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
         return similar_animes
 
     ## Drop down menu to select the genre
