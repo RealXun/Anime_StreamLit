@@ -225,7 +225,7 @@ elif choose == "Testing":
                 cols[col_idx].write(f"{result['english_title']}")
                 cols[col_idx].write(f"{result['japanses_title']}")
                 #url = cols[col_idx].write(f"{result['img']}")
-
+                cols[col_idx].write(f"{result['cover']}")
                 # Fetch image from URL
                 response = requests.get(result['cover'])
                 img = Image.open(BytesIO(response.content))
