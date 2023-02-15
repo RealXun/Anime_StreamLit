@@ -7,8 +7,8 @@ import pickle
 import requests
 from pathlib import Path
 from streamlit_option_menu import option_menu
-import requests
 from PIL import Image
+import requests
 from io import BytesIO
 
 
@@ -214,25 +214,25 @@ elif choose == "Testing":
                 if k =='name': continue
                 new_dict[di['name']][k]=di[k]
                 
-        num_cols = 4
+        num_cols = 3
         num_rows = len(result) // num_cols + 1
 
         for row_idx in range(num_rows):
-            cols = st.beta_columns(num_cols)
+            cols = st.columns(num_cols)
             for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
                 result = new_dict[key]
                 #cols[col_idx].image(result['cover_image'], width=200)
                 cols[col_idx].write(f"{result['english_title']}")
                 cols[col_idx].write(f"{result['japanses_title']}")
                 #url = cols[col_idx].write(f"{result['img']}")
-#
-                #if url:
-                #    # Fetch the image from the URL
-                #    response = requests.get(url)
-                #    img = Image.open(BytesIO(response.content))
-#
-                #    # Display the image in Streamlit
-                #cols[col_idx].image(img)
+
+                # Fetch image from URL
+                response = requests.get(result['cover'])
+                img = Image.open(BytesIO(response.content))
+                
+                # Display image, title, and rating
+                cols[col_idx].image(img, width=200)
+
                 cols[col_idx].write(f"{result['type']}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
                 cols[col_idx].write(f"{result['duration']}")
