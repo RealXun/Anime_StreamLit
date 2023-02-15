@@ -50,8 +50,6 @@ elif choose == "Based on ratings":
     st.title('Unsupervised user based collaborative filtering')
 
     # Get the user's favorite movie
-    #to_search = st.text_input('What anime would you like to search for recommendations?')
-
     to_search = st.text_input("Enter a string:")
     if to_search:
         if to_search.isnumeric():
@@ -139,7 +137,12 @@ elif choose == "Based on Features":
 
 
     # Get the user's favorite movie
-    to_search = st.text_input('What anime would you like to search for recommendations?')
+    to_search = st.text_input("Enter a string:")
+    if to_search:
+        if to_search.isnumeric():
+            st.write("Input contains only numbers. Please enter a string with at least one non-numeric character.")
+        else:
+            st.write(f"Input is valid: {to_search}")
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
@@ -217,9 +220,6 @@ elif choose == "Using user ID":
 
 
      # Get the user's favorite movie
-    #users_id = st.slider('Choose the ID of the user you would like to see recommendations?', min_value=1, max_value=25000, value=5, step=1)
-    #st.write('The current number is ', users_id)
-
     user_input  = st.text_input("Choose the ID of the user you would like to see recommendations?")
     try:
         users_id = int(user_input)
@@ -232,7 +232,6 @@ elif choose == "Using user ID":
     def super_ratings_based(id,n,genre,type):
         similar_animes =recommend.df_recommendation(id,n,genre,type)
         return similar_animes
-
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
@@ -314,7 +313,12 @@ elif choose == "Testing":
 
 
     # Get the user's favorite movie
-    to_search = st.text_input('What anime would you like to search for recommendations?')
+    to_search = st.text_input("Enter a string:")
+    if to_search:
+        if to_search.isnumeric():
+            st.write("Input contains only numbers. Please enter a string with at least one non-numeric character.")
+        else:
+            st.write(f"Input is valid: {to_search}")
 
     # Get the user's favorite movie
     number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
