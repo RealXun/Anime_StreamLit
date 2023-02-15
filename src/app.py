@@ -89,7 +89,7 @@ elif choose == "Based on ratings":
     ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
 
- # Check if both criteria have been selected
+    # Check if both criteria have been selected
     criteria_selected = to_search and user_input
 
     # Enable button if both criteria are selected
@@ -177,10 +177,13 @@ elif choose == "Based on Features":
     option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
     ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
     st.write('You selected:', option_type)
-    
-    if (st.button('Get the Recommendation')):
+    # Check if both criteria have been selected
+    criteria_selected = to_search and user_input
+
+    # Enable button if both criteria are selected
+    if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = features_based(to_search,option_gere,option_type,number_of_recommendations)
+        result = result = features_based(to_search,option_gere,option_type,number_of_recommendations)
 
         new_dict={}
         for di in result:
@@ -188,7 +191,7 @@ elif choose == "Based on Features":
             for k in di.keys():
                 if k =='name': continue
                 new_dict[di['name']][k]=di[k]
-                
+                    
         num_cols = 3
         num_rows = len(result) // num_cols + 1
 
@@ -200,7 +203,6 @@ elif choose == "Based on Features":
                 # Fetch image from URL
                 response = requests.get(result['cover'])
                 img = Image.open(BytesIO(response.content))
-                
                 # Display image, title, and rating
                 cols[col_idx].image(img, use_column_width=True)
 
@@ -211,6 +213,9 @@ elif choose == "Based on Features":
                 cols[col_idx].write(f"{result['duration']}")
                 cols[col_idx].write(f"{result['rating']}")
                 cols[col_idx].write(f"Score: {result['score']}/10")
+    else :
+        st.write("Please enter both criteria to get the recommendation.")
+
 
 elif choose == "Using user ID":
     #Add the cover image for the cover page. Used a little trick to center the image
