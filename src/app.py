@@ -50,7 +50,7 @@ elif choose == "Based on ratings":
     st.title('Unsupervised user based collaborative filtering')
 
     # Get the user's favorite movie
-    to_search = st.text_input("Enter a string:")
+    to_search = st.text_input("Please write the name of the anime:")
     if to_search:
         if to_search.isnumeric():
             st.write("Input contains only numbers. Please enter a string with at least one non-numeric character.")
@@ -126,7 +126,7 @@ elif choose == "Based on ratings":
                 cols[col_idx].write(f"{result['rating']}")
                 cols[col_idx].write(f"Score: {result['score']}/10")
     else :
-        st.write("Please enter both criteria to get the recommendation.")
+        st.write("Please enter anime name and number of recommendations to get the recommendation.")
 
 elif choose == "Based on Features":
     #Add the cover image for the cover page. Used a little trick to center the image
@@ -139,7 +139,7 @@ elif choose == "Based on Features":
 
 
     # Get the user's favorite movie
-    to_search = st.text_input("Enter a string:")
+    to_search = st.text_input("Please write the name of the anime:")
     if to_search:
         if to_search.isnumeric():
             st.write("Input contains only numbers. Please enter a string with at least one non-numeric character.")
@@ -214,7 +214,7 @@ elif choose == "Based on Features":
                 cols[col_idx].write(f"{result['rating']}")
                 cols[col_idx].write(f"Score: {result['score']}/10")
     else :
-        st.write("Please enter both criteria to get the recommendation.")
+        st.write("Please enter anime name and number of recommendations to get the recommendation.")
 
 
 elif choose == "Using user ID":
