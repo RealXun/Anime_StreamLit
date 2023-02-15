@@ -143,7 +143,7 @@ def create_df(names,gen,typ,n=100):
 
 
 '''
-Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell
+Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
 def create_dict(names,gen,typ,n=100):
     #anime = joblib.load(processed_data  + "/" +  "_anime_to_compare_with_name.pkl")
