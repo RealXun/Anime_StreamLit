@@ -253,6 +253,7 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
     df = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
     lowertittle = movie_user_likes.lower() # Pasamos el titulo a minúsculas
     #pivot_df_try = joblib.load(processed_data + "/" + "_to_find_index_user_based_unsupervised.pkl")
+    shutil.unpack_archive(processed_data + "/" + "pivot_user_based_unsupervised.zip",processed_data)
     pivot_df_try = pd.read_csv(processed_data + "/" + "_to_find_index_user_based_unsupervised.csv")# load anime df
     closest_title, distance_score = finding_the_closest_title(lowertittle,df)
     # When a user does not make misspellings

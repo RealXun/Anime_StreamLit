@@ -69,7 +69,7 @@ elif choose == "Based on ratings":
     st.write('You selected:', option_type)
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
-        result = unsupervised_user_explicit_rating_based(to_search,option_gere,option_type,number_of_recommendations)
+        result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,option_gere,option_type)
 
         new_dict={}
         for di in result:
