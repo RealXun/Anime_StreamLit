@@ -150,10 +150,9 @@ elif choose == "Based on Features":
                 # Fetch image from URL
                 response = requests.get(result['cover'])
                 img = Image.open(BytesIO(response.content))
-                im = Image.open(img)
-                im_resized = im.resize((200, 200))
+                
                 # Display image, title, and rating
-                cols[col_idx].image(im_resized, use_column_width=True)
+                cols[col_idx].image(img, use_column_width=True)
 
                 cols[col_idx].write(f"{result['english_title']}")
                 cols[col_idx].write(f"{result['japanses_title']}")
