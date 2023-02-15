@@ -52,12 +52,10 @@ elif choose == "Based on ratings":
     # Get the user's favorite movie
     to_search = st.text_input('What anime would you like to search for recommendations?')
 
-    # Get the user's favorite movie
-    #number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
-    #st.write('The current number is ', number_of_recommendations)
-    user_input = st.text_input("Enter an integer:")
+    # Get the number of the recomemendations the users wants
+    number_of_recommendations = st.text_input("Enter an integer:")
     try:
-        user_input = int(user_input)
+        user_input = int(number_of_recommendations)
     except ValueError:
         st.error("Please enter a valid integer.")
 
@@ -130,10 +128,15 @@ elif choose == "Based on Features":
     # Get the user's favorite movie
     to_search = st.text_input('What anime would you like to search for recommendations?')
 
-    # Get the user's favorite movie
-    number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
-    st.write('The current number is ', number_of_recommendations)
+    # Get the number of the recomemendations the users wants
+    number_of_recommendations = st.text_input("Enter an integer:")
+    try:
+        user_input = int(number_of_recommendations)
+    except ValueError:
+        st.error("Please enter a valid integer.")
 
+    if isinstance(user_input, int):
+        st.success(f"You entered the integer: {user_input}")
     def features_based(name,genre,type,n):
         similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n)
         return similar_animes
@@ -202,9 +205,15 @@ elif choose == "Using user ID":
     users_id = st.slider('Choose the ID of the user you would like to see recommendations?', min_value=1, max_value=25000, value=5, step=1)
     st.write('The current number is ', users_id)
 
-    # Get the user's favorite movie
-    number_of_recommendations = st.slider('How many recommendations would you like to get?', min_value=1, max_value=100, value=5, step=1)
-    st.write('The current number is ', number_of_recommendations)
+    # Get the number of the recomemendations the users wants
+    number_of_recommendations = st.text_input("Enter an integer:")
+    try:
+        user_input = int(number_of_recommendations)
+    except ValueError:
+        st.error("Please enter a valid integer.")
+
+    if isinstance(user_input, int):
+        st.success(f"You entered the integer: {user_input}")
 
     def super_ratings_based(id,n,genre,type):
         similar_animes =recommend.df_recommendation(id,n,genre,type)
