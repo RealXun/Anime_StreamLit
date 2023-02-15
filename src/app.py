@@ -225,13 +225,13 @@ elif choose == "Testing":
                 cols[col_idx].write(f"{result['english_title']}")
                 cols[col_idx].write(f"{result['japanses_title']}")
                 #url = cols[col_idx].write(f"{result['img']}")
-                cols[col_idx].write(f"{result['cover']}")
+                #cols[col_idx].write(f"{result['cover']}")
                 # Fetch image from URL
-                #response = requests.get(result['cover'])
-                #img = Image.open(BytesIO(response.content))
-                #
-                ## Display image, title, and rating
-                #cols[col_idx].image(img, width=200)
+                response = requests.get(result['cover'])
+                img = Image.open(BytesIO(response.content))
+                
+                # Display image, title, and rating
+                cols[col_idx].image(img, width=50)
 
                 cols[col_idx].write(f"{result['type']}")
                 cols[col_idx].write(f"Episodes: {int(result['episodes'])}")
