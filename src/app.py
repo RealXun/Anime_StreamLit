@@ -118,7 +118,7 @@ elif choose == "Based on Features":
     st.write('The current number is ', number_of_recommendations)
 
     def features_based(name,genre,type,n):
-        similar_animes = recommend.create_df(recommend.print_similar_animes(name),genre,type,n)
+        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n)
         return similar_animes
 
     ## Drop down menu to select the genre
@@ -131,8 +131,37 @@ elif choose == "Based on Features":
     if (st.button('Get the Recommendation')):
         # dataframe = load('../models/df.pkl')
         result = features_based(to_search,option_gere,option_type,number_of_recommendations)
-        st.dataframe(result)
-        st.balloons()
+
+        new_dict={}
+        for di in result:
+            new_dict[di['name']]={}
+            for k in di.keys():
+                if k =='name': continue
+                new_dict[di['name']][k]=di[k]
+                
+        num_cols = 3
+        num_rows = len(result) // num_cols + 1
+
+        for row_idx in range(num_rows):
+            cols = st.columns(num_cols)
+            for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                result = new_dict[key]
+
+                # Fetch image from URL
+                response = requests.get(result['cover'])
+                img = Image.open(BytesIO(response.content))
+                im = Image.open(imagimges[i])
+                im_resized = im.resize((200, 200))
+                # Display image, title, and rating
+                cols[col_idx].image(im_resized, use_column_width=True)
+
+                cols[col_idx].write(f"{result['english_title']}")
+                cols[col_idx].write(f"{result['japanses_title']}")
+
+                cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
+                cols[col_idx].write(f"{result['duration']}")
+                cols[col_idx].write(f"{result['rating']}")
+                cols[col_idx].write(f"Score: {result['score']}/10")
 
 elif choose == "Using user ID":
     #Add the cover image for the cover page. Used a little trick to center the image
