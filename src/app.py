@@ -126,7 +126,7 @@ elif choose == "Based on ratings":
                 cols[col_idx].write(f"{result['rating']}")
                 cols[col_idx].write(f"Score: {result['score']}/10")
     else :
-        st.title('Anime Recommendation System')
+        st.write("Please enter both criteria to get the recommendation.")
 
 elif choose == "Based on Features":
     #Add the cover image for the cover page. Used a little trick to center the image
