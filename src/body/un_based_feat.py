@@ -82,34 +82,36 @@ def uns_feat():
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
         result = features_based(to_search, selected_genre, selected_type,number_of_recommendations)
+        if result is not None: # result coming from the dictionary that get the rsults from filtering
+            new_dict={}
+            for di in result:
+                new_dict[di['name']]={}
+                for k in di.keys():
+                    if k =='name': continue
+                    new_dict[di['name']][k]=di[k]
+                        
+            num_cols = 5
+            num_rows = len(result) // num_cols + 1
 
-        new_dict={}
-        for di in result:
-            new_dict[di['name']]={}
-            for k in di.keys():
-                if k =='name': continue
-                new_dict[di['name']][k]=di[k]
-                    
-        num_cols = 5
-        num_rows = len(result) // num_cols + 1
+            for row_idx in range(num_rows):
+                cols = st.columns(num_cols)
+                for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    result = new_dict[key]
 
-        for row_idx in range(num_rows):
-            cols = st.columns(num_cols)
-            for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
-                result = new_dict[key]
+                    # Fetch image from URL
+                    response = requests.get(result['cover'])
+                    img = Image.open(BytesIO(response.content))
 
-                # Fetch image from URL
-                response = requests.get(result['cover'])
-                img = Image.open(BytesIO(response.content))
-
-                # Display title and other details in a card
-                with cols[col_idx].container():
-                    cols[col_idx].image(img, use_column_width=True)
-                    cols[col_idx].write(f"**{result['english_title']}**")
-                    if 'japanese_title' in result:
-                        cols[col_idx].write(f"**{result['japanese_title']}**")
-                    cols[col_idx].write(f"**Type:** {result['type']}  **Episodes:** {int(result['episodes'])}")
-                    cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
-                    cols[col_idx].write(f"**Score:** {result['score']}/10")
+                    # Display title and other details in a card
+                    with cols[col_idx].container():
+                        cols[col_idx].image(img, use_column_width=True)
+                        cols[col_idx].write(f"**{result['english_title']}**")
+                        if 'japanese_title' in result:
+                            cols[col_idx].write(f"**{result['japanese_title']}**")
+                        cols[col_idx].write(f"**Type:** {result['type']}  **Episodes:** {int(result['episodes'])}")
+                        cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
+                        cols[col_idx].write(f"**Score:** {result['score']}/10")
+        else:
+            st.write("Please enter anime name and number of recommendations to get the recommendation.")
     else :
         st.write("Please enter anime name and number of recommendations to get the recommendation.")
