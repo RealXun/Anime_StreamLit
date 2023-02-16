@@ -86,15 +86,13 @@ def uns_feat():
                 # Fetch image from URL
                 response = requests.get(result['cover'])
                 img = Image.open(BytesIO(response.content))
-                # Display image, title, and rating
-                cols[col_idx].image(img, use_column_width=True)
 
-                cols[col_idx].write(f"{result['english_title']}")
-                cols[col_idx].write(f"{result['japanses_title']}")
-
-                cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
-                cols[col_idx].write(f"{result['duration']}")
-                cols[col_idx].write(f"{result['rating']}")
-                cols[col_idx].write(f"Score: {result['score']}/10")
+                # Display title and other details in a card
+                with cols[col_idx].card:
+                    cols[col_idx].image(img, use_column_width=True)
+                    cols[col_idx].write(f"**{result['english_title']}**\n{result['japanese_title']}")
+                    cols[col_idx].write(f"**Type:** {result['type']}  **Episodes:** {int(result['episodes'])}")
+                    cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
+                    cols[col_idx].write(f"**Score:** {result['score']}/10")
     else :
         st.write("Please enter anime name and number of recommendations to get the recommendation.")
