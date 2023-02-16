@@ -47,7 +47,7 @@ def uns_bara():
      # Create the multiselect widgets
 
     if method == "or":
-        st.text("OR Recommendations are inclusive. It means, more filters, more")
+
         # Define the options for the multiselects
         option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
@@ -61,9 +61,9 @@ def uns_bara():
 
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
-        selected_type = st.multiselect('Select type', option_type)
+        selected_type = st.multiselect('Select type', option_type, max_selections=1)
     else:
-        st.text("AND method would match any gender you input with the type.\nMore Genres, more results")
+        st.text("AND method would match any gender you input with the type.\n More Genres, more results \n Type should be one, there is no anime with two types at ones")
         # Define the options for the multiselects
         option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
@@ -73,10 +73,11 @@ def uns_bara():
         'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
         'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
         'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
+        option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
 
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
-        selected_type = st.selectbox("Select type", ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'])
+        selected_type = st.multiselect('Select type', option_type, max_selections=1)
 
 
 
