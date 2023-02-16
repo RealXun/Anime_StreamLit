@@ -189,7 +189,7 @@ def create_dict(names,gen,typ,n=200):
     final_df.index=blankIndex
     final_df = filtering(final_df,gen,typ)
     final_df = final_df.drop_duplicates(subset=["name"])
-    final_df = final_df.drop_duplicates().head(n)
+    final_df = final_df.head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
         return sentence
