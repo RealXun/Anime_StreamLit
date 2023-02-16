@@ -59,23 +59,6 @@ def uns_feat():
     selected_genre = st.multiselect('Select genre', option_genre)
     selected_type = st.multiselect('Select type', option_type)
 
-    ## Drop down menu to select the genre
-    #option_genre = st.selectbox('What kind of genre would you like to search (you can choose all)',
-    #    ('All','Drama', 'Romance', 'School', 'Supernatural', 'Action',
-    #   'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
-    #   'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
-    #   'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
-    #   'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
-    #   'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
-    #   'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
-    #   'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri'))
-    #st.write('You selected:', option_genre)
-
-    ## Drop down menu to select the type
-    #option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
-    #('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
-    #st.write('You selected:', option_type)
-    # Check if both criteria have been selected
     criteria_selected = to_search and user_input
 
     # Enable button if both criteria are selected

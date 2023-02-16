@@ -38,50 +38,57 @@ def uns_bara():
     def unsupervised_user_explicit_rating_based(name,n,genre,type):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
         return similar_animes
-    ## Drop down menu to select the genre
-    option_gere = st.selectbox('What kind of genre would you like to search (you can choose all)',
-        ('All','Drama', 'Romance', 'School', 'Supernatural', 'Action',
-    'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
-    'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
-    'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
-    'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
-    'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
-    'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
-    'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri'))
-    st.write('You selected:', option_gere)
-    ## Drop down menu to select the type
-    option_type = st.selectbox('What type of anime would you like to search (you can choose all)',
-    ('All','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA'))
-    st.write('You selected:', option_type)
-    # Check if both criteria have been selected
+    # Define the options for the multiselects
+    option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
+       'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+       'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+       'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+       'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+       'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+       'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+       'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
+    option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+
+    # Create the multiselect widgets
+    selected_genre = st.multiselect('Select genre', option_genre)
+    selected_type = st.multiselect('Select type', option_type)
+
     criteria_selected = to_search and user_input
+
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,option_gere,option_type)
-        new_dict={}
-        for di in result:
-            new_dict[di['name']]={}
-            for k in di.keys():
-                if k =='name': continue
-                new_dict[di['name']][k]=di[k]
-                    
-        num_cols = 3
-        num_rows = len(result) // num_cols + 1
-        for row_idx in range(num_rows):
-            cols = st.columns(num_cols)
-            for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
-                result = new_dict[key]
-                # Fetch image from URL
-                response = requests.get(result['cover'])
-                img = Image.open(BytesIO(response.content))
-                # Display image, title, and rating
-                cols[col_idx].image(img, use_column_width=True)
-                cols[col_idx].write(f"{result['english_title']}")
-                cols[col_idx].write(f"{result['japanses_title']}")
-                cols[col_idx].write(f"{result['type']}, Episodes: {int(result['episodes'])}")
-                cols[col_idx].write(f"{result['duration']}")
-                cols[col_idx].write(f"{result['rating']}")
-                cols[col_idx].write(f"Score: {result['score']}/10")
+        result = features_based(to_search, selected_genre, selected_type,number_of_recommendations)
+        if result is not None: # result coming from the dictionary that get the rsults from filtering
+            new_dict={}
+            for di in result:
+                new_dict[di['name']]={}
+                for k in di.keys():
+                    if k =='name': continue
+                    new_dict[di['name']][k]=di[k]
+                        
+            num_cols = 5
+            num_rows = len(result) // num_cols + 1
+
+            for row_idx in range(num_rows):
+                cols = st.columns(num_cols)
+                for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    result = new_dict[key]
+
+                    # Fetch image from URL
+                    response = requests.get(result['cover'])
+                    img = Image.open(BytesIO(response.content))
+
+                    # Display title and other details in a card
+                    with cols[col_idx].container():
+                        cols[col_idx].image(img, use_column_width=True)
+                        cols[col_idx].write(f"**{result['english_title']}**")
+                        if 'japanese_title' in result:
+                            cols[col_idx].write(f"**{result['japanese_title']}**")
+                        cols[col_idx].write(f"**Type:** {result['type']}  **Episodes:** {int(result['episodes'])}")
+                        cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
+                        cols[col_idx].write(f"**Score:** {result['score']}/10")
+        else:
+            st.write("Sorry, there is no matches for this, try again with different filters.")
     else :
         st.write("Please enter anime name and number of recommendations to get the recommendation.")
