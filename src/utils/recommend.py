@@ -133,19 +133,19 @@ def filtering(df, genres, types):
     if genres and types:
 
         # If both lists are empty, the original DataFrame is returned without any filtering.
-        filtered = df[df['genre'].str.isin([g for g in genres])]
-        filtered = filtered[filtered['type'].str.isin([t for t in types])]
+        filtered = df[df['genre'].isin([g for g in genres])]
+        filtered = filtered[filtered['type'].isin([t for t in types])]
         return filtered
 
         # If only the genres list has values, the function filters the DataFrame 
         # to include only rows where the genre column matches one of the genres in the list.
     elif genres:
-        filtered = df[df['genre'].str.isin([g for g in genres])]
+        filtered = df[df['genre'].isin([g for g in genres])]
         return filtered
         # If only the types list has values, the function filters the DataFrame 
         # to include only rows where the type column matches one of the types in the list.
     elif types:
-        filtered = df[df['type'].str.isin([t for t in types])]
+        filtered = df[df['type'].isin([t for t in types])]
         return filtered
     else:
         return df
