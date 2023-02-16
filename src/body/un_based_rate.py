@@ -54,7 +54,7 @@ def uns_bara():
     selected_genre = st.multiselect('Select genre', option_genre)
     selected_type = st.multiselect('Select type', option_type)
 
-    criteria_selected = to_search and user_input
+    criteria_selected = to_search and user_input and selected_genre and selected_type
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
