@@ -41,7 +41,7 @@ def uns_feat():
         st.success(f"You entered the integer: {user_input}")
 
     def features_based(name,genre,type,n):
-        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n)
+        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n,method)
         return similar_animes
 
     # Define your filtering method (and/or)
@@ -85,7 +85,7 @@ def uns_feat():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = features_based(to_search, selected_genre, selected_type,number_of_recommendations)
+        result = features_based(to_search, selected_genre, selected_type,number_of_recommendations,method)
         if result is not None: # result coming from the dictionary that get the rsults from filtering
             new_dict={}
             for di in result:
