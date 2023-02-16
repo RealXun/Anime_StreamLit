@@ -133,8 +133,8 @@ def filtering(df, genres, types):
     if genres and types:
 
         # If both lists are empty, the original DataFrame is returned without any filtering.
-        filtered = df[df['genre'].str.lower().isin([g.lower() for g in genres])]
-        filtered = filtered[filtered['type'].str.lower().isin([t.lower() for t in types])]
+        filtered = df[df['genre'].str.lower().isin([g for g in genres])]
+        filtered = filtered[filtered['type'].str.lower().isin([t for t in types])]
         return filtered
 
         # If only the genres list has values, the function filters the DataFrame 
