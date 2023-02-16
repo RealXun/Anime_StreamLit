@@ -248,16 +248,16 @@ def create_df(names,gen,typ,n=100):
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
-def create_dict(names,gen,typ,n=200, filter_type='or'):
+def create_dict(names,gen,typ,method,n=200):
     #anime = joblib.load(processed_data  + "/" +  "_anime_to_compare_with_name.pkl")
     anime = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
     final_df = anime[anime['name'].isin(names)]
     final_df = final_df.drop(columns=["anime_id", "members"])
     blankIndex=[''] * len(final_df)
     final_df.index=blankIndex
-    if filter_type == 'or':
+    if method == 'or':
         final_df = filtering(final_df, gen, typ)
-    elif filter_type == 'and':
+    elif method == 'and':
         final_df = filtering_and(final_df, gen, typ)
     else:
         raise ValueError("Invalid filter type. Expected 'or' or 'and'.")
