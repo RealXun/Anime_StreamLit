@@ -35,9 +35,10 @@ def uns_bara():
         st.error("Please enter a valid integer.")
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
-    def unsupervised_user_explicit_rating_based(name,n,genre,type):
-        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
+    def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
+        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
         return similar_animes
+
 
     # Define the options for the multiselects
     option_genre = ["ALL",'Drama', 'Romance', 'School', 'Supernatural', 'Action',
@@ -53,13 +54,16 @@ def uns_bara():
     # Create the multiselect widgets
     selected_genre = st.multiselect('Select genre', option_genre)
     selected_type = st.multiselect('Select type', option_type)
+    
+    # Define your filtering method (and/or)
+    method = st.selectbox("Choose a filtering method", ["and", "or"])
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type)
+        result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
         if result is not None: # result coming from the dictionary that get the rsults from filtering
             new_dict={}
             for di in result:
