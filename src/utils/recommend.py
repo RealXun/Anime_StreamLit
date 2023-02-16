@@ -187,6 +187,7 @@ filtered DataFrame.
 '''
 def filtering_and(df, genres, types):
     # Make a copy of the input DataFrame
+    # Make a copy of the input DataFrame
     filtered_df = df.copy()
     
     # Split the values in the "genre" column by ", "
@@ -197,7 +198,9 @@ def filtering_and(df, genres, types):
     
     # Filter the DataFrame based on the specified genres
     if genres:
-        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+        # Get the set of animes that have at least one row for each genre in the input list
+        anime_set = set(filtered_df['anime_id'][filtered_df['genre'].isin(genres)].value_counts()[filtered_df['genre'].isin(genres)].index)
+        filtered_df = filtered_df[filtered_df['anime_id'].isin(anime_set)]
     
     # Filter the DataFrame based on the specified types
     if types:
