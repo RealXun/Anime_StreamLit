@@ -14,24 +14,21 @@ from body import testing
 from body import un_based_rate
 from body import un_based_feat
 from body import sup_id
-from body import *
-
-
+from body import about
 
 with st.sidebar:
     choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Other", "Testing"],
                          icons=['house', 'camera fill', 'kanban', 'book','person lines fill', 'book'],
                          menu_icon="app-indicator", default_index=0,
-                         styles={
-        "container": {"padding": "5!important", "background-color": "#fafafa"},
-        "icon": {"color": "orange", "font-size": "25px"}, 
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#02ab21"},
-    }
-    )
+                         styles={"container": {"padding": "5!important", "background-color": "#fafafa"},
+                                "icon": {"color": "orange", "font-size": "25px"}, 
+                                "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+                                "nav-link-selected": {"background-color": "#02ab21"},
+                                }
+                        )
 
 if choose == "About":
-    it_is_about()
+    about.it_is_about()
         
 elif choose == "Based on ratings":
     un_based_rate.uns_bara()
