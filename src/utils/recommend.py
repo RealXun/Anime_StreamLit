@@ -400,7 +400,7 @@ def filtering_su(genres, types):
 
 
 def sort_it(id):
-    algo = joblib.load(saved_models_folder + "\SVD_samople_fit.pkl")
+    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
     df = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
     df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
     df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
