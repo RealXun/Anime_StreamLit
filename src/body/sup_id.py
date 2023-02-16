@@ -52,7 +52,7 @@ def user_id():
 
 
     # Define the options for the multiselects
-    option_genre = ["All",'Drama', 'Romance', 'School', 'Supernatural', 'Action',
+    option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
        'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
        'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
        'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
@@ -60,13 +60,13 @@ def user_id():
        'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
        'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
        'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
-    option_type = ["All",'Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+    option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
 
     # Create the multiselect widgets
     selected_genre = st.multiselect('Select genre', option_genre)
     selected_type = st.multiselect('Select type', option_type)
 
-    criteria_selected = user_input_1 and user_input
+    criteria_selected = user_input_1 and user_input and selected_genre and selected_type
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
