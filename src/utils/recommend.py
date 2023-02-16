@@ -180,7 +180,7 @@ def create_df(names,gen,typ,n=100):
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
-def create_dict(names,gen,typ,n=100):
+def create_dict(names,gen,typ,n=200):
     #anime = joblib.load(processed_data  + "/" +  "_anime_to_compare_with_name.pkl")
     anime = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
     final_df = anime[anime['name'].isin(names)]
@@ -188,7 +188,8 @@ def create_dict(names,gen,typ,n=100):
     blankIndex=[''] * len(final_df)
     final_df.index=blankIndex
     final_df = filtering(final_df,gen,typ)
-    final_df = final_df.head(n)
+    final_df = final_df.drop_duplicates(subset=["name"])
+    final_df = final_df.drop_duplicates().head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
         return sentence
