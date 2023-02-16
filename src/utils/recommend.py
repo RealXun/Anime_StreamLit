@@ -358,7 +358,7 @@ Create dict of records with the filters selected - each row becomes a dictionary
 '''
 def create_dict_su(final_df,gen,typ,n=100):
     df = final_df
-    final_df = filtering_su(df,gen,typ)
+    final_df = filtering(df,gen,typ)
     final_df = final_df.head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
@@ -367,36 +367,6 @@ def create_dict_su(final_df,gen,typ,n=100):
         final_dict = final_df.to_dict('records')
 
         return final_dict
-
-
-'''
-This version of the function takes two lists as inputs: genres and types. 
-If both lists have at least one value, the function filters the DataFrame 
-to include only rows where the genre column matches one of the genres 
-in the list and the type column matches one of the types in the list.
-'''
-def filtering_su(df, genres, types):
-    df['genre'] = df['genre'].str.split(', ')
-    df = df.explode('genre')
-    if genres and types:
-
-        # If both lists are empty, the original DataFrame is returned without any filtering.
-        filtered = df[df['genre'].isin(genres)]
-        filtered = filtered[filtered['type'].isin([t for t in types])]
-        return filtered
-
-        # If only the genres list has values, the function filters the DataFrame 
-        # to include only rows where the genre column matches one of the genres in the list.
-    elif genres:
-        filtered = df[df['genre'].isin(genres)]
-        return filtered
-        # If only the types list has values, the function filters the DataFrame 
-        # to include only rows where the type column matches one of the types in the list.
-    elif types:
-        filtered = df[df['type'].isin([t for t in types])]
-        return filtered
-    else:
-        return df
 
 
 def sort_it(id):
