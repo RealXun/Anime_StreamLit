@@ -112,6 +112,6 @@ def uns_feat():
                         cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
                         cols[col_idx].write(f"**Score:** {result['score']}/10")
         else:
-            st.write("Please enter anime name and number of recommendations to get the recommendation.")
+            st.write("Sorry, there is no matches for this, try again with different filters.")
     else :
         st.write("Please enter anime name and number of recommendations to get the recommendation.")
