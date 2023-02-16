@@ -132,23 +132,32 @@ in the list and the type column matches one of the types in the list.
 def filtering(df, genres, types):
     df['genre'] = df['genre'].str.split(', ')
     df = df.explode('genre')
+    # Add "All" option to genre list
+    if "All" in genres:
+        return df
+    
     if genres and types:
-
         # If both lists are empty, the original DataFrame is returned without any filtering.
         filtered = df[df['genre'].isin(genres)]
         filtered = filtered[filtered['type'].isin([t for t in types])]
         return filtered
 
+    # Add "All" option to type list
+    if "All" in types:
+        return df
+    
+    elif genres:
         # If only the genres list has values, the function filters the DataFrame 
         # to include only rows where the genre column matches one of the genres in the list.
-    elif genres:
         filtered = df[df['genre'].isin(genres)]
         return filtered
+        
+    elif types:
         # If only the types list has values, the function filters the DataFrame 
         # to include only rows where the type column matches one of the types in the list.
-    elif types:
         filtered = df[df['type'].isin([t for t in types])]
         return filtered
+        
     else:
         return df
 
