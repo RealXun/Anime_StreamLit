@@ -132,28 +132,28 @@ in the list and the type column matches one of the types in the list.
 def filtering(df, genres, types):
     df['genre'] = df['genre'].str.split(', ')
     df = df.explode('genre')
-
-    # Create a list of all unique genres and types in the DataFrame
-    all_genres = df['genre'].unique().tolist()
-    all_types = df['type'].unique().tolist()
-
-    # If 'ALL' is selected for genres or types, replace the list with all available options
-    if 'ALL' in genres:
-        genres = all_genres
-    if 'ALL' in types:
-        types = all_types
-
-    # Filter the DataFrame based on the selected genres and types
     if genres and types:
-        filtered = df[df['genre'].isin(genres)]
-        filtered = filtered[filtered['type'].isin([t for t in types])]
+        if "ALL" in genres and "ALL" in types:
+            return df
+        elif "ALL" in genres:
+            filtered = df[df['type'].isin(types)]
+        elif "ALL" in types:
+            filtered = df[df['genre'].isin(genres)]
+        else:
+            filtered = df[df['genre'].isin(genres) | df['type'].isin(types)]
         return filtered
     elif genres:
-        filtered = df[df['genre'].isin(genres)]
-        return filtered
+        if "ALL" in genres:
+            return df
+        else:
+            filtered = df[df['genre'].isin(genres)]
+            return filtered
     elif types:
-        filtered = df[df['type'].isin([t for t in types])]
-        return filtered
+        if "ALL" in types:
+            return df
+        else:
+            filtered = df[df['type'].isin(types)]
+            return filtered
     else:
         return df
 
