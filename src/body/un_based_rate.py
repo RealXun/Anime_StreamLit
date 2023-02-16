@@ -47,7 +47,7 @@ def uns_bara():
      # Create the multiselect widgets
 
     if method == "or":
-    st.text("OR Recommendations are inclusive. It means, more filters, more")
+        st.text("OR Recommendations are inclusive. It means, more filters, more")
         # Define the options for the multiselects
         option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',

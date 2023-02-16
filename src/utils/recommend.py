@@ -175,26 +175,15 @@ def filtering(df, genres, types):
         return all
 
 '''
-This function takes in three arguments: a DataFrame (df) and two lists of
-filter criteria (genres and types). The function then creates a copy of 
-the DataFrame and explodes the genre column (which contains multiple 
-genres separated by commas) into separate rows.
+The function takes in the DataFrame df, a list of genres genres, and a list 
+of types types. It creates a new DataFrame filtered_df as a copy of df, and 
+splits the values in the "genre" column by ", " and explodes the DataFrame 
+by the "genre" column.
 
-The function then checks if both genres and types have values. If they do, 
-it first checks if both lists contain the string "ALL". If they do, it 
-simply returns the entire DataFrame. Otherwise, if "ALL" is in genres, it 
-filters the DataFrame by type, and if "ALL" is in types, it filters by genre. 
-If neither list contains "ALL", the function filters the DataFrame by rows 
-that contain genres in the genres list AND types in the types list 
-(using the & operator).
-
-If genres is provided but types is not, the function filters the DataFrame 
-by genre. Similarly, if types is provided but genres is not, the function 
-filters the DataFrame by type. If neither argument is provided, the function 
-simply returns the entire DataFrame.
-
-The function returns the filtered DataFrame, with duplicates removed 
-from the name column if they exist.
+It then checks if genres and/or types are specified and filters the DataFrame 
+accordingly. If both genres and types are specified, it filters the DataFrame 
+based on the AND operator between the two conditions. Finally, it returns the 
+filtered DataFrame.
 '''
 def filtering_and(df, genres, types):
     # Make a copy of the input DataFrame
