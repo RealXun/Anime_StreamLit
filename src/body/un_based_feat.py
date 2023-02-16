@@ -75,7 +75,7 @@ def uns_feat():
                 if k =='name': continue
                 new_dict[di['name']][k]=di[k]
                     
-        num_cols = 3
+        num_cols = 5
         num_rows = len(result) // num_cols + 1
 
         for row_idx in range(num_rows):
