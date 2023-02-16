@@ -305,18 +305,18 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 ##############################################################
 
 
-def dict_recommendation(id,n,gen,typ):
-    final_df = reco_by_user(id,n,gen,typ)
-    to_return = final_df
-    blankIndex=[''] * len(final_df)
-    final_df.index=blankIndex
-    final_df = final_df.head(n)
-    if final_df.empty:
-        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
-        return sentence
-    else:
-        final_dict = final_df.to_dict('records')
-        return final_dict
+#def dict_recommendation(id,n,gen,typ):
+#    final_df = reco_by_user(id,n,gen,typ)
+#    to_return = final_df
+#    blankIndex=[''] * len(final_df)
+#    final_df.index=blankIndex
+#    final_df = final_df.head(n)
+#    if final_df.empty:
+#        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
+#        return sentence
+#    else:
+#        final_dict = final_df.to_dict('records')
+#        return final_dict
 
 #def reco_by_user(id,n,gen,typ):
 #    chosen_user = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
