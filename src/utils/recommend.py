@@ -357,7 +357,8 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
 def create_dict_su(final_df,gen,typ,n=100):
-    final_df = filtering_su(gen,typ)
+    df = final_df
+    final_df = filtering_su(df,gen,typ)
     final_df = final_df.head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
@@ -374,8 +375,7 @@ If both lists have at least one value, the function filters the DataFrame
 to include only rows where the genre column matches one of the genres 
 in the list and the type column matches one of the types in the list.
 '''
-def filtering_su(genres, types):
-    df = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
+def filtering_su(df, genres, types):
     df['genre'] = df['genre'].str.split(', ')
     df = df.explode('genre')
     if genres and types:
