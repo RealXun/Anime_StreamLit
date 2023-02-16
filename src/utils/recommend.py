@@ -130,11 +130,12 @@ to include only rows where the genre column matches one of the genres
 in the list and the type column matches one of the types in the list.
 '''
 def filtering(df, genres, types):
+    all = df
     df['genre'] = df['genre'].str.split(', ')
     df = df.explode('genre')
     if genres and types:
         if "ALL" in genres and "ALL" in types:
-            return df
+            return all
         elif "ALL" in genres:
             filtered = df[df['type'].isin(types)]
         elif "ALL" in types:
@@ -144,18 +145,18 @@ def filtering(df, genres, types):
         return filtered
     elif genres:
         if "ALL" in genres:
-            return df
+            return all
         else:
             filtered = df[df['genre'].isin(genres)]
             return filtered
     elif types:
         if "ALL" in types:
-            return df
+            return all
         else:
             filtered = df[df['type'].isin(types)]
             return filtered
     else:
-        return df
+        return all
 
 '''
 Create a df of the anime matches with the filters selected
