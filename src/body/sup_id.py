@@ -47,7 +47,7 @@ def user_id():
         st.success(f"You entered the integer: {user_input}")
 
     def super_ratings_based(id,n,genre,type):
-        similar_animes = recommend.create_dict(recommend.sort_it(id),genre,type,n)
+        similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,n)
         return similar_animes
 
 

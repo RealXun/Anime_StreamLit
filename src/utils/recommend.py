@@ -344,8 +344,63 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 #    else:
 #        return chosen_user
 
+#def sort_it(id):
+#    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
+#    df = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
+#    df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
+#    df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
+#    blankIndex=[''] * len(df)
+#    df.index=blankIndex 
+#    return df
+
+'''
+Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
+'''
+def create_dict_su(final_df,gen,typ,n=100):
+    final_df = filtering_su(gen,typ)
+    final_df = final_df.head(n)
+    if final_df.empty:
+        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
+        return sentence
+    else:
+        final_dict = final_df.to_dict('records')
+
+        return final_dict
+
+
+'''
+This version of the function takes two lists as inputs: genres and types. 
+If both lists have at least one value, the function filters the DataFrame 
+to include only rows where the genre column matches one of the genres 
+in the list and the type column matches one of the types in the list.
+'''
+def filtering_su(genres, types):
+    df = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
+    df['genre'] = df['genre'].str.split(', ')
+    df = df.explode('genre')
+    if genres and types:
+
+        # If both lists are empty, the original DataFrame is returned without any filtering.
+        filtered = df[df['genre'].isin(genres)]
+        filtered = filtered[filtered['type'].isin([t for t in types])]
+        return filtered
+
+        # If only the genres list has values, the function filters the DataFrame 
+        # to include only rows where the genre column matches one of the genres in the list.
+    elif genres:
+        filtered = df[df['genre'].isin(genres)]
+        return filtered
+        # If only the types list has values, the function filters the DataFrame 
+        # to include only rows where the type column matches one of the types in the list.
+    elif types:
+        filtered = df[df['type'].isin([t for t in types])]
+        return filtered
+    else:
+        return df
+
+
 def sort_it(id):
-    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
+    algo = joblib.load(saved_models_folder + "\SVD_samople_fit.pkl")
     df = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
     df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
     df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
