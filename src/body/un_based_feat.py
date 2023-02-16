@@ -40,7 +40,7 @@ def uns_feat():
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
 
-    def features_based(name,genre,type,n):
+    def features_based(name,genre,type,n,method):
         similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,n,method)
         return similar_animes
 

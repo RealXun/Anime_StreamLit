@@ -38,6 +38,7 @@ def uns_bara():
     if isinstance(user_input, int):
 
         st.success(f"You entered the integer: {user_input}")
+        
     def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
         return similar_animes
