@@ -90,8 +90,7 @@ def uns_feat():
                 # Show title and cover image in an expander widget
                 with cols[col_idx].expander(result['english_title']):
                     cols[col_idx].image(img, use_column_width=True)
-
-                    cols[col_idx].write(f"Japanese Title: {result['japanese_title']}")
+                    #cols[col_idx].write(f"Japanese Title: {result['japanese_title']}")
                     cols[col_idx].write(f"Type: {result['type']}, Episodes: {int(result['episodes'])}")
                     cols[col_idx].write(f"Duration: {result['duration']}")
                     cols[col_idx].write(f"Rating: {result['rating']}")
