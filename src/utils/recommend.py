@@ -201,11 +201,16 @@ def filtering_and(df, genres, types):
     
     # Filter the DataFrame based on the specified types
     if types:
-        filtered_df = filtered_df[filtered_df['type'].isin(types)]
+        # Count the number of types in each row that match the input type list
+        filtered_df['num_matches'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')))
+        # Keep only the rows where the count of matches equals the length of the input type list
+        filtered_df = filtered_df[filtered_df['num_matches'] == len(types)]
+        # Remove the 'num_matches' column
+        filtered_df = filtered_df.drop('num_matches', axis=1)
     
     # Filter the DataFrame based on the specified genre-type combinations
     if genres and types:
-        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].isin(types))]
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: all(t in x.split(', ') for t in types)))]
     
     return filtered_df
 
