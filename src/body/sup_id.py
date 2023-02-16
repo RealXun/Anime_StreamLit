@@ -97,17 +97,9 @@ def user_id():
                         cols[col_idx].image(img, use_column_width=True)
                         cols[col_idx].write(f"**{result['english_title']}**")
                         if 'japanese_title' in result:
-                            cols[col_idx].write(f"**{result['japanese_title']}**")
+                            cols[col_idx].write(f"**{result['japanese_title']}")
                         if 'type' in result:
                             cols[col_idx].write(f"**Type:** {result['type']}")
-                        if 'episodes' in result:
-                            cols[col_idx].write(f"**Episodes:** {int(result['episodes'])}**")
-                        if 'duration' in result:
-                            cols[col_idx].write(f"**Duration:** {result['duration']}")
-                        if 'rating' in result:
-                            cols[col_idx].write(f"**Rating:** {result['rating']}**")
-                        if 'score' in result:
-                            cols[col_idx].write(f"**Score:** {result['score']}/10")
         else:
             st.write("Sorry, there is no matches for this, try again with different filters.")
     else :
