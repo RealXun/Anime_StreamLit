@@ -15,9 +15,10 @@ from body import un_based_rate
 from body import un_based_feat
 from body import sup_id
 from body import about
+from bodyu import me
 
 with st.sidebar:
-    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing"],
+    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Cretor"],
                          icons=['house', 'camera fill', 'kanban', 'book','person lines fill', 'book'],
                          menu_icon="app-indicator", default_index=0,
                          styles={"container": {"padding": "5!important", "background-color": "#fafafa"},
@@ -41,3 +42,5 @@ elif choose == "Using user ID":
 
 elif choose == "Testing":
     testing.test_it()
+elif choose == "About the Cretor":
+    me.about_me()

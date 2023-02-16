@@ -10,12 +10,11 @@ from PIL import Image
 import requests
 from io import BytesIO
 
-def it_is_about():
+def about_me():
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
-
     st.markdown(""" <style> .font {
         font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
-    st.markdown('<p class="font">About the work</p>', unsafe_allow_html=True)
-    st.write("Explicar el trabajo")  
+    st.markdown('<p class="font">About the Creator</p>', unsafe_allow_html=True)
+    st.write("Aquí pondría mi introducción o lo que sea")    
