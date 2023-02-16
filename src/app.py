@@ -15,7 +15,7 @@ from body import un_based_rate
 from body import un_based_feat
 from body import sup_id
 from body import about
-from bodyu import me
+from body import me
 
 with st.sidebar:
     choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Cretor"],
