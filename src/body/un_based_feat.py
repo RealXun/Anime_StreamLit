@@ -85,7 +85,7 @@ def uns_feat():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = features_based(to_search, selected_genre, selected_type,number_of_recommendations,method)
+        result = features_based(to_search, selected_genre, selected_type,method,number_of_recommendations)
         if result is not None: # result coming from the dictionary that get the rsults from filtering
             new_dict={}
             for di in result:
