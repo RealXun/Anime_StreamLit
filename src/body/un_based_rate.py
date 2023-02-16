@@ -38,8 +38,9 @@ def uns_bara():
     def unsupervised_user_explicit_rating_based(name,n,genre,type):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type)
         return similar_animes
+
     # Define the options for the multiselects
-    option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
+    option_genre = ["All",'Drama', 'Romance', 'School', 'Supernatural', 'Action',
        'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
        'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
        'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
@@ -47,7 +48,7 @@ def uns_bara():
        'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
        'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
        'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
-    option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+    option_type = ["All",'Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
 
     # Create the multiselect widgets
     selected_genre = st.multiselect('Select genre', option_genre)
