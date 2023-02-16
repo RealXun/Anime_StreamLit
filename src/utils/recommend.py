@@ -197,21 +197,28 @@ The function returns the filtered DataFrame, with duplicates removed
 from the name column if they exist.
 '''
 def filtering_and(df, genres, types):
-    all = df
-    df['genre'] = df['genre'].str.split(', ')
-    df = df.explode('genre')
+    # Make a copy of the input DataFrame
+    filtered_df = df.copy()
+    
+    # Split the values in the "genre" column by ", "
+    filtered_df['genre'] = filtered_df['genre'].str.split(', ')
+    
+    # Explode the DataFrame by the "genre" column
+    filtered_df = filtered_df.explode('genre')
+    
+    # Filter the DataFrame based on the specified genres
+    if genres:
+        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+    
+    # Filter the DataFrame based on the specified types
+    if types:
+        filtered_df = filtered_df[filtered_df['type'].isin(types)]
+    
+    # Filter the DataFrame based on the specified genre-type combinations
     if genres and types:
-        if "ALL" in genres and "ALL" in types:
-            return all
-        elif "ALL" in genres:
-            filtered = df[df['type'].isin(types)]
-        elif "ALL" in types:
-            filtered = df[df['genre'].isin(genres)]
-        else:
-            filtered = df[df['genre'].isin(genres) & df['type'].isin(types)]
-        return filtered
-    else:
-        return all
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].isin(types))]
+    
+    return filtered_df
 
 
 '''

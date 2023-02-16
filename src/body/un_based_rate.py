@@ -28,8 +28,7 @@ def uns_bara():
         else:
             st.write(f"Input is valid: {to_search}")
     # Get the number of the recomemendations the users wants
-    user_input  = st.text_input("Write how many recommendations you want to get:")
-    st.text("Note that the results are based on the filters.\n Less filters might lead to less recommendations")
+    user_input  = st.text_input("What is the maximum number of recommendations you would like to get?:")
     try:
         number_of_recommendations = int(user_input)
     except ValueError:
@@ -48,7 +47,7 @@ def uns_bara():
      # Create the multiselect widgets
 
     if method == "or":
-
+    st.text("OR Recommendations are inclusive. It means, more filters, more")
         # Define the options for the multiselects
         option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',

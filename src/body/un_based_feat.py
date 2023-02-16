@@ -30,8 +30,7 @@ def uns_feat():
             st.write(f"Input is valid: {to_search}")
 
     # Get the number of the recomemendations the users wants
-    user_input  = st.text_input("Write how many recommendations you want to get:")
-    st.text("Note that the results are based on the filters.\n Less filters might lead to less recommendations")
+    user_input  = st.text_input("What is the maximum number of recommendations you would like to get?:")
     try:
         number_of_recommendations = int(user_input)
     except ValueError:
