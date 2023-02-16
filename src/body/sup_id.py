@@ -35,6 +35,9 @@ def user_id():
         similar_animes =recommend.df_recommendation(id,n,genre,type)
         return similar_animes
 
+    # Define your filtering method (and/or)
+    method = st.selectbox("Choose a filtering method", ["and", "or"])
+
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
     st.text("Note that the results are based on the filters.\n Less filters might lead to less recommendations")
@@ -46,8 +49,12 @@ def user_id():
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
 
-    def super_ratings_based(id,n,genre,type):
-        similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,n)
+    def super_ratings_based(id,n,genre,type, method):
+        if method == "and":
+            similar_animes = recommend.filtering_and(similar_animes, genre, type,"and")
+        else:
+            similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,n,"or")
+        
         return similar_animes
 
 
@@ -71,7 +78,7 @@ def user_id():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        result = super_ratings_based(users_id,number_of_recommendations,selected_genre,selected_type)
+        result = super_ratings_based(users_id,number_of_recommendations,selected_genre,selected_type, method)
         if result is not None: # result coming from the dictionary that get the rsults from filtering
             new_dict={}
             for di in result:

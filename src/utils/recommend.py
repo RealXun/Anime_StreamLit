@@ -124,10 +124,26 @@ Function to apply the filters fo the df recommended with animes
 
 
 '''
-This version of the function takes two lists as inputs: genres and types. 
-If both lists have at least one value, the function filters the DataFrame 
-to include only rows where the genre column matches one of the genres 
-in the list and the type column matches one of the types in the list.
+Filtering function that takes a pandas DataFrame df, 
+a list of genres genres, and a list of types types as input arguments.
+
+The function first makes a copy of the input DataFrame and splits the 
+genre column on commas, creating multiple rows for each anime that has multiple genres.
+
+The function then checks if both the genres and types lists are non-empty. 
+If both lists are non-empty and contain "ALL" strings, the function simply 
+returns the original input DataFrame. If only the genres list contains "ALL", 
+the function filters the DataFrame based on the type column, and similarly, 
+if only the types list contains "ALL", the function filters the DataFrame 
+based on the genre column. If neither list contains "ALL", the function 
+filters the DataFrame to only include rows where the anime has a genre in 
+the genres list and a type in the types list.
+
+If either the genres or types list is empty, the function checks which list 
+is empty and filters the DataFrame accordingly based on the non-empty list. 
+If both lists are empty, the function simply returns the input DataFrame.
+
+Finally, the function returns the filtered DataFrame.
 '''
 def filtering(df, genres, types):
     all = df
@@ -159,6 +175,58 @@ def filtering(df, genres, types):
         return all
 
 '''
+This function takes in three arguments: a DataFrame (df) and two lists of
+filter criteria (genres and types). The function then creates a copy of 
+the DataFrame and explodes the genre column (which contains multiple 
+genres separated by commas) into separate rows.
+
+The function then checks if both genres and types have values. If they do, 
+it first checks if both lists contain the string "ALL". If they do, it 
+simply returns the entire DataFrame. Otherwise, if "ALL" is in genres, it 
+filters the DataFrame by type, and if "ALL" is in types, it filters by genre. 
+If neither list contains "ALL", the function filters the DataFrame by rows 
+that contain genres in the genres list AND types in the types list 
+(using the & operator).
+
+If genres is provided but types is not, the function filters the DataFrame 
+by genre. Similarly, if types is provided but genres is not, the function 
+filters the DataFrame by type. If neither argument is provided, the function 
+simply returns the entire DataFrame.
+
+The function returns the filtered DataFrame, with duplicates removed 
+from the name column if they exist.
+'''
+def filtering_and(df, genres, types):
+    all = df
+    df['genre'] = df['genre'].str.split(', ')
+    df = df.explode('genre')
+    if genres and types:
+        if "ALL" in genres and "ALL" in types:
+            return all
+        elif "ALL" in genres:
+            filtered = df[df['type'].isin(types)]
+        elif "ALL" in types:
+            filtered = df[df['genre'].isin(genres)]
+        else:
+            filtered = df[df['genre'].isin(genres) & df['type'].isin(types)]  # change from | to &
+        return filtered
+    elif genres:
+        if "ALL" in genres:
+            return all
+        else:
+            filtered = df[df['genre'].isin(genres)]
+            return filtered
+    elif types:
+        if "ALL" in types:
+            return all
+        else:
+            filtered = df[df['type'].isin(types)]
+            return filtered
+    else:
+        return all
+
+
+'''
 Create a df of the anime matches with the filters selected
 '''
 def create_df(names,gen,typ,n=100):
@@ -180,14 +248,19 @@ def create_df(names,gen,typ,n=100):
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
-def create_dict(names,gen,typ,n=200):
+def create_dict(names,gen,typ,n=200, filter_type='or'):
     #anime = joblib.load(processed_data  + "/" +  "_anime_to_compare_with_name.pkl")
     anime = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
     final_df = anime[anime['name'].isin(names)]
     final_df = final_df.drop(columns=["anime_id", "members"])
     blankIndex=[''] * len(final_df)
     final_df.index=blankIndex
-    final_df = filtering(final_df,gen,typ)
+    if filter_type == 'or':
+        final_df = filtering(final_df, gen, typ)
+    elif filter_type == 'and':
+        final_df = filtering_and(final_df, gen, typ)
+    else:
+        raise ValueError("Invalid filter type. Expected 'or' or 'and'.")
     final_df = final_df.drop_duplicates(subset=["name"])
     final_df = final_df.head(n)
     if final_df.empty:
