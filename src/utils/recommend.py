@@ -134,8 +134,7 @@ def filtering(df, genres, types):
     df = df.explode('genre')
 
     # Create a list of all unique genres and types in the DataFrame
-    all_genres = df.genre.str.split(', ',expand=True).stack().unique()
-    all_genres = all_genres.tolist()
+    all_genres = df['genre'].unique().tolist()
     all_types = df['type'].unique().tolist()
 
     # If 'ALL' is selected for genres or types, replace the list with all available options
@@ -143,7 +142,6 @@ def filtering(df, genres, types):
         genres = all_genres
     if 'ALL' in types:
         types = all_types
-
 
     # Filter the DataFrame based on the selected genres and types
     if genres and types:
@@ -158,7 +156,6 @@ def filtering(df, genres, types):
         return filtered
     else:
         return df
-
 
 '''
 Create a df of the anime matches with the filters selected
