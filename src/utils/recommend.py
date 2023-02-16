@@ -104,52 +104,23 @@ def finding_the_closest_title(title,df):
 '''
 Function to apply the filters fo the df recommended with animes
 '''
-#def filtering(df,gen,typ):
-#    
-#    if (gen != "All") and (typ != "All"):
-#        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
-#        filtered = filtered[filtered['type'].str.contains(typ, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (gen == "All") and (typ != "All"):
-#        filtered = df[df['type'].str.contains(typ, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (typ == "All") and (gen != "All"):
-#        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (typ == "All") and (gen == "All"):
-#        return df
-
-
-'''
-This version of the function takes two lists as inputs: genres and types. 
-If both lists have at least one value, the function filters the DataFrame 
-to include only rows where the genre column matches one of the genres 
-in the list and the type column matches one of the types in the list.
-'''
-def filtering(df, genres, types):
-    if genres and types:
-
-        # If both lists are empty, the original DataFrame is returned without any filtering.
-        filtered = df[df['genre'].str.lower().isin([g for g in genres])]
-        filtered = filtered[filtered['type'].str.lower().isin([t for t in types])]
+def filtering(df,gen,typ):
+    
+    if (gen != "All") and (typ != "All"):
+        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
+        filtered = filtered[filtered['type'].str.contains(typ, regex=False, case=False, na=False)]
         return filtered
 
-        # If only the genres list has values, the function filters the DataFrame 
-        # to include only rows where the genre column matches one of the genres in the list.
-    elif genres:
-        filtered = df[df['genre'].str.lower().isin([g.lower() for g in genres])]
+    elif  (gen == "All") and (typ != "All"):
+        filtered = df[df['type'].str.contains(typ, regex=False, case=False, na=False)]
         return filtered
-        # If only the types list has values, the function filters the DataFrame 
-        # to include only rows where the type column matches one of the types in the list.
-    elif types:
-        filtered = df[df['type'].str.lower().isin([t.lower() for t in types])]
+
+    elif  (typ == "All") and (gen != "All"):
+        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
         return filtered
-    else:
+
+    elif  (typ == "All") and (gen == "All"):
         return df
-
 
 '''
 Create a df of the anime matches with the filters selected
