@@ -175,15 +175,18 @@ def filtering(df, genres, types):
         return all
 
 '''
-The function takes in the DataFrame df, a list of genres genres, and a list 
-of types types. It creates a new DataFrame filtered_df as a copy of df, and 
-splits the values in the "genre" column by ", " and explodes the DataFrame 
-by the "genre" column.
+The function filters the DataFrame based on the specified genres in the same way as before. 
+Then, it checks if types is non-empty and filters the DataFrame based on whether the number 
+of matches between the input type list and the types in each row is equal to the length of 
+the input type list. It does this using a lambda function that counts the number of types 
+in each row that match the input type list, and then filters on this count. Finally, 
+it removes the 'num_matches' column that was added.
 
-It then checks if genres and/or types are specified and filters the DataFrame 
-accordingly. If both genres and types are specified, it filters the DataFrame 
-based on the AND operator between the two conditions. Finally, it returns the 
-filtered DataFrame.
+To filter based on the AND operator between genres and types, the code now checks if genres 
+and types are both non-empty and filters the DataFrame based on whether each row's genre 
+is in the input genre list and whether all the types in the input type list are present 
+in each row. It does this using a lambda function that checks if all the types in the 
+input type list are present in each row.
 '''
 def filtering_and(df, genres, types):
     # Make a copy of the input DataFrame
