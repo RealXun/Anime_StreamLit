@@ -240,8 +240,10 @@ def create_dict(names,gen,typ,method,n=200):
     blankIndex=[''] * len(final_df)
     final_df.index=blankIndex
     if method == 'or':
+        print("or")
         final_df = filtering(final_df, gen, typ)
     elif method == 'and':
+        print("and")
         final_df = filtering_and(final_df, gen, typ)
     else:
         raise ValueError("Invalid filter type. Expected 'or' or 'and'.")
