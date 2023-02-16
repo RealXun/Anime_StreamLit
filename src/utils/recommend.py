@@ -198,18 +198,25 @@ def filtering_and(df, genres, types):
     # Explode the DataFrame by the "genre" column
     filtered_df = filtered_df.explode('genre')
     
-    # Get the set of animes that have at least one row for each genre in the input list
-    anime_set = set(filtered_df['anime_id'][filtered_df['genre'].isin(genres)].value_counts()[filtered_df['genre'].isin(genres)].index)
     # Filter the DataFrame based on the specified genres
-    filtered_df = filtered_df[filtered_df['anime_id'].isin(anime_set)]
+    if genres:
+        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
     
-    # Filter the DataFrame based on the specified type
-    filtered_df = filtered_df[filtered_df['type'].str.contains(types)]
+    # Filter the DataFrame based on the specified types
+    if types:
+        # Count the number of types in each row that match the input type list
+        filtered_df['num_matches'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')))
+        # Keep only the rows where the count of matches equals the length of the input type list
+        filtered_df = filtered_df[filtered_df['num_matches'] == len(types)]
+        # Remove the 'num_matches' column
+        filtered_df = filtered_df.drop('num_matches', axis=1)
     
     # Filter the DataFrame based on the specified genre-type combinations
-    filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].str.contains(types))]
+    if genres and types:
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: all(t in x.split(', ') for t in types)))]
     
     return filtered_df
+
 
 '''
 Create a df of the anime matches with the filters selected
