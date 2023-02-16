@@ -423,9 +423,14 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
-def create_dict_su(final_df,gen,typ,n=100):
+def create_dict_su(final_df,gen,typ,method,n=100):
     df = final_df
-    final_df = filtering(df,gen,typ)
+    if method == 'or':
+        final_df = filtering(df, gen, typ)
+    elif method == 'and':
+        final_df = filtering_and(df, gen, typ)
+    else:
+        raise ValueError("Invalid filter type. Expected 'or' or 'and'.")
     final_df = final_df.head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')

@@ -49,9 +49,9 @@ def user_id():
 
     def super_ratings_based(id,n,genre,type, method):
         if method == "and":
-            similar_animes = recommend.create_dict_su(recommend.sort_it(id), genre, type,"and")
+            similar_animes = recommend.create_dict_su(recommend.sort_it(id), genre, type,method,n)
         else:
-            similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,n,"or")
+            similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,method,n)
         
         return similar_animes
 
