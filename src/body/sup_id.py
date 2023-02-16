@@ -100,6 +100,8 @@ def user_id():
                             cols[col_idx].write(f"**{result['japanese_title']}")
                         if 'type' in result:
                             cols[col_idx].write(f"**Type:** {result['type']}")
+                        cols[col_idx].write(f"**{result['Estimate_Score']}**")
+
         else:
             st.write("Sorry, there is no matches for this, try again with different filters.")
     else :
