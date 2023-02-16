@@ -208,20 +208,8 @@ def filtering_and(df, genres, types):
         elif "ALL" in types:
             filtered = df[df['genre'].isin(genres)]
         else:
-            filtered = df[df['genre'].isin(genres) & df['type'].isin(types)]  # change from | to &
+            filtered = df[df['genre'].isin(genres) & df['type'].isin(types)]
         return filtered
-    elif genres:
-        if "ALL" in genres:
-            return all
-        else:
-            filtered = df[df['genre'].isin(genres)]
-            return filtered
-    elif types:
-        if "ALL" in types:
-            return all
-        else:
-            filtered = df[df['type'].isin(types)]
-            return filtered
     else:
         return all
 
