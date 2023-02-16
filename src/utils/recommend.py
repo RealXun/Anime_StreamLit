@@ -137,20 +137,39 @@ def filtering(df, genres, types):
         # If both lists are empty, the original DataFrame is returned without any filtering.
         filtered = df[df['genre'].isin(genres)]
         filtered = filtered[filtered['type'].isin([t for t in types])]
-        return filtered
 
-        # If only the genres list has values, the function filters the DataFrame 
-        # to include only rows where the genre column matches one of the genres in the list.
+        # If the resulting DataFrame is empty, return a message.
+        if filtered.empty:
+            return "Sorry, no matches found."
+        else:
+            return filtered
+
+    # If only the genres list has values, the function filters the DataFrame 
+    # to include only rows where the genre column matches one of the genres in the list.
     elif genres:
         filtered = df[df['genre'].isin(genres)]
-        return filtered
-        # If only the types list has values, the function filters the DataFrame 
-        # to include only rows where the type column matches one of the types in the list.
+
+        # If the resulting DataFrame is empty, return a message.
+        if filtered.empty:
+            return "Sorry, no matches found."
+        else:
+            return filtered
+
+    # If only the types list has values, the function filters the DataFrame 
+    # to include only rows where the type column matches one of the types in the list.
     elif types:
         filtered = df[df['type'].isin([t for t in types])]
-        return filtered
+
+        # If the resulting DataFrame is empty, return a message.
+        if filtered.empty:
+            return "Sorry, no matches found."
+        else:
+            return filtered
+
+    # If both lists are empty, the original DataFrame is returned without any filtering.
     else:
         return df
+
 
 
 '''
