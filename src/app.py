@@ -16,7 +16,7 @@ from body import un_based_feat
 from body import sup_id
 from body import about
 from body import me
-from body import maincover
+
 
 with st.sidebar:
     choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Cretor"],
@@ -46,6 +46,3 @@ elif choose == "Testing":
 
 elif choose == "About the Cretor":
     me.about_me()
-    
-else:
-    maincover.main_cover()
