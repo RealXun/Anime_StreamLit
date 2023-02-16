@@ -88,9 +88,10 @@ def uns_feat():
                 img = Image.open(BytesIO(response.content))
 
                 # Display title and other details in a card
-                with cols[col_idx].beta_container():
+                with cols[col_idx].container():
                     cols[col_idx].image(img, use_column_width=True)
-                    cols[col_idx].write(f"**{result['english_title']}")
+                    cols[col_idx].write(f"**{result['english_title']}**")
+                    cols[col_idx].write(f"**{result['japanese_title']}**")
                     cols[col_idx].write(f"**Type:** {result['type']}  **Episodes:** {int(result['episodes'])}")
                     cols[col_idx].write(f"**Duration:** {result['duration']}  **Rating:** {result['rating']}")
                     cols[col_idx].write(f"**Score:** {result['score']}/10")
