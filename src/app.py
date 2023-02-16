@@ -19,7 +19,7 @@ from body import me
 
 
 with st.sidebar:
-    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Cretor"],
+    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Creator"],
                          icons=['house', 'camera fill', 'kanban', 'book','person lines fill', 'book'],
                          menu_icon="app-indicator", default_index=0,
                          styles={"container": {"padding": "5!important", "background-color": "#fafafa"},
@@ -44,5 +44,5 @@ elif choose == "Using user ID":
 elif choose == "Testing":
     testing.test_it()
 
-elif choose == "About the Cretor":
+elif choose == "About the Creator":
     me.about_me()
