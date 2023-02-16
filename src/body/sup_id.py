@@ -35,8 +35,6 @@ def user_id():
         similar_animes =recommend.df_recommendation(id,n,genre,type)
         return similar_animes
 
-    # Define your filtering method (and/or)
-    method = st.selectbox("Choose a filtering method", ["and", "or"])
 
     # Get the number of the recomemendations the users wants
     user_input  = st.text_input("Write how many recommendations you want to get:")
@@ -56,6 +54,9 @@ def user_id():
             similar_animes = recommend.create_dict_su(recommend.sort_it(id),genre,type,n,"or")
         
         return similar_animes
+
+    # Define your filtering method (and/or)
+    method = st.selectbox("Choose a filtering method", ["and", "or"])
 
     # Define the options for the multiselects
     option_genre = ["ALL",'Drama', 'Romance', 'School', 'Supernatural', 'Action',

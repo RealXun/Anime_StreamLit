@@ -19,6 +19,7 @@ def uns_bara():
         </style> """, unsafe_allow_html=True)
     st.title('Anime Recommendation System')
     st.title('Unsupervised user based collaborative filtering')
+
     # Get the user's favorite movie
     to_search = st.text_input("Please write the name of the anime:")
     if to_search:
@@ -33,30 +34,52 @@ def uns_bara():
         number_of_recommendations = int(user_input)
     except ValueError:
         st.error("Please enter a valid integer.")
+
     if isinstance(user_input, int):
+
         st.success(f"You entered the integer: {user_input}")
     def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
         similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
         return similar_animes
 
-
-    # Define the options for the multiselects
-    option_genre = ["ALL",'Drama', 'Romance', 'School', 'Supernatural', 'Action',
-       'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
-       'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
-       'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
-       'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
-       'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
-       'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
-       'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
-    option_type = ["ALL",'Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
-
-    # Create the multiselect widgets
-    selected_genre = st.multiselect('Select genre', option_genre)
-    selected_type = st.multiselect('Select type', option_type)
-    
     # Define your filtering method (and/or)
     method = st.selectbox("Choose a filtering method", ["and", "or"])
+     # Create the multiselect widgets
+
+    if method == "or":
+
+        # Define the options for the multiselects
+        option_genre = ["ALL",'Drama', 'Romance', 'School', 'Supernatural', 'Action',
+        'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+        'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+        'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+        'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+        'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+        'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+        'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
+        option_type = ["ALL",'Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+
+        # Create the multiselect widgets
+        selected_genre = st.multiselect('Select genre', option_genre)
+        selected_type = st.multiselect('Select type', option_type)
+    else:
+        # Define the options for the multiselects
+        option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
+        'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
+        'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
+        'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
+        'Mystery', 'Seinen', 'Martial Arts', 'Vampire', 'Shoujo', 'Horror',
+        'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
+        'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
+        'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
+        option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+
+        # Create the multiselect widgets
+        selected_genre = st.multiselect('Select genre', option_genre)
+        selected_type = st.multiselect('Select type', option_type)
+
+
+
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
