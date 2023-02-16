@@ -74,7 +74,6 @@ def user_id():
         result = super_ratings_based(users_id,number_of_recommendations,selected_genre,selected_type)
         if result is not None: # result coming from the dictionary that get the rsults from filtering
             new_dict={}
-            new_dict={key:value for (key,value) in [x for x in new_dict.items()][:5]}
             for di in result:
                 new_dict[di['name']]={}
                 for k in di.keys():

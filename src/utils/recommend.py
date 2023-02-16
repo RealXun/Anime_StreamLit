@@ -304,42 +304,19 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 ##############################################################
 ##############################################################
 
-## Recomendacion by user Id, how many results and gender
-## Recomendacion by user Id, how many results and gender
-'''
-Create a df of the anime matches with the filters selected
-'''
-def df_recommendation(id,n,gen,typ):
-    final_df = reco_by_user(id,n,gen,typ)
-    to_return = final_df
-    blankIndex=[''] * len(final_df)
-    final_df.index=blankIndex
-    if final_df.empty:
-        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
-        return sentence
-    else:
-        return to_return
 
 def dict_recommendation(id,n,gen,typ):
     final_df = reco_by_user(id,n,gen,typ)
     to_return = final_df
     blankIndex=[''] * len(final_df)
     final_df.index=blankIndex
+    final_df = final_df.head(n)
     if final_df.empty:
         sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
         return sentence
     else:
         final_dict = final_df.to_dict('records')
         return final_dict
-
-def sort_it(que_user,df,n):
-    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
-
-    df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(que_user, x).est)
-    df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
-    blankIndex=[''] * len(df)
-    df.index=blankIndex 
-    return df.head(n)
 
 def reco_by_user(id,n,gen,typ):
     chosen_user = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
@@ -366,3 +343,13 @@ def reco_by_user(id,n,gen,typ):
         return sort_it(id,filtered,n)
     else:
         return chosen_user
+
+def sort_it(id,df,n):
+    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
+
+    df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
+    df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
+    blankIndex=[''] * len(df)
+    df.index=blankIndex 
+    return df.head(n)
+
