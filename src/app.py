@@ -17,7 +17,7 @@ from body import sup_id
 from body import about
 
 with st.sidebar:
-    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Other", "Testing"],
+    choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing"],
                          icons=['house', 'camera fill', 'kanban', 'book','person lines fill', 'book'],
                          menu_icon="app-indicator", default_index=0,
                          styles={"container": {"padding": "5!important", "background-color": "#fafafa"},
