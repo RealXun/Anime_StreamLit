@@ -15,7 +15,7 @@ from body import un_based_rate
 from body import un_based_feat
 from body import sup_id
 from body import about
-from body import me
+from body import about_me
 
 
 with st.sidebar:
