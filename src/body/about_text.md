@@ -5,6 +5,12 @@
     <img src="https://github.com/RealXun/EDA_ANIME/blob/main/src/image/cover.png" width="1000">
 </p>
 
+[
+    0 : "body_based_on_features_cover.png" 
+    1 : "body_based_on_ratings_cover.png"
+    2 : "cover.png" 
+    3 : "one-does-not-891d7c92f3.png" 
+]
 ## Introduction to Anime (Japanese Animation)
 --------------------------------------
 
