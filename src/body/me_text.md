@@ -1,6 +1,6 @@
 # Hi there!!👋 Take a look at my repositories and let's get in touch!
 
-![](https://github.com/RealXun/RealXun/blob/main/Resources/header_1.png)
+![](https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/header_1.png)
 
 ![](https://visitor-badge.glitch.me/badge?page_id=RealXun.RealXun)
 [![GitHub RealXun](https://img.shields.io/github/followers/RealXun?label=follow&style=social)](https://github.com/RealXun)
@@ -8,9 +8,9 @@
 
 [![](https://www.codewars.com/users/RealXun/badges/large)]([https://www.codewars.com/users/_JDev_](https://www.codewars.com/users/RealXun))
 
-<img src="https://github.com/RealXun/RealXun/blob/main/Resources/life_balance.gif" alt="side Image" align="right" width="200" height="auto" />
+<img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/life_balance.gif" alt="side Image" align="right" width="200" height="auto" />
 
-### <img src="https://github.com/RealXun/RealXun/blob/main/Resources/Developer.gif" width="45" /> About Me:
+### <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/Developer.gif" width="45" /> About Me:
 - 🔭 I’m currently working on improving my life.
 - 🌱 I’m currently learning how to be a Data Scientist.
 - 👯 I’m looking to collaborate on Data Science and Data Analytics projects.
@@ -26,7 +26,7 @@
 
 ### 📫 How to reach me:
   [<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" width="4.5%"/>](https://steamcommunity.com/id/christiandda/)  &nbsp; 
-  [<img src="https://github.com/RealXun/RealXun/blob/main/Resources/discord.svg" width="4.5%"/>](https://discord.gg/christian#9459)  &nbsp; 
+  [<img src="https://raw.githubusercontent.com/RealXun/RealXun/b48c22f139ddb86e75691c3086051165358702ac/Resources/discord.svg" width="4.5%"/>](https://discord.gg/christian#9459)  &nbsp; 
   [<img src="https://img.icons8.com/color/48/000000/linkedin.png" width="4.5%"/>](https://www.linkedin.com/in/christiandda/)  &nbsp; 
   [<img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" width="4.5%"/>](https://www.instagram.com/christiandda/)  &nbsp; 
   <a href="mailto:christian.d.d.a@gmail.com"> <img src="https://img.icons8.com/fluent/48/000000/gmail.png" width="4.5%"/>
