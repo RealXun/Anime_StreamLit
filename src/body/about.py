@@ -36,3 +36,6 @@ def it_is_about():
     st.write("The goal of this project is that according to the user's anime viewing history we can recommend a list of anime that suits their tastes.\nIn order to do this we are going to create 3 types or recommendation system")
     intro_markdown = read_markdown_file("about_text.md")
     st.markdown(intro_markdown, unsafe_allow_html=True)
+
+    with open(body_folder + "about_text.md",'r') as f:
+        st.markdown(f.read(), unsafe_allow_html=True)
