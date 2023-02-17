@@ -9,12 +9,31 @@ from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
+import glob
 
-def about_me():
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__), 
+                  os.pardir)
+)
+data_folder = (PROJECT_ROOT + "/" + "data")
+body_folder = (PROJECT_ROOT + "/" + "body")
+
+saved_models_folder = (data_folder + "/" + "saved_models")
+raw_data = (data_folder + "/" + "_raw")
+processed_data = (data_folder + "/" + "processed")
+content_based_supervised_data = (data_folder + "/" + "processed" + "/" + "content_based_supervised")
+images = (PROJECT_ROOT + "/" + "images")
+cover_images = (images + "/" + "Cover_images")
+
+
+
+def it_is_about():
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
+
     st.markdown(""" <style> .font {
         font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
-    st.markdown('<p class="font">About the Creator</p>', unsafe_allow_html=True)
-    st.write("Aquí pondría mi introducción o lo que sea")    
+
+    with open(body_folder + "/" + "me_text.md",'r') as f:
+        st.markdown(f.read(), unsafe_allow_html=True)
