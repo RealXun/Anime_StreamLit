@@ -37,7 +37,7 @@ def it_is_about():
     st.markdown('<p class="font">About the work</p>', unsafe_allow_html=True)
     st.write("The goal of this project is that according to the user's anime viewing history we can recommend a list of anime that suits their tastes.\nIn order to do this we are going to create 3 types or recommendation system")
 
-    with open(body_folder + "about_text.md",'r') as f:
+    with open(body_folder + "/" + "about_text.md",'r') as f:
         readme_line = f.readlines()
         readme_buffer = []
         resource_files = [os.path.basename(x) for x in glob.glob(f'images/*')]
