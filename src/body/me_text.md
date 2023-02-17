@@ -1,7 +1,7 @@
 # Hi there!!👋 Take a look at my repositories and let's get in touch!
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/header_1.png" width="1500">
+    <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/header_1.png" width="1000">
 
 ![](https://visitor-badge.glitch.me/badge?page_id=RealXun.RealXun)
 [![GitHub RealXun](https://img.shields.io/github/followers/RealXun?label=follow&style=social)](https://github.com/RealXun)
