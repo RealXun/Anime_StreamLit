@@ -2,7 +2,7 @@
 --------------------------------------
 
 <p align="center">
-    <img src="https://github.com/RealXun/EDA_ANIME/blob/main/src/image/cover.png" width="1000">
+    <img src="https://raw.githubusercontent.com/RealXun/Anime_StreamLit/main/src/images/cover.png" width="1000">
 </p>
 
 [
