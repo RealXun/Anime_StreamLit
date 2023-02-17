@@ -27,7 +27,7 @@ cover_images = (images + "/" + "Cover_images")
 
 
 
-def it_is_about():
+def about_me():
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
 
