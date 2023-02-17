@@ -12,13 +12,13 @@
 <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/life_balance.gif" alt="side Image" align="right" width="200" height="auto" />
 
 ### <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/Developer.gif" width="45" /> About Me:
-- 🔭 I’m currently working on improving my life.
-- 🌱 I’m currently learning how to be a Data Scientist.
-- 👯 I’m looking to collaborate on Data Science and Data Analytics projects.
-- :astronaut: I’m looking for a company athat could give me the opportunity to have my first job as data scientist
+- 🔭 As many other people, I am working on improving my life.
+- 🌱 Learning how to be a Data Scientist.
+- 👯 Always looking to collaborate on Data Science and Data Analytics projects.
+- :astronaut: I’m looking for a company that could give me the opportunity to have my first job as data scientist
 - 💬 Ask me about anything, I am happy to help.
 - :rice_ball:	:ramen: Korean and Japanese food lover (It kinda makes sense after 8 years living in Asia)
-- ☕️ I’m a coffee addict 😅😅😅
+- ☕️ Yeah!!! coffee addicted 😅😅😅
 - <img height="30" src="https://github.com/RealXun/RealXun/blob/main/Resources/RLBadgeLogo_Large.png"> Rocket League!!!
 
 #### MOTTO
