@@ -73,10 +73,7 @@ def user_id():
 
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
-        if 'ALL' in option_type:
-            selected_type = st.multiselect('Select type', option_type, max_selections=1)
-        else:
-            selected_type = st.multiselect('Select type', option_type)
+        selected_type = st.multiselect('Select type', option_type)
     else:
         st.text("AND method would match any gender you input with the type.\n More Genres, more results \n Type should be one, there is no anime with two types at once")
         # Define the options for the multiselects
