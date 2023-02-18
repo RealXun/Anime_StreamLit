@@ -151,8 +151,8 @@ def filtering(df, genres, types):
     
     Args:
         df (pandas.DataFrame): The input DataFrame of anime.
-        genres (list of str): A list of genres to include in the filtered DataFrame.
-        types (list of str): A list of types to include in the filtered DataFrame.
+        genres (list of str): A list of genres to include in the filtered DataFrame, or "ALL" to include all genres.
+        types (list of str): A list of types to include in the filtered DataFrame, or "ALL" to include all types.
         
     Returns:
         pandas.DataFrame: The filtered DataFrame of anime.
@@ -165,7 +165,17 @@ def filtering(df, genres, types):
     all = all.explode('genre')
     
     # create a boolean mask for the rows that match the given genres and types
-    mask = (all['genre'].isin(genres)) & (all['type'].isin(types))
+    if genres == "ALL":
+        genre_mask = all['genre'].notna()
+    else:
+        genre_mask = all['genre'].isin(genres)
+    
+    if types == "ALL":
+        type_mask = all['type'].notna()
+    else:
+        type_mask = all['type'].isin(types)
+    
+    mask = genre_mask & type_mask
     
     # filter the DataFrame using the mask
     filtered_df = all[mask]
