@@ -142,10 +142,6 @@ def filtering_or(df, genres, types):
     return filtered_df
 
 
-
-
-
-
 '''
 The function filtering_and takes a DataFrame and two lists of genres and types as input. 
 It then filters the DataFrame to include only rows that match all specified genres and types. 
@@ -190,26 +186,6 @@ def filtering_and(df, genres, types):
     return filtered_df
 
 
-
-'''
-Create a df of the anime matches with the filters selected
-'''
-def create_df(names,gen,typ,n=100):
-    #anime = joblib.load(processed_data + "/" + "_anime_to_compare_with_name.pkl")
-    anime = pd.read_csv(processed_data + "/" + "_anime_to_compare_with_name.csv")# load anime df
-    final_df = anime[anime['name'].isin(names)]
-    final_df = final_df.drop(columns=["anime_id", "members"])
-    blankIndex=[''] * len(final_df)
-    final_df.index=blankIndex
-    final_df = filtering(final_df,gen,typ)
-    to_return = final_df.head(n)
-    if final_df.empty:
-        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
-        return sentence
-    else:
-        return to_return
-
-
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
@@ -222,7 +198,7 @@ def create_dict(names,gen,typ,method,n=200):
     final_df.index=blankIndex
     if method == 'or':
         print("or")
-        final_df = filtering(final_df, gen, typ)
+        final_df = filtering_or(final_df, gen, typ)
     elif method == 'and':
         print("and")
         final_df = filtering_and(final_df, gen, typ)
@@ -350,62 +326,13 @@ def unsupervised_user_based_recommender(movie_user_likes,n=200):
 ##############################################################
 ##############################################################
 
-
-#def dict_recommendation(id,n,gen,typ):
-#    final_df = reco_by_user(id,n,gen,typ)
-#    to_return = final_df
-#    blankIndex=[''] * len(final_df)
-#    final_df.index=blankIndex
-#    final_df = final_df.head(n)
-#    if final_df.empty:
-#        sentence = print('WOW!!!! Sorry, there is no matches for the anime and options selected! \n Try again, you might have mroe luck')
-#        return sentence
-#    else:
-#        final_dict = final_df.to_dict('records')
-#        return final_dict
-
-#def reco_by_user(id,n,gen,typ):
-#    chosen_user = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
-#    df = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
-#    df['genre'] = df['genre'].str.split(', ')
-#    df = df.explode('genre')   
-#
-#    if gen and typ:
-#
-#        # If both lists are empty, the original DataFrame is returned without any filtering.
-#        filtered = df[df['genre'].isin(gen)]
-#        filtered = filtered[filtered['type'].isin([t for t in typ])]
-#        return sort_it(id,filtered,n)
-#
-#        # If only the genres list has values, the function filters the DataFrame 
-#        # to include only rows where the genre column matches one of the genres in the list.
-#    elif gen:
-#        filtered = df[df['genre'].isin(gen)]
-#        return sort_it(id,filtered,n)
-#        # If only the types list has values, the function filters the DataFrame 
-#        # to include only rows where the type column matches one of the types in the list.
-#    elif gen:
-#        filtered = df[df['type'].isin([t for t in typ])]
-#        return sort_it(id,filtered,n)
-#    else:
-#        return chosen_user
-
-#def sort_it(id):
-#    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
-#    df = pd.read_csv(processed_data + "/" + "anime_final.csv")# load anime df
-#    df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
-#    df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
-#    blankIndex=[''] * len(df)
-#    df.index=blankIndex 
-#    return df
-
 '''
 Create dict of records with the filters selected - each row becomes a dictionary where key is column name and value is the data in the cell.
 '''
 def create_dict_su(final_df,gen,typ,method,n=100):
     df = final_df
     if method == 'or':
-        final_df = filtering(df, gen, typ)
+        final_df = filtering_or(df, gen, typ)
     elif method == 'and':
         final_df = filtering_and(df, gen, typ)
     else:
