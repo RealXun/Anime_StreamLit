@@ -147,7 +147,7 @@ Finally, the function returns the filtered DataFrame.
 '''
 
 
-def filteringing(df, genres, types):
+def filtering(df, genres, types):
     # Make a copy of the input DataFrame and assign it to filtered_df.
     filtered_df = df.copy()
 
