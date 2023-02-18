@@ -102,166 +102,93 @@ def finding_the_closest_title(title,df):
     return closest_title, distance_score
 
 '''
-Function to apply the filters fo the df recommended with animes
+The code defines a function "filtering_or" that filters a pandas dataframe based on user-defined 
+genres and types using an "OR" method. The function allows the user to select one or all possible 
+genres and types and returns a filtered dataframe with the selected genres and types. 
+The function also splits the genre and type columns and explodes them to account for multiple entries.
 '''
-#def filtering(df,gen,typ):
-#    
-#    if (gen != "All") and (typ != "All"):
-#        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
-#        filtered = filtered[filtered['type'].str.contains(typ, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (gen == "All") and (typ != "All"):
-#        filtered = df[df['type'].str.contains(typ, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (typ == "All") and (gen != "All"):
-#        filtered = df[df['genre'].str.contains(gen, regex=False, case=False, na=False)]
-#        return filtered
-#
-#    elif  (typ == "All") and (gen == "All"):
-#        return df
-
-
-'''
-Filtering function that takes a pandas DataFrame df, 
-a list of genres genres, and a list of types types as input arguments.
-
-The function first makes a copy of the input DataFrame and splits the 
-genre column on commas, creating multiple rows for each anime that has multiple genres.
-
-The function then checks if both the genres and types lists are non-empty. 
-If both lists are non-empty and contain "ALL" strings, the function simply 
-returns the original input DataFrame. If only the genres list contains "ALL", 
-the function filters the DataFrame based on the type column, and similarly, 
-if only the types list contains "ALL", the function filters the DataFrame 
-based on the genre column. If neither list contains "ALL", the function 
-filters the DataFrame to only include rows where the anime has a genre in 
-the genres list and a type in the types list.
-
-If either the genres or types list is empty, the function checks which list 
-is empty and filters the DataFrame accordingly based on the non-empty list. 
-If both lists are empty, the function simply returns the input DataFrame.
-
-Finally, the function returns the filtered DataFrame.
-'''
-
-
-def filtering(df, genres, types):
+def filtering_or(df, genres, types):
     
-    # Making a copy of the input DataFrame and assigning it to filtered_df.
+    # Make a copy of the input DataFrame
     filtered_df = df.copy()
     
-    # It splits the values in the 'genre' column of filtered_df by the separator ", " 
-    # using the str.split() method of Pandas. This creates a list of genres for each row in the column.
+    # Split the genre column into a list of genres
     filtered_df['genre'] = filtered_df['genre'].str.split(', ')
     
-    # Then "explodes" the DataFrame by the 'genre' column using the explode() method of Pandas. 
-    # This creates a new row for each genre in each row of the original DataFrame.
+    # Explode the genre column to create a new row for each genre in the list
     filtered_df = filtered_df.explode('genre')
     
-    # If the genres argument is provided and 'ALL' is not in genres, 
-    # the function filters the DataFrame by keeping only the rows where 
-    # the 'genre' column matches one of the genres in the genres list
-    # using the isin() method of Pandas.
+    # If genres are specified and 'ALL' is not one of them, filter the DataFrame to keep only rows where the genre is in the specified list
     if genres and 'ALL' not in genres:
         filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
         
-    # If the types argument is provided, the function filters the DataFrame by keeping only the rows 
-    # where at least one anime type in the 'type' column matches one of the types in the types list 
-    # using the apply() method of Pandas with a lambda function that iterates over each row in the 'type' 
-    # column and checks if any type matches one of the types in the types list. The any() function is 
-    # used to check if at least one type matches.
+    # If types are specified and 'ALL' is not one of them, filter the DataFrame to keep only rows where at least one type in the type list is in the type column of the row
     if types and 'ALL' not in types:
         filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
     
-    # If both genres and types are provided, the function checks if 'ALL' is in genres or types. 
-    # If it is, the function sets genres and types to lists of unique genres and types in filtered_df 
-    # using the unique() method of Pandas.
+    # If both genres and types are specified
     if genres and types:
+        # If 'ALL' is in the genres list, set genres to be all the unique genres in the filtered DataFrame
         if 'ALL' in genres:
             genres = filtered_df['genre'].unique()
+        # If 'ALL' is in the types list, set types to be all the unique types in the filtered DataFrame
         if 'ALL' in types:
             types = filtered_df['type'].str.split(', ').explode().unique()
-        # filtered_df by keeping only the rows where at least one anime type in the 'type' column 
-        # matches one of the types in the types list and the 'genre' column matches one of the genres 
-        # in genres using the apply() method of Pandas with a lambda function that iterates over each 
-        # row in the DataFrame and checks if at least one type matches and one genre matches. The any() 
-        # function is used to check if at least one type and one genre match.
+
+        # Filter the DataFrame to keep only rows where the genre is in the genres list AND at least one type in the type list is in the type column of the row
         filtered_df = filtered_df[filtered_df.apply(lambda x: any(t in x['type'].split(', ') for t in types) and x['genre'] in genres, axis=1)]
     
-    # The function returns filtered_df.
+    # Return the filtered DataFrame
     return filtered_df
 
 
 
 
 
-'''
-The function filters the DataFrame based on the specified genres in the same way as before. 
-Then, it checks if types is non-empty and filters the DataFrame based on whether the number 
-of matches between the input type list and the types in each row is equal to the length of 
-the input type list. It does this using a lambda function that counts the number of types 
-in each row that match the input type list, and then filters on this count. Finally, 
-it removes the 'num_matches' column that was added.
 
-To filter based on the AND operator between genres and types, the code now checks if genres 
-and types are both non-empty and filters the DataFrame based on whether each row's genre 
-is in the input genre list and whether all the types in the input type list are present 
-in each row. It does this using a lambda function that checks if all the types in the 
-input type list are present in each row.
 '''
-
-#The function takes three arguments: a Pandas DataFrame df, a list of genres genres, and a list of anime types types.
+The function filtering_and takes a DataFrame and two lists of genres and types as input. 
+It then filters the DataFrame to include only rows that match all specified genres and types. 
+If a list of genres or types is not specified or contains the keyword 'ALL', 
+all possible values are used for filtering.
+'''
 def filtering_and(df, genres, types):
     
-    # Making a copy of the input DataFrame and assigning it to filtered_df.
+    # create a copy of the original dataframe
     filtered_df = df.copy()
     
-    # It splits the values in the 'genre' column of filtered_df by the separator ", " 
-    # using the str.split() method of Pandas. This creates a list of genres for each row in the column.
+    # split the genre column values by ', ' and create a new row for each genre
     filtered_df['genre'] = filtered_df['genre'].str.split(', ')
-    
-    # Then "explodes" the DataFrame by the 'genre' column using the explode() method of Pandas. 
-    # This creates a new row for each genre in each row of the original DataFrame.
     filtered_df = filtered_df.explode('genre')
     
-    # If the genres argument is provided and 'ALL' is not in genres, 
-    # the function filters the DataFrame by keeping only the rows where 
-    # the 'genre' column matches one of the genres in the genres list
-    # using the isin() method of Pandas.
+    # filter rows by genre if any genres are passed and not 'ALL'
     if genres and 'ALL' not in genres:
         filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
 
+    # filter rows by types if any types are passed
     if types:
-        # If the types argument is provided, the function creates a new column in filtered_df 
-        # called 'num_matches' that counts the number of anime types in each row that match 
-        # the input types list. The function uses a lambda function with the apply() method 
-        # of Pandas to iterate over each row of the 'type' column and count the number of matches. 
-        # The sum() function is used to count the number of matches, and the split() method is 
-        # used to split the types string into a list. If the 'type' column is not a string, 
-        # the function sets the count to 0.
+        
+        # create a new column to count the number of type matches
         filtered_df['num_matches'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')) if isinstance(x, str) else 0)
-        # Keep only the rows where the count of matches equals the length of the input type list
+        
+        # filter rows where the number of type matches equals the number of types passed
         filtered_df = filtered_df[filtered_df['num_matches'] == len(types)]
-        # Remove the 'num_matches' column
+        
+        # drop the 'num_matches' column
         filtered_df = filtered_df.drop('num_matches', axis=1)
     
-    # If both genres and types are provided, the function checks if 'ALL' is in genres. 
-    # If it is, the function sets genres to a list of unique genres in filtered_df 
-    # using the unique() method of Pandas.
+    # filter rows by both genre and types if both are passed
     if genres and types:
-        # The 'all' is used to check if all anime types in the 'type' column match the input types list
+        
+        # if 'ALL' is in the list of genres, select all unique genres in the filtered dataframe
         if 'ALL' in genres:
             genres = filtered_df['genre'].unique()
-        # filtered_df by keeping only the rows where the 'genre' column matches one of the genres in genres 
-        # and all anime types in the 'type' column match the input types list using a lambda function with 
-        # the apply() method of Pandas. The all() function is used to check if all anime types in the 'type' 
-        # column match the input types list. The split() method is used to split the types string into a list.
+        
+        # filter rows by genre and types using boolean indexing
         filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: all(t in x.split(', ') for t in types)))]
     
-    # The function returns filtered_df.
     return filtered_df
+
 
 
 '''
