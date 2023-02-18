@@ -171,18 +171,14 @@ def filtering(df, genres, types):
     all = all.explode('genre')
     
     # create a boolean mask for the rows that match the given genres and types
-    if genres is None:
-        genre_mask = True
-    elif genres == "ALL":
+    if genres is None or genres == "ALL":
         genre_mask = all['genre'].notna()
     elif isinstance(genres, str):
         genre_mask = all['genre'] == genres
     else:
         genre_mask = all['genre'].isin(genres)
     
-    if types is None:
-        type_mask = True
-    elif types == "ALL":
+    if types is None or types == "ALL":
         type_mask = all['type'].notna()
     elif isinstance(types, str):
         type_mask = all['type'] == types
@@ -195,6 +191,7 @@ def filtering(df, genres, types):
     filtered_df = all[mask]
     
     return filtered_df
+
 
 
 '''
