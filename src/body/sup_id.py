@@ -74,7 +74,7 @@ def user_id():
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
         if 'ALL' in option_type:
-            max_selections = min(len(option_type) - 1, 1)
+            max_selections = 1
         else:
             max_selections = None
 
