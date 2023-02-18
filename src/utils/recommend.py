@@ -158,22 +158,28 @@ def filtering_or(df, genres, types):
     # Filter the DataFrame based on the specified genres
     if genres:
         if 'ALL' in genres:
-            genres = filtered_df['genre'].unique()
-        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+            filtered_df = filtered_df
+        else:
+            filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
 
     # Filter the DataFrame based on the specified types
     if types:
         if 'ALL' in types:
-            types = filtered_df['type'].unique()
-        filtered_df['match_count'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')) if isinstance(x, str) else 0)
-        filtered_df = filtered_df[filtered_df['match_count'] > 0]
-        filtered_df = filtered_df.drop('match_count', axis=1)
+            filtered_df = filtered_df
+        else:
+            filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
 
     # Filter the DataFrame based on the specified genre-type combinations
     if genres and types:
-        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types)))]
-    
+        if 'ALL' in genres:
+            genres = filtered_df['genre'].unique()
+        if 'ALL' in types:
+            types = filtered_df['type'].apply(lambda x: x.split(', ') if isinstance(x, str) else [])
+            types = set([t for sublist in types for t in sublist])
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False))]
+
     return filtered_df
+
 
 '''
 The function filters the DataFrame based on the specified genres in the same way as before. 
