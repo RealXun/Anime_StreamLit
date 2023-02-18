@@ -145,13 +145,14 @@ If both lists are empty, the function simply returns the input DataFrame.
 
 Finally, the function returns the filtered DataFrame.
 '''
-def filtering(df, genres, types):
+def filterig(df, genres, types):
     """
     Filter a pandas DataFrame of anime based on the given genres and types.
     
     Args:
         df (pandas.DataFrame): The input DataFrame of anime.
-        genres (list of str): A list of genres to include in the filtered DataFrame, or "ALL" to include all genres.
+        genres (list of str or str): A list of genres to include in the filtered DataFrame, or "ALL" to include all genres.
+                                     If a string is passed, it will be treated as a single genre.
         types (list of str): A list of types to include in the filtered DataFrame, or "ALL" to include all types.
         
     Returns:
@@ -167,6 +168,8 @@ def filtering(df, genres, types):
     # create a boolean mask for the rows that match the given genres and types
     if genres == "ALL":
         genre_mask = all['genre'].notna()
+    elif isinstance(genres, str):
+        genre_mask = all['genre'] == genres
     else:
         genre_mask = all['genre'].isin(genres)
     

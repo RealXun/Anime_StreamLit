@@ -57,7 +57,7 @@ def uns_bara():
         'Police', 'Psychological', 'Demons', 'Ecchi', 'Josei',
         'Shounen Ai', 'Game', 'Dementia', 'Harem', 'Cars', 'Kids',
         'Shoujo Ai', 'Hentai', 'Yaoi', 'Yuri']
-        option_type = ['Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
+        option_type = ['ALL','Movie', 'TV', 'OVA', 'Special', 'Music', 'ONA']
 
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
