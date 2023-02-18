@@ -63,7 +63,7 @@ def uns_bara():
         selected_genre = st.multiselect('Select genre', option_genre)
         selected_type = st.multiselect('Select type', option_type, max_selections=1)
     else:
-        st.text("AND method would match any gender you input with the type.\n More Genres, more results \n Type should be one, there is no anime with two types at once")
+        st.text("AND method would match any gender you input with the type.\nMore Genres, more results\nType should be one, there is no anime with two types at once\nNote that if you do not get 20 results in the type you have chosen,\ncheck the other typer, the rest of th results are there")
         # Define the options for the multiselects
         option_genre = ['ALL','Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',

@@ -145,34 +145,35 @@ If both lists are empty, the function simply returns the input DataFrame.
 
 Finally, the function returns the filtered DataFrame.
 '''
-def filtering(df, genres, types):
-    all = df
-    df['genre'] = df['genre'].str.split(', ')
-    df = df.explode('genre')
+def filtering_or(df, genres, types):
+    # Make a copy of the input DataFrame
+    filtered_df = df.copy()
+
+    # Split the values in the "genre" column by ", "
+    filtered_df['genre'] = filtered_df['genre'].str.split(', ')
+
+    # Explode the DataFrame by the "genre" column
+    filtered_df = filtered_df.explode('genre')
+
+    # Filter the DataFrame based on the specified genres
+    if genres:
+        if 'ALL' in genres:
+            genres = filtered_df['genre'].unique()
+        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+
+    # Filter the DataFrame based on the specified types
+    if types:
+        if 'ALL' in types:
+            types = filtered_df['type'].unique()
+        filtered_df['match_count'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')) if isinstance(x, str) else 0)
+        filtered_df = filtered_df[filtered_df['match_count'] > 0]
+        filtered_df = filtered_df.drop('match_count', axis=1)
+
+    # Filter the DataFrame based on the specified genre-type combinations
     if genres and types:
-        if "ALL" in genres and "ALL" in types:
-            return all
-        elif "ALL" in genres:
-            filtered = df[df['type'].isin(types)]
-        elif "ALL" in types:
-            filtered = df[df['genre'].isin(genres)]
-        else:
-            filtered = df[df['genre'].isin(genres) | df['type'].isin(types)]
-        return filtered
-    elif genres:
-        if "ALL" in genres:
-            return all
-        else:
-            filtered = df[df['genre'].isin(genres)]
-            return filtered
-    elif types:
-        if "ALL" in types:
-            return all
-        else:
-            filtered = df[df['type'].isin(types)]
-            return filtered
-    else:
-        return all
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types)))]
+    
+    return filtered_df
 
 '''
 The function filters the DataFrame based on the specified genres in the same way as before. 
@@ -272,7 +273,7 @@ def create_dict(names,gen,typ,method,n=200):
     final_df.index=blankIndex
     if method == 'or':
         print("or")
-        final_df = filtering(final_df, gen, typ)
+        final_df = filtering_or(final_df, gen, typ)
     elif method == 'and':
         print("and")
         final_df = filtering_and(final_df, gen, typ)
@@ -455,7 +456,7 @@ Create dict of records with the filters selected - each row becomes a dictionary
 def create_dict_su(final_df,gen,typ,method,n=100):
     df = final_df
     if method == 'or':
-        final_df = filtering(df, gen, typ)
+        final_df = filtering_or(df, gen, typ)
     elif method == 'and':
         final_df = filtering_and(df, gen, typ)
     else:
