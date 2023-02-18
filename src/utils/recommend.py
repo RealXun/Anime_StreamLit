@@ -145,7 +145,7 @@ If both lists are empty, the function simply returns the input DataFrame.
 
 Finally, the function returns the filtered DataFrame.
 '''
-def filterig(df, genres, types):
+def filtering(df, genres, types):
     """
     Filter a pandas DataFrame of anime based on the given genres and types.
     
