@@ -145,6 +145,8 @@ If both lists are empty, the function simply returns the input DataFrame.
 
 Finally, the function returns the filtered DataFrame.
 '''
+
+
 def filtering(df, genres, types):
     """
     Filter a pandas DataFrame of anime based on the given genres and types.
@@ -153,7 +155,10 @@ def filtering(df, genres, types):
         df (pandas.DataFrame): The input DataFrame of anime.
         genres (list of str or str): A list of genres to include in the filtered DataFrame, or "ALL" to include all genres.
                                      If a string is passed, it will be treated as a single genre.
-        types (list of str): A list of types to include in the filtered DataFrame, or "ALL" to include all types.
+                                     If None is passed, the filtering will not be applied on genre.
+        types (list of str or str): A list of types to include in the filtered DataFrame, or "ALL" to include all types.
+                                     If a string is passed, it will be treated as a single type.
+                                     If None is passed, the filtering will not be applied on type.
         
     Returns:
         pandas.DataFrame: The filtered DataFrame of anime.
@@ -166,15 +171,21 @@ def filtering(df, genres, types):
     all = all.explode('genre')
     
     # create a boolean mask for the rows that match the given genres and types
-    if genres == "ALL":
+    if genres is None:
+        genre_mask = True
+    elif genres == "ALL":
         genre_mask = all['genre'].notna()
     elif isinstance(genres, str):
         genre_mask = all['genre'] == genres
     else:
         genre_mask = all['genre'].isin(genres)
     
-    if types == "ALL":
+    if types is None:
+        type_mask = True
+    elif types == "ALL":
         type_mask = all['type'].notna()
+    elif isinstance(types, str):
+        type_mask = all['type'] == types
     else:
         type_mask = all['type'].isin(types)
     
@@ -184,6 +195,7 @@ def filtering(df, genres, types):
     filtered_df = all[mask]
     
     return filtered_df
+
 
 '''
 The function filters the DataFrame based on the specified genres in the same way as before. 
