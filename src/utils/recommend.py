@@ -199,7 +199,7 @@ def filtering_and(df, genres, types):
     filtered_df = filtered_df.explode('genre')
     
     # Filter the DataFrame based on the specified genres
-    if genres:
+    if genres and 'ALL' not in genres:
         filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
     
     # Filter the DataFrame based on the specified types
@@ -213,6 +213,8 @@ def filtering_and(df, genres, types):
     
     # Filter the DataFrame based on the specified genre-type combinations
     if genres and types:
+        if 'ALL' in genres:
+            genres = filtered_df['genre'].unique()
         filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: all(t in x.split(', ') for t in types)))]
     
     return filtered_df
