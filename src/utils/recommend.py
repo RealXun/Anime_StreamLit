@@ -124,7 +124,7 @@ def filtering_or(df, genres, types):
         
     # If types are specified and 'ALL' is not one of them, filter the DataFrame to keep only rows where the type is in the specified list
     if types and 'ALL' not in types:
-        filtered_df = filtered_df[filtered_df['type'].apply(lambda x: x in types) if isinstance(x, str) else False]
+        filtered_df = filtered_df[filtered_df['type'].apply(lambda type: type in types) if isinstance(filtered_df['type'].iloc[0], str) else False]
     
     # If both genres and types are specified
     if genres and types:
@@ -140,6 +140,7 @@ def filtering_or(df, genres, types):
     
     # Return the filtered DataFrame
     return filtered_df
+
 
 
 
