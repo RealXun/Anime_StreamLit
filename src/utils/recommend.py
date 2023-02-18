@@ -122,9 +122,9 @@ def filtering_or(df, genres, types):
     if genres and 'ALL' not in genres:
         filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
         
-    # If types are specified and 'ALL' is not one of them, filter the DataFrame to keep only rows where at least one type in the type list is in the type column of the row
+    # If types are specified and 'ALL' is not one of them, filter the DataFrame to keep only rows where the type is in the specified list
     if types and 'ALL' not in types:
-        filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
+        filtered_df = filtered_df[filtered_df['type'].apply(lambda x: x in types) if isinstance(x, str) else False)]
     
     # If both genres and types are specified
     if genres and types:
@@ -133,14 +133,14 @@ def filtering_or(df, genres, types):
             genres = filtered_df['genre'].unique()
         # If 'ALL' is in the types list, set types to be all the unique types in the filtered DataFrame
         if 'ALL' in types:
-            types = filtered_df['type'].str.split(', ').explode().unique()
+            types = filtered_df['type'].unique()
 
-        # Filter the DataFrame to keep only rows where the genre is in the genres list AND at least one type in the type list is in the type column of the row
-        filtered_df = filtered_df[filtered_df.apply(lambda x: any(t in x['type'].split(', ') for t in types) and x['genre'] in genres if isinstance(x['type'], str) else False, axis=1)]
-
+        # Filter the DataFrame to keep only rows where the genre is in the genres list AND the type is in the types list
+        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].isin(types))]
     
     # Return the filtered DataFrame
     return filtered_df
+
 
 
 '''
