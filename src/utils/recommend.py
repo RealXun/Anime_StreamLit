@@ -145,41 +145,32 @@ If both lists are empty, the function simply returns the input DataFrame.
 
 Finally, the function returns the filtered DataFrame.
 '''
-def filtering_or(df, genres, types):
-    # Make a copy of the input DataFrame
-    filtered_df = df.copy()
-
-    # Split the values in the "genre" column by ", "
-    filtered_df['genre'] = filtered_df['genre'].str.split(', ')
-
-    # Explode the DataFrame by the "genre" column
-    filtered_df = filtered_df.explode('genre')
-
-    # Filter the DataFrame based on the specified genres
-    if genres:
-        if 'ALL' in genres:
-            filtered_df = filtered_df
-        else:
-            filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
-
-    # Filter the DataFrame based on the specified types
-    if types:
-        if 'ALL' in types:
-            filtered_df = filtered_df
-        else:
-            filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
-
-    # Filter the DataFrame based on the specified genre-type combinations
-    if genres and types:
-        if 'ALL' in genres:
-            genres = filtered_df['genre'].unique()
-        if 'ALL' in types:
-            types = filtered_df['type'].apply(lambda x: x.split(', ') if isinstance(x, str) else [])
-            types = set([t for sublist in types for t in sublist])
-        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False))]
-
+def filter_anime(df, genres, types):
+    """
+    Filter a pandas DataFrame of anime based on the given genres and types.
+    
+    Args:
+        df (pandas.DataFrame): The input DataFrame of anime.
+        genres (list of str): A list of genres to include in the filtered DataFrame.
+        types (list of str): A list of types to include in the filtered DataFrame.
+        
+    Returns:
+        pandas.DataFrame: The filtered DataFrame of anime.
+    """
+    # make a copy of the input DataFrame to avoid modifying the original
+    all = df.copy()
+    
+    # split the genre column by comma and explode it into multiple rows
+    all['genre'] = all['genre'].str.split(', ')
+    all = all.explode('genre')
+    
+    # create a boolean mask for the rows that match the given genres and types
+    mask = (all['genre'].isin(genres)) & (all['type'].isin(types))
+    
+    # filter the DataFrame using the mask
+    filtered_df = all[mask]
+    
     return filtered_df
-
 
 '''
 The function filters the DataFrame based on the specified genres in the same way as before. 
@@ -279,7 +270,7 @@ def create_dict(names,gen,typ,method,n=200):
     final_df.index=blankIndex
     if method == 'or':
         print("or")
-        final_df = filtering_or(final_df, gen, typ)
+        final_df = filtering(final_df, gen, typ)
     elif method == 'and':
         print("and")
         final_df = filtering_and(final_df, gen, typ)
@@ -462,7 +453,7 @@ Create dict of records with the filters selected - each row becomes a dictionary
 def create_dict_su(final_df,gen,typ,method,n=100):
     df = final_df
     if method == 'or':
-        final_df = filtering_or(df, gen, typ)
+        final_df = filtering(df, gen, typ)
     elif method == 'and':
         final_df = filtering_and(df, gen, typ)
     else:
