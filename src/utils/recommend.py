@@ -136,7 +136,8 @@ def filtering_or(df, genres, types):
             types = filtered_df['type'].str.split(', ').explode().unique()
 
         # Filter the DataFrame to keep only rows where the genre is in the genres list AND at least one type in the type list is in the type column of the row
-        filtered_df = filtered_df[filtered_df.apply(lambda x: any(t in x['type'].split(', ') for t in types) and x['genre'] in genres, axis=1)]
+        filtered_df = filtered_df[filtered_df.apply(lambda x: any(t in x['type'].split(', ') for t in types) and x['genre'] in genres if isinstance(x['type'], str) else False, axis=1)]
+
     
     # Return the filtered DataFrame
     return filtered_df
