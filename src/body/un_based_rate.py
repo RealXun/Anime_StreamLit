@@ -49,7 +49,7 @@ def uns_bara():
     if method == "or":
 
         # Define the options for the multiselects
-        option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action',
+        option_genre = ['ALL','Drama', 'Romance', 'School', 'Supernatural', 'Action',
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
         'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
         'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
@@ -61,7 +61,7 @@ def uns_bara():
 
         # Create the multiselect widgets
         selected_genre = st.multiselect('Select genre', option_genre)
-        selected_type = st.multiselect('Select type', option_type, max_selections=1)
+        selected_type = st.multiselect('Select type', option_type,)
     else:
         st.text("AND method would match any gender you input with the type.\nMore Genres, more results\nType should be one, there is no anime with two types at once\nNote that if you do not get 20 results in the type you have chosen,\ncheck the other typer, the rest of th results are there")
         # Define the options for the multiselects
