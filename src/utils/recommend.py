@@ -147,49 +147,32 @@ Finally, the function returns the filtered DataFrame.
 '''
 
 
-def filtering(df, genres, types):
-    """
-    Filter a pandas DataFrame of anime based on the given genres and types.
-    
-    Args:
-        df (pandas.DataFrame): The input DataFrame of anime.
-        genres (list of str or str): A list of genres to include in the filtered DataFrame, or "ALL" to include all genres.
-                                     If a string is passed, it will be treated as a single genre.
-                                     If None is passed, the filtering will not be applied on genre.
-        types (list of str or str): A list of types to include in the filtered DataFrame, or "ALL" to include all types.
-                                     If a string is passed, it will be treated as a single type.
-                                     If None is passed, the filtering will not be applied on type.
-        
-    Returns:
-        pandas.DataFrame: The filtered DataFrame of anime.
-    """
-    # make a copy of the input DataFrame to avoid modifying the original
-    all = df.copy()
-    
-    # split the genre column by comma and explode it into multiple rows
-    all['genre'] = all['genre'].str.split(', ')
-    all = all.explode('genre')
-    
-    # create a boolean mask for the rows that match the given genres and types
-    if genres is None or genres == "ALL":
-        genre_mask = all['genre'].notna()
-    elif isinstance(genres, str):
-        genre_mask = all['genre'] == genres
-    else:
-        genre_mask = all['genre'].isin(genres)
-    
-    if types is None or types == "ALL":
-        type_mask = all['type'].notna()
-    elif isinstance(types, str):
-        type_mask = all['type'] == types
-    else:
-        type_mask = all['type'].isin(types)
-    
-    mask = genre_mask & type_mask
-    
-    # filter the DataFrame using the mask
-    filtered_df = all[mask]
-    
+def filteringing(df, genres, types):
+    # Make a copy of the input DataFrame and assign it to filtered_df.
+    filtered_df = df.copy()
+
+    # Split the values in the 'genre' column of filtered_df by the separator ", "
+    # using the str.split() method of Pandas. This creates a list of genres for each row in the column.
+    filtered_df['genre'] = filtered_df['genre'].str.split(', ')
+
+    # Explode the DataFrame by the 'genre' column using the explode() method of Pandas.
+    # This creates a new row for each genre in each row of the original DataFrame.
+    filtered_df = filtered_df.explode('genre')
+
+    # If the genres argument is provided and is not equal to 'ALL', 
+    # filter the DataFrame by keeping only the rows where the 'genre' column matches 
+    # one of the genres in the genres list using the isin() method of Pandas.
+    if genres and genres != 'ALL':
+        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+
+    # If the types argument is provided and is not equal to 'ALL',
+    # filter the DataFrame by keeping only the rows where at least one anime type in the 'type' column 
+    # matches one of the types in the types list using a lambda function with the apply() method of Pandas.
+    # The any() function is used to check if at least one anime type matches the input types list.
+    if types and types != 'ALL':
+        filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
+
+    # Return the filtered DataFrame.
     return filtered_df
 
 
