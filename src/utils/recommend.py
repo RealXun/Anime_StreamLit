@@ -148,32 +148,40 @@ Finally, the function returns the filtered DataFrame.
 
 
 def filtering(df, genres, types):
-    # Make a copy of the input DataFrame and assign it to filtered_df.
+    
+    # Making a copy of the input DataFrame and assigning it to filtered_df.
     filtered_df = df.copy()
-
-    # Split the values in the 'genre' column of filtered_df by the separator ", "
+    
+    # It splits the values in the 'genre' column of filtered_df by the separator ", " 
     # using the str.split() method of Pandas. This creates a list of genres for each row in the column.
     filtered_df['genre'] = filtered_df['genre'].str.split(', ')
-
-    # Explode the DataFrame by the 'genre' column using the explode() method of Pandas.
+    
+    # Then "explodes" the DataFrame by the 'genre' column using the explode() method of Pandas. 
     # This creates a new row for each genre in each row of the original DataFrame.
     filtered_df = filtered_df.explode('genre')
+    
+    if genres:
+        # If the genres argument is provided, the function filters the DataFrame by keeping only the rows where 
+        # the 'genre' column matches one of the genres in the genres list using the isin() method of Pandas. 
+        # If 'ALL' is in the genres list, the function selects all possible genres using the unique() method 
+        # of Pandas and filters the DataFrame accordingly.
+        if 'ALL' in genres:
+            genres = filtered_df['genre'].unique()
+            filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
+        else:
+            filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
 
-    # If the genres argument is provided and is not equal to 'ALL', 
-    # filter the DataFrame by keeping only the rows where the 'genre' column matches 
-    # one of the genres in the genres list using the isin() method of Pandas.
-    if genres and genres != 'ALL':
-        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
-
-    # If the types argument is provided and is not equal to 'ALL',
-    # filter the DataFrame by keeping only the rows where at least one anime type in the 'type' column 
-    # matches one of the types in the types list using a lambda function with the apply() method of Pandas.
-    # The any() function is used to check if at least one anime type matches the input types list.
-    if types and types != 'ALL':
+    if types:
+        # If the types argument is provided, the function filters the DataFrame by keeping only the rows where 
+        # at least one of the anime types in the 'type' column matches one of the types in the types list using 
+        # a lambda function with the apply() method of Pandas. The any() function is used to check if at least 
+        # one anime type in the 'type' column matches one of the types in the types list. The split() method 
+        # is used to split the types string into a list.
         filtered_df = filtered_df[filtered_df['type'].apply(lambda x: any(t in x.split(', ') for t in types) if isinstance(x, str) else False)]
-
-    # Return the filtered DataFrame.
+    
+    # The function returns filtered_df.
     return filtered_df
+
 
 
 
