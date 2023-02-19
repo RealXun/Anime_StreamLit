@@ -54,9 +54,9 @@ def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
 def results(users_id,to_search,number_of_recommendations,selected_genre,selected_type, method,*recommender):
     if recommender == "super_ratings_based":
         result = super_ratings_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
-    elif method == "features_based":
+    elif recommender == "features_based":
         result = features_based(to_search, selected_genre, selected_type, method, number_of_recommendations)
-    else:
+    elif recommender == "unsupervised_user_explicit_rating_based":
         result = unsupervised_user_explicit_rating_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
 
     if result is not None: 
