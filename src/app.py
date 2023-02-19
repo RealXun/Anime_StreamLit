@@ -7,6 +7,7 @@ from body import sup_id
 from body import about
 from body import about_me
 
+st.set_page_config(layout='wide')
 
 # Defines a sidebar menu using the st.sidebar function from the Streamlit library
 
