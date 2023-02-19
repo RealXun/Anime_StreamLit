@@ -37,3 +37,4 @@ def about_me():
 
     with open(body_folder + "/" + "me_text.md",'r') as f:
         st.markdown(f.read(), unsafe_allow_html=True)
+    st.markdown('<p class="font">Hi there!!👋 Take a look at my repositories and let\'s get in touch!</p>', unsafe_allow_html=True)

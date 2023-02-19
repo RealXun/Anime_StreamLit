@@ -1,5 +1,3 @@
-# Hi there!!👋 Take a look at my repositories and let's get in touch!
-
 <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/header_1.png" width="1000">
 
 ![](https://visitor-badge.glitch.me/badge?page_id=RealXun.RealXun)
