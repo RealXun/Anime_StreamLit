@@ -108,13 +108,49 @@ def uns_feat():
         selected_genre = st.multiselect('Select genre', option_genre) # prompts user to select genres
         selected_type = st.multiselect('Select type', option_type, max_selections=1) # prompts user to select anime types, allowing only one selection
 
-
-
     criteria_selected = to_search and user_input and selected_genre and selected_type
-
-
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
-        stream.results(to_search, selected_genre, selected_type,method,number_of_recommendations,"features_based")
-    
+        # dataframe = load('../models/df.pkl')
+        result = features_based(to_search, selected_genre, selected_type,method,number_of_recommendations)
+        if result is not None: # result coming from the dictionary that get the rsults from filtering
+            new_dict={}
+            for di in result:
+                new_dict[di['name']]={}
+                for k in di.keys():
+                    if k =='name': continue
+                    new_dict[di['name']][k]=di[k]
+                        
+            num_cols = 5
+            num_rows = len(result) // num_cols + 1
+
+            for row_idx in range(num_rows):
+                cols = st.columns(num_cols)
+                for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    result = new_dict[key]
+
+                    # Fetch image from URL
+                    response = requests.get(result['cover'])
+                    img = Image.open(BytesIO(response.content))
+
+                    # Display title and other details in a card
+                    with cols[col_idx].container():
+                        cols[col_idx].image(img, use_column_width=True)
+                        cols[col_idx].write(f"**{result['english_title']}**")
+                        if 'japanese_title' in result:
+                            cols[col_idx].write(f"**{result['japanese_title']}")
+                        if 'type' in result:
+                            cols[col_idx].write(f"**Type:** {result['type']}")
+                        if 'episodes' in result:
+                            cols[col_idx].write(f"**Episodes:** {int(result['episodes'])}")
+                        if 'duration' in result:
+                            cols[col_idx].write(f"**Duration:** {result['duration']}")
+                        if 'rating' in result:
+                            cols[col_idx].write(f"**Rating:** {result['rating']}")
+                        if 'score' in result:
+                            cols[col_idx].write(f"**Score:** {result['score']}/10")
+        else:
+            st.write("Sorry, there is no matches for this, try again with different filters.")
+    else :
+        st.write("Please enter anime name and number of recommendations to get the recommendation.")

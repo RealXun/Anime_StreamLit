@@ -9,7 +9,6 @@ from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
-from utils import stream
 
 def uns_bara():
 
@@ -63,9 +62,11 @@ def uns_bara():
 
 
 
+    def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
+        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
+        return similar_animes
 
-
-
+        
 
 # The code presents a dropdown menu to select between two filtering methods ("and" and "or"). 
 # Depending on the method chosen, the user can select one or more genres and one or more types 
@@ -110,10 +111,47 @@ def uns_bara():
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
-
-
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        stream.results(to_search,number_of_recommendations,selected_genre,selected_type,method,"unsupervised_user_explicit_rating_based")
-  
+        result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
+        if result is not None: # result coming from the dictionary that get the rsults from filtering
+            new_dict={}
+            for di in result:
+                new_dict[di['name']]={}
+                for k in di.keys():
+                    if k =='name': continue
+                    new_dict[di['name']][k]=di[k]
+                        
+            num_cols = 5
+            num_rows = len(result) // num_cols + 1
+
+            for row_idx in range(num_rows):
+                cols = st.columns(num_cols)
+                for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    result = new_dict[key]
+
+                    # Fetch image from URL
+                    response = requests.get(result['cover'])
+                    img = Image.open(BytesIO(response.content))
+
+                    # Display title and other details in a card
+                    with cols[col_idx].container():
+                        cols[col_idx].image(img, use_column_width=True)
+                        cols[col_idx].write(f"**{result['english_title']}")
+                        if 'japanese_title' in result:
+                            cols[col_idx].write(f"**{result['japanese_title']}")
+                        if 'type' in result:
+                            cols[col_idx].write(f"**Type:** {result['type']}")
+                        if 'episodes' in result:
+                            cols[col_idx].write(f"**Episodes:** {int(result['episodes'])}")
+                        if 'duration' in result:
+                            cols[col_idx].write(f"**Duration:** {result['duration']}")
+                        if 'rating' in result:
+                            cols[col_idx].write(f"**Rating:** {result['rating']}")
+                        if 'score' in result:
+                            cols[col_idx].write(f"**Score:** {result['score']}/10")
+        else:
+            st.write("Sorry, there is no matches for this, try again with different filters.")
+    else :
+        st.write("Please enter anime name and number of recommendations to get the recommendation.")
