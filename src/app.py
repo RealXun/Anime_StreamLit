@@ -8,9 +8,8 @@ from body import about
 from body import about_me
 
 
-'''
-Defines a sidebar menu using the st.sidebar function from the Streamlit library
-'''
+# Defines a sidebar menu using the st.sidebar function from the Streamlit library
+
 # This opens a sidebar in the Streamlit app.
 with st.sidebar:
     choose = option_menu("Anime System Recommendator", ["About", "Based on ratings", "Based on Features", "Using user ID", "Testing","About the Creator"],
@@ -24,14 +23,14 @@ with st.sidebar:
                         )
 
 
-'''
-This creates a drop-down menu in the sidebar with six options: 
-"About", "Based on ratings", "Based on Features", "Using user ID", "Testing", and "About the Creator". 
-The icons argument provides icons for each option. menu_icon sets the icon for the sidebar. 
-default_index sets the default option in the drop-down menu. styles sets the styling for the drop-down menu.
-'''
 
-#This uses the choose variable to determine which option was selected in the drop-down menu. 
+# This creates a drop-down menu in the sidebar with six options: 
+# "About", "Based on ratings", "Based on Features", "Using user ID", "Testing", and "About the Creator". 
+# The icons argument provides icons for each option. menu_icon sets the icon for the sidebar. 
+# default_index sets the default option in the drop-down menu. styles sets the styling for the drop-down menu.
+
+
+# This uses the choose variable to determine which option was selected in the drop-down menu. 
 # Depending on the option selected, it calls a specific function to display the corresponding 
 # content in the main panel of the Streamlit app.
 
