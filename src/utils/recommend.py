@@ -437,7 +437,7 @@ the resulting dataframe with anime names and their predicted scores.
 '''
 def sort_it(id):
     # Load the pre-trained SVD model
-    algo = joblib.load(saved_models_folder + "/" + "SVD_samople_fit.pkl")
+    algo = joblib.load(saved_models_folder + "/" + "SVD_sample_fit.pkl")
     
     # Load the anime dataframe
     df = pd.read_csv(processed_data + "/" + "anime_final.csv")
