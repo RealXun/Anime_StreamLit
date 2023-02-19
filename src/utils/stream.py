@@ -51,7 +51,7 @@ def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
 '''
 
 '''
-def results(users_id,to_search,number_of_recommendations,selected_genre,selected_type, method,recommender):
+def results(users_id,to_search,number_of_recommendations,selected_genre,selected_type, method,*recommender):
     if recommender == "super_ratings_based":
         result = super_ratings_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
     elif method == "features_based":
