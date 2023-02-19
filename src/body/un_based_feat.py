@@ -74,7 +74,7 @@ def uns_feat():
 
     if method == "or": # if filtering method is 'or'
 
-        option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
+        option_genre = ['ALL','Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
         'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
         'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
@@ -90,7 +90,7 @@ def uns_feat():
     else: # if filtering method is 'and'
         st.text("AND method would match any gender you input with the type.\n More Genres, more results \n Type should be one, there is no anime with two types at once")
 
-        option_genre = ['ALL','Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
+        option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
         'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
         'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
