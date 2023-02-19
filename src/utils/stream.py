@@ -52,14 +52,12 @@ def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
 
 '''
 def results(users_id, to_search, number_of_recommendations, selected_genre, selected_type, method, *recommender):
-    if "super_ratings_based" in recommender:
+    if recommender == "super_ratings_based":
         result = super_ratings_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
-    elif "features_based" in recommender:
+    elif recommender == "features_based":
         result = features_based(to_search, selected_genre, selected_type, method, number_of_recommendations)
-    elif "unsupervised_user_explicit_rating_based" in recommender:
+    elif recommender == "unsupervised_user_explicit_rating_based":
         result = unsupervised_user_explicit_rating_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
-    else:
-        result = None
 
     if result is not None: 
         # If the recommendation results are not empty, create a new dictionary to store them
