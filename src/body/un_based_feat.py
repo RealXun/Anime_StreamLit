@@ -90,7 +90,7 @@ def uns_feat():
     else: # if filtering method is 'and'
         st.text("AND method would match any gender you input with the type.\n More Genres, more results \n Type should be one, there is no anime with two types at once")
 
-        option_genre = ['Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
+        option_genre = ['ALL','Drama', 'Romance', 'School', 'Supernatural', 'Action', # list of anime genres
         'Adventure', 'Fantasy', 'Magic', 'Military', 'Shounen', 'Comedy',
         'Historical', 'Parody', 'Samurai', 'Sci-Fi', 'Thriller', 'Sports',
         'Super Power', 'Space', 'Slice of Life', 'Mecha', 'Music',
@@ -117,27 +117,35 @@ def uns_feat():
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
         result = features_based(to_search, selected_genre, selected_type,method,number_of_recommendations)
-        if result is not None: # result coming from the dictionary that get the rsults from filtering
+        if result is not None: 
+            # If the recommendation results are not empty, create a new dictionary to store them
             new_dict={}
             for di in result:
+                # For each recommendation, add a new entry to the dictionary using the anime name as the key
                 new_dict[di['name']]={}
+                # Copy all other properties of the recommendation into the dictionary entry for that anime
                 for k in di.keys():
                     if k =='name': continue
                     new_dict[di['name']][k]=di[k]
-                        
+
+            # Determine how many rows and columns are needed to display the recommendations
             num_cols = 5
             num_rows = len(result) // num_cols + 1
 
+            # Loop through each row of recommendations
             for row_idx in range(num_rows):
+                # Create a new set of columns to display each recommendation
                 cols = st.columns(num_cols)
+                # Loop through each column and get the key (anime name) for that column's recommendation
                 for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
+                    # Get the recommendation for the current anime
                     result = new_dict[key]
 
-                    # Fetch image from URL
+                    # Get the cover image for the anime from the recommendation data
                     response = requests.get(result['cover'])
                     img = Image.open(BytesIO(response.content))
 
-                    # Display title and other details in a card
+                    # Display the anime information in a container within the current column
                     with cols[col_idx].container():
                         cols[col_idx].image(img, use_column_width=True)
                         cols[col_idx].write(f"**{result['english_title']}**")
@@ -146,14 +154,20 @@ def uns_feat():
                         if 'type' in result:
                             cols[col_idx].write(f"**Type:** {result['type']}")
                         if 'episodes' in result:
-                            cols[col_idx].write(f"**Episodes:** {int(result['episodes'])}")
+                            cols[col_idx].write(f"**Episodes:** {result['episodes']}")
                         if 'duration' in result:
                             cols[col_idx].write(f"**Duration:** {result['duration']}")
                         if 'rating' in result:
                             cols[col_idx].write(f"**Rating:** {result['rating']}")
                         if 'score' in result:
                             cols[col_idx].write(f"**Score:** {result['score']}/10")
+                        # Display the estimated score for the recommendation
+                        cols[col_idx].write(f"**{float(result['Estimate_Score'])}**")
+
         else:
+            # If there are no recommendations to display, inform the user
             st.write("Sorry, there is no matches for this, try again with different filters.")
+            
+        # If the user has not entered enough information to get recommendations, prompt them to do so
     else :
         st.write("Please enter anime name and number of recommendations to get the recommendation.")
