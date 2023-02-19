@@ -25,6 +25,7 @@ content_based_supervised_data = (data_folder + "/" + "processed" + "/" + "conten
 images = (PROJECT_ROOT + "/" + "images")
 cover_images = (images + "/" + "Cover_images")
 
+st.set_page_config(layout='wide')
 
 
 def about_me():
