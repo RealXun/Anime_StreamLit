@@ -176,4 +176,6 @@ def user_id():
         # If the user has not entered enough information to get recommendations, prompt them to do so
         if not (users_id and number_of_recommendations):
             st.write("Please enter anime name and number of recommendations to get the recommendation.")
+    else :
+        st.write("Please, add enough information to give you recommendations.")
 

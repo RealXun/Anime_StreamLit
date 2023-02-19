@@ -171,4 +171,4 @@ def uns_feat():
             
         # If the user has not entered enough information to get recommendations, prompt them to do so
     else :
-        st.write("Please enter anime name and number of recommendations to get the recommendation.")
+        st.write("Please, add enough information to give you recommendations.")
