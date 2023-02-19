@@ -59,10 +59,10 @@ def results(users_id, to_search, number_of_recommendations, selected_genre, sele
     elif recommender == "unsupervised_user_explicit_rating_based":
         result = unsupervised_user_explicit_rating_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
 
-    return result,users_id, to_search, number_of_recommendations
+    return result
 
 def show(users_id,number_of_recommendations,selected_genre,selected_type, method,recommender):
-    results(users_id,number_of_recommendations,selected_genre,selected_type, method,recommender)
+    result = results(users_id,number_of_recommendations,selected_genre,selected_type, method,recommender)
     if result is not None: 
         # If the recommendation results are not empty, create a new dictionary to store them
         new_dict = {}
@@ -111,6 +111,4 @@ def show(users_id,number_of_recommendations,selected_genre,selected_type, method
             
     # If the user has not entered enough information to get recommendations, prompt them to do so
     if not (users_id and number_of_recommendations):
-        st.write("Please enter enough information to recommend.")
-    if not (to_search and number_of_recommendations):
         st.write("Please enter enough information to recommend.")
