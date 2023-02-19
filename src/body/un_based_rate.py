@@ -115,5 +115,5 @@ def uns_bara():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
-        stream.unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method,"unsupervised_user_explicit_rating_based")
+        stream.results(to_search,number_of_recommendations,selected_genre,selected_type,method,"unsupervised_user_explicit_rating_based")
   
