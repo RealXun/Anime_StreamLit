@@ -9,7 +9,6 @@ from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
-from utils import stream
 
 
 def uns_feat():
@@ -63,10 +62,6 @@ def uns_feat():
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
 
-    def features_based(name,genre,type,method,n):
-        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,method,n)
-        return similar_animes
-
 
 
 # The code presents a dropdown menu to select between two filtering methods ("and" and "or"). 
@@ -107,6 +102,14 @@ def uns_feat():
 
         selected_genre = st.multiselect('Select genre', option_genre) # prompts user to select genres
         selected_type = st.multiselect('Select type', option_type, max_selections=1) # prompts user to select anime types, allowing only one selection
+
+
+
+    def features_based(name,genre,type,method,n):
+        similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,method,n)
+        return similar_animes
+
+
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 

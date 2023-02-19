@@ -60,13 +60,7 @@ def uns_bara():
     if isinstance(user_input, int):
         st.success(f"You entered the integer: {user_input}")
 
-
-
-    def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
-        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
-        return similar_animes
-
-        
+  
 
 # The code presents a dropdown menu to select between two filtering methods ("and" and "or"). 
 # Depending on the method chosen, the user can select one or more genres and one or more types 
@@ -106,6 +100,12 @@ def uns_bara():
 
         selected_genre = st.multiselect('Select genre', option_genre) # prompts user to select genres
         selected_type = st.multiselect('Select type', option_type, max_selections=1) # prompts user to select anime types, allowing only one selection
+
+
+
+    def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
+        similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
+        return similar_animes
 
 
 
