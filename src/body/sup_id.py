@@ -106,9 +106,12 @@ def user_id():
         selected_type = st.multiselect('Select type', option_type, max_selections=1) # prompts user to select anime types, allowing only one selection
 
 
+
     criteria_selected = user_input_1 and user_input and selected_genre and selected_type
+
+
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
-        stream.results(users_id,number_of_recommendations,selected_genre,selected_type, method)
+        stream.results(users_id,number_of_recommendations,selected_genre,selected_type, method,"super_ratings_based")
 

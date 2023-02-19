@@ -34,8 +34,31 @@ def super_ratings_based(id,n,genre,type, method):
 '''
 
 '''
-def results(users_id,number_of_recommendations,selected_genre,selected_type, method):
-    result = super_ratings_based(users_id,number_of_recommendations,selected_genre,selected_type, method)
+def features_based(name,genre,type,method,n):
+    similar_animes = recommend.create_dict(recommend.print_similar_animes(name),genre,type,method,n)
+    return similar_animes
+
+
+
+'''
+
+'''
+def unsupervised_user_explicit_rating_based(name,n,genre,type,method):
+    similar_animes = recommend.create_dict(recommend.unsupervised_user_based_recommender(name,n),genre,type,method)
+    return similar_animes
+
+
+'''
+
+'''
+def results(users_id,to_search,number_of_recommendations,selected_genre,selected_type, method,recommender):
+    if recommender == "super_ratings_based":
+        result = super_ratings_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
+    elif method == "features_based":
+        result = features_based(to_search, selected_genre, selected_type, method, number_of_recommendations)
+    else:
+        result = unsupervised_user_explicit_rating_based(users_id, number_of_recommendations, selected_genre, selected_type, method)
+
     if result is not None: 
         # If the recommendation results are not empty, create a new dictionary to store them
         new_dict={}
@@ -84,6 +107,4 @@ def results(users_id,number_of_recommendations,selected_genre,selected_type, met
         
     # If the user has not entered enough information to get recommendations, prompt them to do so
     if not (users_id and number_of_recommendations):
-        st.write("Please enter anime name and number of recommendations to get the recommendation.")
-
-
+        st.write("Please enter enough information to recommend.")
