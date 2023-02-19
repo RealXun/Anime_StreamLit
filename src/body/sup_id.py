@@ -65,13 +65,13 @@ def user_id():
 
     
 
-'''
-The code presents a dropdown menu to select between two filtering methods ("and" and "or"). 
-Depending on the method chosen, the user can select one or more genres and one or more types 
-of anime using checkboxes. If the "and" method is chosen, the user can only select one type 
-of anime, while the "or" method allows the user to select multiple types. The selected genres 
-and types are stored in the selected_genre and selected_type variables.
-'''
+
+# The code presents a dropdown menu to select between two filtering methods ("and" and "or"). 
+# Depending on the method chosen, the user can select one or more genres and one or more types 
+# of anime using checkboxes. If the "and" method is chosen, the user can only select one type 
+# of anime, while the "or" method allows the user to select multiple types. The selected genres 
+# and types are stored in the selected_genre and selected_type variables.
+
     method = st.selectbox("Choose a filtering method", ["and", "or"]) # prompts user to choose filtering method either 'and' or 'or'
 
     if method == "or": # if filtering method is 'or'
