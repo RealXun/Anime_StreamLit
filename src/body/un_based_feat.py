@@ -116,7 +116,5 @@ def uns_feat():
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
-        
-        # dataframe = load('../models/df.pkl')
         stream.features_based(to_search, selected_genre, selected_type,method,number_of_recommendations,"features_based")
     
