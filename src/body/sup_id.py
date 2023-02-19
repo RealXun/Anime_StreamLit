@@ -109,9 +109,12 @@ def user_id():
 
     criteria_selected = user_input_1 and user_input and selected_genre and selected_type
 
-
+    def to_show(users_id,number_of_recommendations,selected_genre,selected_type, method,recommender):
+        to_return = stream.results(users_id,number_of_recommendations,selected_genre,selected_type, method,recommender)
+        return to_return
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
-        stream.results(users_id,number_of_recommendations,selected_genre,selected_type, method,"super_ratings_based")
+        to_show(users_id,number_of_recommendations,selected_genre,selected_type, method,"super_ratings_based")
+        
 
