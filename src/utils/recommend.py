@@ -151,39 +151,22 @@ If a list of genres or types is not specified or contains the keyword 'ALL',
 all possible values are used for filtering.
 '''
 def filtering_and(df, genres, types):
+    """
+    Filters a pandas DataFrame by genres and types using the AND method.
     
-    # create a copy of the original dataframe
-    filtered_df = df.copy()
+    Args:
+    - df: pandas DataFrame to filter
+    - genres: list of genres to filter by
+    - types: list of types to filter by
     
-    # split the genre column values by ', ' and create a new row for each genre
-    filtered_df['genre'] = filtered_df['genre'].str.split(', ')
-    filtered_df = filtered_df.explode('genre')
+    Returns:
+    - filtered_df: pandas DataFrame with only rows that match all genres and types
+    """
+    genre_mask = df['genre'].apply(lambda x: isinstance(x, str) and all([genre in x.split(', ') for genre in genres]))
     
-    # filter rows by genre if any genres are passed and not 'ALL'
-    if genres and 'ALL' not in genres:
-        filtered_df = filtered_df[filtered_df['genre'].isin(genres)]
-
-    # filter rows by types if any types are passed
-    if types:
-        
-        # create a new column to count the number of type matches
-        filtered_df['num_matches'] = filtered_df['type'].apply(lambda x: sum(t in types for t in x.split(', ')) if isinstance(x, str) else 0)
-        
-        # filter rows where the number of type matches equals the number of types passed
-        filtered_df = filtered_df[filtered_df['num_matches'] == len(types)]
-        
-        # drop the 'num_matches' column
-        filtered_df = filtered_df.drop('num_matches', axis=1)
+    type_mask = df['type'].isin(types)
     
-    # filter rows by both genre and types if both are passed
-    if genres and types:
-        
-        # if 'ALL' is in the list of genres, select all unique genres in the filtered dataframe
-        if 'ALL' in genres:
-            genres = filtered_df['genre'].unique()
-        
-        # filter rows by genre and types using boolean indexing
-        filtered_df = filtered_df[(filtered_df['genre'].isin(genres)) & (filtered_df['type'].apply(lambda x: all(t in x.split(', ') for t in types)))]
+    filtered_df = df[genre_mask & type_mask]
     
     return filtered_df
 
