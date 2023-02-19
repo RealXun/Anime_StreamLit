@@ -1,6 +1,3 @@
-# Anime Recommendation systems based on Data from MyAnimeList
---------------------------------------
-
 <p align="center">
     <img src="https://raw.githubusercontent.com/RealXun/Anime_StreamLit/main/src/images/cover.png" width="1000">
 </p>
