@@ -35,6 +35,7 @@ def about_me():
         font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
 
+    st.markdown('<p class="font">Hi there!!👋 Take a look at my repositories and let\'s get in touch!</p>', unsafe_allow_html=True)
+
     with open(body_folder + "/" + "me_text.md",'r') as f:
         st.markdown(f.read(), unsafe_allow_html=True)
-    st.markdown('<p class="font">Hi there!!👋 Take a look at my repositories and let\'s get in touch!</p>', unsafe_allow_html=True)
