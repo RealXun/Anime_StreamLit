@@ -113,6 +113,17 @@ def uns_feat():
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
+
+
+# Displays anime recommendations based on selected criteria. It uses the Streamlit library 
+# to create a user interface with input fields for selecting anime genre, type, and method 
+# for recommendation. When the user clicks the "Get the Recommendation" button, the script 
+# retrieves anime recommendations based on the selected criteria using a pre-trained model. 
+# It then displays the recommendations in a grid of images and text information such as 
+# English and Japanese titles, type, episodes, duration, rating, and score. If there are 
+# no recommendations to display or the user has not entered enough information, the script 
+# prompts the user accordingly.
+
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
