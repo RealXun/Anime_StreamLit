@@ -162,7 +162,8 @@ def uns_feat():
                         if 'score' in result:
                             cols[col_idx].write(f"**Score:** {result['score']}/10")
                         # Display the estimated score for the recommendation
-                        cols[col_idx].write(f"**{float(result['Estimate_Score'])}**")
+                        if 'Estimate_Score' in result:
+                            cols[col_idx].write(f"**{float(result['Estimate_Score'])}**")
 
         else:
             # If there are no recommendations to display, inform the user
