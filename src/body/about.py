@@ -47,4 +47,4 @@ def it_is_about():
         st.write("The chart above shows some numbers I picked for you. I rolled actual dice for these, so they're *guaranteed* to be random.")
 
     with st.expander("See explanation for Anime Recommendation using user ID"):
-        st.write("The chart above shows some numbers I picked for you. I rolled actual dice for these, so they're *guaranteed* to be random.")
+        st.write("The chart above shows some numbers I picked for you. I rolled actual dice for thesle, so they're *guaranteed* to be random.")
