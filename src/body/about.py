@@ -45,6 +45,8 @@ def it_is_about():
     
     with st.expander("See explanation for Anime Recommendation based on features"):
         st.write("The chart above shows some numbers I picked for you. I rolled actual dice for these, so they're *guaranteed* to be random.")
+        with open(body_folder + "/" + "about_text.md",'r', encoding='utf-8') as f:
+            st.markdown(f.read(), unsafe_allow_html=True)
 
     with st.expander("See explanation for Anime Recommendation using user ID"):
         st.write("The chart above shows some numbers I picked for you. I rolled actual dice for thesle, so they're *guaranteed* to be random.")
