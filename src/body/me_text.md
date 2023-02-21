@@ -6,9 +6,7 @@
 
 [![](https://www.codewars.com/users/RealXun/badges/large)]([https://www.codewars.com/users/_JDev_](https://www.codewars.com/users/RealXun))
 
-<img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/life_balance.gif" alt="side Image" align="center" width="200" height="auto" />
-
-### <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/Developer.gif" width="45" /> About Me:
+### <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/Developer.gif" width="45" /> About Me: <img src="https://raw.githubusercontent.com/RealXun/RealXun/main/Resources/life_balance.gif" alt="side Image" width="200" height="auto" /> 
 - 🔭 As many other people, I am working on improving my life.
 - 🌱 Learning how to be a Data Scientist.
 - 👯 Always looking to collaborate on Data Science and Data Analytics projects.
