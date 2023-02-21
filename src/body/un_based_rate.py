@@ -22,6 +22,13 @@ def generate_excel(data):
     processed_data = output.getvalue()
     return processed_data
 
+# Define function to create a download link for a pandas dataframe as a CSV file
+def download_csv(data, filename):
+    csv = data.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f"data:text/csv;base64,{b64}"
+    return f'<a href="{href}" download="{filename}.csv">Download CSV</a>'
+
 def uns_bara():
 
     #Add the cover image for the cover page. Used a little trick to center the image
@@ -142,11 +149,8 @@ def uns_bara():
 # no recommendations to display or the user has not entered enough information, the script 
 # prompts the user accordingly.
  
-    def download_button(df, filename, file_extension, button_text):
-        excel_file = generate_excel(df)
-        b64 = base64.b64encode(excel_file).decode()
-        href = f'data:application/octet-stream;base64,{b64}'
-        st.markdown(f'<a href="{href}" download="{filename}.{file_extension}">{button_text}</a>', unsafe_allow_html=True)
+
+
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
@@ -164,8 +168,17 @@ def uns_bara():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-                if st.button('Download Excel'):
-                    download_button(new_dict, 'recommendations', 'xlsx', 'Click here to download the recommendations')
+                    # Enable button to download the results as a CSV file
+                    if st.button('Download Results as CSV'):
+                        # Check if there are any results to download
+                        if 'result' in locals() and result is not None:
+                            # Convert the recommendation data to a pandas dataframe
+                            df = pd.DataFrame(result)
+                            # Generate a download link for the dataframe as a CSV file
+                            st.markdown(download_csv(df, 'recommendations'), unsafe_allow_html=True)
+                        else:
+                            # If there are no recommendations to download, inform the user
+                            st.warning('There are no results to download. Please perform a search and get recommendations first.')
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
                 num_rows = len(result) // num_cols + 1
