@@ -3,33 +3,24 @@ import os
 import sys
 from utils import recommend
 from PIL import Image
+import pandas as pd
 import pickle
 import requests
 from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
-from fpdf import FPDF
+import base64
 
-# Define a function to generate a PDF file from the recommendation results
-def generate_pdf(results):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Anime Recommendations", ln=1, align="C")
-    for result in results:
-        response = requests.get(result['cover'])
-        img = Image.open(BytesIO(response.content))
-        pdf.cell(200, 10, txt=result['english_title'], ln=1)
-        pdf.image(BytesIO(response.content), x=pdf.get_x(), y=pdf.get_y(), w=50, h=50)
-        pdf.cell(200, 10, txt=f"Type: {result['type']}", ln=1)
-        pdf.cell(200, 10, txt=f"Episodes: {result['episodes']}", ln=1)
-        pdf.cell(200, 10, txt=f"Duration: {result['duration']}", ln=1)
-        pdf.cell(200, 10, txt=f"Rating: {result['rating']}", ln=1)
-        pdf.cell(200, 10, txt=f"Score: {result['score']}/10", ln=1)
-        pdf.cell(200, 10, txt=f"Estimate Score: {result.get('Estimate_Score', '-')}", ln=1)
-        pdf.cell(200, 10, txt="", ln=1)
-    pdf.output("anime_recommendations.pdf")
+# Define a function to generate a excel file from the recommendation results
+def generate_excel(data):
+    df = pd.DataFrame.from_dict(data)
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
 
 def uns_bara():
 
@@ -151,15 +142,18 @@ def uns_bara():
 # no recommendations to display or the user has not entered enough information, the script 
 # prompts the user accordingly.
  
-
+    def download_button(df, filename, file_extension, button_text):
+        excel_file = generate_excel(df)
+        b64 = base64.b64encode(excel_file).decode()
+        href = f'data:application/octet-stream;base64,{b64}'
+        st.markdown(f'<a href="{href}" download="{filename}.{file_extension}">{button_text}</a>', unsafe_allow_html=True)
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         with st.spinner('Generating recommendations...'):
             # Add a "Download PDF" button
-            if st.button('Download PDF'):
-                generate_pdf(result)
-                st.write("PDF successfully downloaded!")
+            if st.button('Download Excel'):
+                download_button(new_dict, 'recommendations', 'xlsx', 'Click here to download the recommendations')
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
                 # If the recommendation results are not empty, create a new dictionary to store them
