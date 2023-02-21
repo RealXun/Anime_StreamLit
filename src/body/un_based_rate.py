@@ -9,6 +9,27 @@ from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
+from fpdf import FPDF
+
+# Define a function to generate a PDF file from the recommendation results
+def generate_pdf(results):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Anime Recommendations", ln=1, align="C")
+    for result in results:
+        response = requests.get(result['cover'])
+        img = Image.open(BytesIO(response.content))
+        pdf.cell(200, 10, txt=result['english_title'], ln=1)
+        pdf.image(BytesIO(response.content), x=pdf.get_x(), y=pdf.get_y(), w=50, h=50)
+        pdf.cell(200, 10, txt=f"Type: {result['type']}", ln=1)
+        pdf.cell(200, 10, txt=f"Episodes: {result['episodes']}", ln=1)
+        pdf.cell(200, 10, txt=f"Duration: {result['duration']}", ln=1)
+        pdf.cell(200, 10, txt=f"Rating: {result['rating']}", ln=1)
+        pdf.cell(200, 10, txt=f"Score: {result['score']}/10", ln=1)
+        pdf.cell(200, 10, txt=f"Estimate Score: {result.get('Estimate_Score', '-')}", ln=1)
+        pdf.cell(200, 10, txt="", ln=1)
+    pdf.output("anime_recommendations.pdf")
 
 def uns_bara():
 
@@ -135,6 +156,10 @@ def uns_bara():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         with st.spinner('Generating recommendations...'):
+            # Add a "Download PDF" button
+            if st.button('Download PDF'):
+                generate_pdf(result)
+                st.write("PDF successfully downloaded!")
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
                 # If the recommendation results are not empty, create a new dictionary to store them
