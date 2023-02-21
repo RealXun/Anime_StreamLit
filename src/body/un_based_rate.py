@@ -3,31 +3,13 @@ import os
 import sys
 from utils import recommend
 from PIL import Image
-import pandas as pd
 import pickle
 import requests
 from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
-import base64
 
-# Define a function to generate a excel file from the recommendation results
-def generate_excel(data):
-    df = pd.DataFrame.from_dict(data)
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, sheet_name='Sheet1', index=False)
-    writer.save()
-    processed_data = output.getvalue()
-    return processed_data
-
-# Define function to create a download link for a pandas dataframe as a CSV file
-def download_csv(data, filename):
-    csv = data.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f"data:text/csv;base64,{b64}"
-    return f'<a href="{href}" download="{filename}.csv">Download CSV</a>'
 
 def uns_bara():
 
@@ -151,12 +133,9 @@ def uns_bara():
  
 
 
-
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         with st.spinner('Generating recommendations...'):
-            # Add a "Download PDF" button
-
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
                 # If the recommendation results are not empty, create a new dictionary to store them
@@ -168,17 +147,7 @@ def uns_bara():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-                    # Enable button to download the results as a CSV file
-                    if st.button('Download Results as CSV'):
-                        # Check if there are any results to download
-                        if 'result' in locals() and result is not None:
-                            # Convert the recommendation data to a pandas dataframe
-                            df = pd.DataFrame(result)
-                            # Generate a download link for the dataframe as a CSV file
-                            st.markdown(download_csv(df, 'recommendations'), unsafe_allow_html=True)
-                        else:
-                            # If there are no recommendations to download, inform the user
-                            st.warning('There are no results to download. Please perform a search and get recommendations first.')
+
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
                 num_rows = len(result) // num_cols + 1
