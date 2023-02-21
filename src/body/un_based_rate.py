@@ -152,8 +152,7 @@ def uns_bara():
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         with st.spinner('Generating recommendations...'):
             # Add a "Download PDF" button
-            if st.button('Download Excel'):
-                download_button(new_dict, 'recommendations', 'xlsx', 'Click here to download the recommendations')
+
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
                 # If the recommendation results are not empty, create a new dictionary to store them
@@ -165,7 +164,8 @@ def uns_bara():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-
+                if st.button('Download Excel'):
+                    download_button(new_dict, 'recommendations', 'xlsx', 'Click here to download the recommendations')
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
                 num_rows = len(result) // num_cols + 1
