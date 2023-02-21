@@ -110,11 +110,13 @@ def uns_bara():
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
+
+
     # Create a visual indicator to show if both criteria are selected
     if criteria_selected:
-        st.success('Both criteria are selected')
+        st.success('All criteria are selected. You can click now.')
     else:
-        st.warning('Please select both criteria to get recommendations')
+        st.warning('Please select All criteria to get recommendations')
 
 
 
@@ -133,7 +135,6 @@ def uns_bara():
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         with st.spinner('Generating recommendations...'):
-            # dataframe = load('../models/df.pkl')
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
                 # If the recommendation results are not empty, create a new dictionary to store them
@@ -189,4 +190,4 @@ def uns_bara():
                 
             # If the user has not entered enough information to get recommendations, prompt them to do so
     else :
-        st.write("Please, add enough information to give you recommendations.")
+        st.write("")
