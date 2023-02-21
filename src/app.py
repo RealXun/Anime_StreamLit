@@ -23,8 +23,6 @@ with st.sidebar:
                                 }
                         )
 
-
-
 # This creates a drop-down menu in the sidebar with six options: 
 # "About", "Based on ratings", "Based on Features", "Using user ID", "Testing", and "About the Creator". 
 # The icons argument provides icons for each option. menu_icon sets the icon for the sidebar. 

@@ -110,6 +110,13 @@ def uns_bara():
 
     criteria_selected = to_search and user_input and selected_genre and selected_type
 
+    # Create a visual indicator to show if both criteria are selected
+    if criteria_selected:
+        st.success('Both criteria are selected')
+    else:
+        st.warning('Please select both criteria to get recommendations')
+
+
 
 
 # Displays anime recommendations based on selected criteria. It uses the Streamlit library 
@@ -121,6 +128,8 @@ def uns_bara():
 # no recommendations to display or the user has not entered enough information, the script 
 # prompts the user accordingly.
  
+
+
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
         # dataframe = load('../models/df.pkl')
