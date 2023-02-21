@@ -6,7 +6,6 @@ from body import sup_id
 from body import about
 from body import about_me
 from body import what_is
-from body import an_info
 
 st.set_page_config(layout='wide')
 
@@ -14,8 +13,8 @@ st.set_page_config(layout='wide')
 
 # This opens a sidebar in the Streamlit app.
 with st.sidebar:
-    choose = option_menu("Anime Recommendator System", ["About","What is anime?","Based on ratings", "Based on Features", "Using user ID", "Anime Info","About the Creator"],
-                         icons=['house','easel', '123', 'list-ul', 'credit-card-2-front', 'tv','person'],
+    choose = option_menu("Anime Recommendator System", ["About","What is anime?","Based on ratings", "Based on Features", "Using user ID","About the Creator"],
+                         icons=['house','easel', '123', 'list-ul', 'credit-card-2-front','person'],
                          menu_icon="app-indicator", default_index=0,
                          styles={"container": {"padding": "5!important", "background-color": "#fafafa"},
                                 "icon": {"color": "orange", "font-size": "25px"}, 
@@ -48,9 +47,6 @@ elif choose == "Based on Features":
 
 elif choose == "Using user ID":
     sup_id.user_id()
-
-elif choose == "Anime Info":
-    an_info.info()
 
 elif choose == "About the Creator":
     about_me.about_me()
