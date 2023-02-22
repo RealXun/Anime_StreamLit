@@ -15840,14 +15840,14 @@ Total number of records: 12201
 <li>Load pre-trained k-Nearest Neighbors model from file</li>
 <li>Load anime data from CSV file</li>
 <li>Find the closest title in the anime dataset to the user's query</li>
+<li>If the distance score is 100, the user's query is an exact match for a title in the dataset<ul>
+<li>Get the index of the exact match in the dataset</li>
+<li>Get the indices of the k-nearest neighbors of the exact match</li>
+<li>Remove the index of the exact match from the array of neighbors</li>
+<li>For each neighbor index, get the name of the anime and add it to the list of recommendations</li>
+<li>Return the list of recommendations</li>
 </ul>
-<p>If the distance score is 100, the user's query is an exact match for a title in the dataset
-    - Get the index of the exact match in the dataset 
-    - Get the indices of the k-nearest neighbors of the exact match
-    - Remove the index of the exact match from the array of neighbors
-    - For each neighbor index, get the name of the anime and add it to the list of recommendations
-    - Return the list of recommendations</p>
-<ul>
+</li>
 <li>If the distance score is not 100, the user's query is a misspelling or a partial match<ul>
 <li>Ask the user if they meant the closest title found in the dataset</li>
 <li>Get the index of the closest title in the dataset</li>
