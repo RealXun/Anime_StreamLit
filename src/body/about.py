@@ -70,3 +70,4 @@ def it_is_about():
         </style> """, unsafe_allow_html=True)
     st.markdown('<p class="font">Supervised Collaborative Filtering based on ratings Using SVD method</p>', unsafe_allow_html=True)
     with st.expander("See explanation and process."):
+        st.write("Explanation body goes here")
