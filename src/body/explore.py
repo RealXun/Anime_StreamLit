@@ -11,6 +11,7 @@ import requests
 from io import BytesIO
 import glob
 import joblib
+import plotly.express as px
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -34,6 +35,12 @@ def explore_data():
     import streamlit as st
     import pandas as pd
 
+    #Opening cleaned df using Pickle
+    fichero = open(raw_data + "/" +"anime.pkl","rb")
+    df = pickle.load(fichero)
+    fichero.close()
+
+
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
 
@@ -46,3 +53,11 @@ def explore_data():
     # Opening cleaned df using Pickle
     anime_df = joblib.load(raw_data + "/" + "anime_eda.pkl")
     st.dataframe(anime_df)
+
+    # Create a sample dataframe with the given column types and values
+
+    # Create a pie chart using Plotly Express
+    fig = px.pie(df, values='Count', names='Type', title='Distribution of Anime Types')
+
+    # Display the pie chart in Streamlit
+    st.plotly_chart(fig)
