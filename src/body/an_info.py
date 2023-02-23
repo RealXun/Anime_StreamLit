@@ -11,6 +11,7 @@ import requests
 from io import BytesIO
 import glob
 import io
+import codecs
 import math
 
 PROJECT_ROOT = os.path.abspath(os.path.join(
