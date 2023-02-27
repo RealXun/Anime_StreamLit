@@ -70,7 +70,7 @@ def names_unique():
     '''
     Return a list of unique names in the column 'english_title'
     '''
-    anime = pd.read_csv(raw_data + "/" + "anime_2023_02_15_00_08_28.csv")
+    anime = pd.read_csv(raw_data + "/" + "anime.csv")
     names = anime['english_title'].unique().tolist()
     return names
 
@@ -498,8 +498,6 @@ def sort_it(id):
     # Load the pre-trained SVD model
     algo = joblib.load(saved_models_folder + "/" + "SVD_new_model.pkl")
     
-    rating = pd.read_csv(raw_data + "/" + "rating.csv.zip")
-
     # Load the anime dataframe
     df = pd.read_csv(processed_data + "/" + "anime_final.csv")
     
@@ -508,26 +506,9 @@ def sort_it(id):
     # Apply the SVD model to estimate the score for each anime
     df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
     
-    # Filter the dataframe to get all anime_ids and ratings for the given user_id
-    user_ratings_df = rating.loc[(rating['user_id'] == id) & (rating['rating'] > 0), 'anime_id']
-
-    # Convert the resulting series to a list
-    exclude_list = user_ratings_df.tolist()
-
-    # Define the list of numbers to exclude
-    exclude_list
-
-    # Create a boolean mask to identify rows where 'anime_id' is in the exclude_list
-    mask = df['anime_id'].isin(exclude_list)
-
-    # Invert the boolean mask using the '~' operator
-    mask = ~mask
-
-    # Filter the dataframe using the inverted mask
-    filtered_df = df[mask]
-
+    
     # Sort the dataframe by the estimated score in descending order and drop the anime_id column
-    df = filtered_df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
+    df = df.sort_values('Estimate_Score', ascending=False).drop(['anime_id'], axis = 1)
     
     # Create a blank index for the dataframe
     blankIndex=[''] * len(df)
