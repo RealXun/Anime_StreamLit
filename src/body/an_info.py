@@ -39,7 +39,7 @@ def info():
         font-size:40px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
 
-    selected_name = st.selectbox("Choose the anime name",sorted(recommend.names_unique("english_title")))
+    selected_name = st.selectbox("Choose the anime name",sorted(recommend.names_unique()))
     result = recommend.all_anime_dict()
     # Create an empty dictionary to store the recommendations
     new_dict = {}
