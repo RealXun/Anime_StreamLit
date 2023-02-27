@@ -27,8 +27,9 @@ def user_id():
 # If it's successful, it returns a success message with the integer value. 
 # If it's not successful, it returns an error message asking the user to 
 # enter a valid integer.
+    selected_name = st.selectbox("Choose the anime name",sorted(recommend.id_unique()))
 
-    user_input_1  = st.text_input("Choose the ID of the user you would like to see recommendations?") # create a text input for the user to enter the ID of the user they want recommendations for
+    user_input_1  = st.text_input("Choose the ID of the user you would like to see recommendations") # create a text input for the user to enter the ID of the user they want recommendations for
     try:
         users_id = int(user_input_1) # convert the input to an integer
     except ValueError:
@@ -187,7 +188,7 @@ def user_id():
                                 cols[col_idx].write(f"**Score:** {result['score']}/10")
                             # Display the estimated score for the recommendation
                             if 'Estimate_Score' in result:
-                                    cols[col_idx].write(f"**Estimated Score:**{result['Estimate_Score']:.2f}")
+                                    cols[col_idx].write(f"Estimated Score: {result['Estimate_Score']:.2f}")
 
             else:
                 # If there are no recommendations to display, inform the user
