@@ -187,7 +187,7 @@ def user_id():
                                 cols[col_idx].write(f"**Score:** {result['score']}/10")
                             # Display the estimated score for the recommendation
                             if 'Estimate_Score' in result:
-                                    cols[col_idx].write(f"**{float(result['Estimate_Score'])}**")
+                                    cols[col_idx].write(f"**Estimated Score:**{result['Estimate_Score']:.2f}")
 
             else:
                 # If there are no recommendations to display, inform the user
