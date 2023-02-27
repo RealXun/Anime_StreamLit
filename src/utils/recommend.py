@@ -68,12 +68,12 @@ def rating():
 
 def names_unique():
     '''
-    Return a list of unique names in the column 'english_title'
+    Return a list of unique names in the column 'English_Title'
     '''
     fichero = open(raw_data + "/" + "anime_eda.pkl","rb")
     anime = pickle.load(fichero)
     fichero.close()
-    names = anime['english_title'].unique().tolist()
+    names = anime['English_Title'].unique().tolist()
     return names
 
 def all_anime_dict():
