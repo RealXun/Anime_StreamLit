@@ -503,6 +503,8 @@ def sort_it(id):
     # Load the anime dataframe
     df = pd.read_csv(processed_data + "/" + "anime_final.csv")
     
+    #.predict(): performs the change point detection. This method returns a list of indexes corresponding to the end of each regimes. 
+    #By design, the last element of this list is the number of samples.
     # Apply the SVD model to estimate the score for each anime
     df['Estimate_Score'] = df['anime_id'].apply(lambda x: algo.predict(id, x).est)
     
