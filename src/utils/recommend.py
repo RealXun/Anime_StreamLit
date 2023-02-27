@@ -74,15 +74,6 @@ def names_unique():
     names = anime['english_title'].unique().tolist()
     return names
 
-def id_unique():
-    '''
-    Return a list of unique names in the column 'english_title'
-    '''
-    rating = pd.read_csv(raw_data + "/" + "rating.csv.zip")
-    id = rating['user_id'].unique().tolist()
-    return id
-
-
 def all_anime_dict():
     '''
     The code creates a dictionary from a Pandas DataFrame called "anime", 
