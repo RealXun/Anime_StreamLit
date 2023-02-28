@@ -9,6 +9,7 @@ from pathlib import Path
 from PIL import Image
 import requests
 from io import BytesIO
+import pandas as pd
 
 import streamlit as st
 import xlsxwriter
@@ -156,16 +157,14 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-
+                # Convert the dictionary to a DataFrame
+                df = pd.DataFrame.from_dict(new_dict)
                 workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+                # Create a new worksheet
                 worksheet = workbook.add_worksheet()
 
-                # Write the data to the worksheet
-                row = 1
-                for key, value in new_dict.items():
-                    worksheet.write(row, 0, key)
-                    worksheet.write(row, 1, value)
-                    row += 1
+                # Write the DataFrame to the worksheet
+                df.to_excel(worksheet, startrow=1, startcol=0, header=False, index=False)
 
                 # Save the workbook
                 workbook.close()
