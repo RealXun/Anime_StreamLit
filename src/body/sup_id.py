@@ -10,10 +10,7 @@ from PIL import Image
 import requests
 from io import BytesIO
 import pandas as pd
-
-import streamlit as st
 import xlsxwriter
-from io import BytesIO
 import base64
 
 output = BytesIO()
