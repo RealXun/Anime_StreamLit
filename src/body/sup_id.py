@@ -183,7 +183,7 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-
+                print(new_dict)
                 # Define a dataframe from the dictionary
                 df = pd.DataFrame.from_dict(new_dict)
 
