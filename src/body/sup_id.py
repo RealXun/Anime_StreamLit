@@ -158,16 +158,7 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-                # Convert the dictionary to a DataFrame
-                df = pd.DataFrame.from_dict(new_dict)
-                # Define a function to create a downloadable PDF file from a DataFrame
-                def create_downloadable_pdf(df):
-                    output = BytesIO()
-                    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-                    df.to_excel(writer, sheet_name='Sheet1', index=False)
-                    writer.save()
-                    output.seek(0)
-                    return base64.b64encode(output.getvalue()).decode()
+
 
                 # Create a download button that generates a PDF file when clicked
                 pdf_file = create_downloadable_pdf(df)
@@ -186,7 +177,16 @@ def user_id():
                     for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
                         # Get the recommendation for the current anime
                         result = new_dict[key]
-
+                        # Convert the dictionary to a DataFrame
+                        df = pd.DataFrame.from_dict(result)
+                        # Define a function to create a downloadable PDF file from a DataFrame
+                        def create_downloadable_pdf(df):
+                            output = BytesIO()
+                            writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                            df.to_excel(writer, sheet_name='Sheet1', index=False)
+                            writer.save()
+                            output.seek(0)
+                            return base64.b64encode(output.getvalue()).decode()
                         # Get the cover image for the anime from the recommendation data
                         response = requests.get(result['cover'])
                         img = Image.open(BytesIO(response.content))
