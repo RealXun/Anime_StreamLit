@@ -194,9 +194,9 @@ def user_id():
                 df_xlsx = to_excel(df)
 
                 # Button to download the excel file
-                st.download_button(label='📥 Download Current Result',
+                st.download_button(label='📥 Download Recommendations',
                                                 data=df_xlsx ,
-                                                file_name= 'df_test.xlsx')
+                                                file_name= 'Recommendations.xlsx')
 
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
