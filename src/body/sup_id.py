@@ -19,16 +19,32 @@ import base64
 output = BytesIO()
 
 def to_excel(df):
+    # Create a BytesIO object to store the Excel file as bytes
     output = BytesIO()
+    
+    # Create a Pandas ExcelWriter object with the XlsxWriter engine
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    
+    # Write the DataFrame to the Excel file, specifying the sheet name and that the index should not be included
+    df.to_excel(writer, index=False, sheet_name='Recommendations')
+    
+    # Get a reference to the XlsxWriter workbook and worksheet objects
     workbook = writer.book
-    worksheet = writer.sheets['Sheet1']
+    worksheet = writer.sheets['Recommendations']
+    
+    # Create a format for numbers with two decimal places
     format1 = workbook.add_format({'num_format': '0.00'}) 
+    
+    # Apply the number format to the first column of the worksheet
     worksheet.set_column('A:A', None, format1)  
+    
+    # Save the Excel file and get its contents as bytes
     writer.save()
     processed_data = output.getvalue()
+    
+    # Return the Excel file contents as bytes
     return processed_data
+
 
 
 def user_id():
@@ -158,9 +174,6 @@ def user_id():
 
     # Enable button if both criteria are selected
     if st.button('Get the Recommendation', disabled=not criteria_selected):
-        st.download_button(label='📥 Download Current Result',
-                                    data=df_xlsx ,
-                                    file_name= 'df_test.xlsx')
         with st.spinner('Generating recommendations...'):
             result = super_ratings_based(users_id,number_of_recommendations,selected_genre,selected_type, method)
             if result is not None: 
@@ -173,11 +186,17 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-                # Define the DataFrame
+
+                # Define a dataframe from the dictionary
                 df = pd.DataFrame.from_dict(new_dict)
 
+                # Call the function to create a excel file
                 df_xlsx = to_excel(df)
-    
+
+                # Button to download the excel file
+                st.download_button(label='📥 Download Current Result',
+                                                data=df_xlsx ,
+                                                file_name= 'df_test.xlsx')
 
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
