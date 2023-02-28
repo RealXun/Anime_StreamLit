@@ -14,6 +14,7 @@ import pandas as pd
 import streamlit as st
 import xlsxwriter
 from io import BytesIO
+import base64
 
 output = BytesIO()
 
@@ -159,22 +160,19 @@ def user_id():
                         new_dict[di['name']][k]=di[k]
                 # Convert the dictionary to a DataFrame
                 df = pd.DataFrame.from_dict(new_dict)
-                workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-                # Create a new worksheet
-                worksheet = workbook.add_worksheet()
+                # Define a function to create a downloadable PDF file from a DataFrame
+                def create_downloadable_pdf(df):
+                    output = BytesIO()
+                    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                    df.to_excel(writer, sheet_name='Sheet1', index=False)
+                    writer.save()
+                    output.seek(0)
+                    return base64.b64encode(output.getvalue()).decode()
 
-                # Write the DataFrame to the worksheet
-                df.to_excel(worksheet, startrow=1, startcol=0, header=False, index=False)
-
-                # Save the workbook
-                workbook.close()
-
-                st.download_button(
-                    label="Download Excel workbook",
-                    data=output.getvalue(),
-                    file_name="workbook.xlsx",
-                    mime="application/vnd.ms-excel"
-                )
+                # Create a download button that generates a PDF file when clicked
+                pdf_file = create_downloadable_pdf(df)
+                href = f'<a href="data:application/octet-stream;base64,{pdf_file}" download="output.xlsx">Download PDF</a>'
+                st.markdown(href, unsafe_allow_html=True)
 
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
