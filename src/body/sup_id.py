@@ -10,10 +10,6 @@ from PIL import Image
 import requests
 from io import BytesIO
 
-import streamlit as st
-import xlsxwriter
-from io import BytesIO
-
 output = BytesIO()
 
 
@@ -156,25 +152,7 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
-                workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-                worksheet = workbook.add_worksheet()
 
-                # Write the data to the worksheet
-                row = 1
-                for key, value in new_dict.items():
-                    worksheet.write(row, 0, key)
-                    worksheet.write(row, 1, value)
-                    row += 1
-
-                # Save the workbook
-                workbook.close()
-
-                st.download_button(
-                    label="Download Excel workbook",
-                    data=output.getvalue(),
-                    file_name="workbook.xlsx",
-                    mime="application/vnd.ms-excel"
-                )
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
                 num_rows = len(result) // num_cols + 1
