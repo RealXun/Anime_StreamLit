@@ -160,10 +160,7 @@ def user_id():
                         new_dict[di['name']][k]=di[k]
 
 
-                # Create a download button that generates a PDF file when clicked
-                pdf_file = create_downloadable_pdf(df)
-                href = f'<a href="data:application/octet-stream;base64,{pdf_file}" download="output.xlsx">Download PDF</a>'
-                st.markdown(href, unsafe_allow_html=True)
+
 
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
@@ -187,6 +184,11 @@ def user_id():
                             writer.save()
                             output.seek(0)
                             return base64.b64encode(output.getvalue()).decode()
+                        
+                        # Create a download button that generates a PDF file when clicked
+                        pdf_file = create_downloadable_pdf(df)
+                        href = f'<a href="data:application/octet-stream;base64,{pdf_file}" download="output.xlsx">Download PDF</a>'
+                        st.markdown(href, unsafe_allow_html=True)
                         # Get the cover image for the anime from the recommendation data
                         response = requests.get(result['cover'])
                         img = Image.open(BytesIO(response.content))
