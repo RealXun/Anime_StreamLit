@@ -158,7 +158,37 @@ def user_id():
                     for k in di.keys():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
+                # Define the DataFrame
+                df = pd.DataFrame.from_dict(new_dict)
 
+                # Create a new workbook
+                workbook = xlsxwriter.Workbook('output.xlsx')
+
+                # Create a new worksheet
+                worksheet = workbook.add_worksheet()
+
+                # Write the column names to the first row of the worksheet
+                column_names = list(df.columns)
+                for col_idx, col_name in enumerate(column_names):
+                    worksheet.write(0, col_idx, col_name)
+
+                # Write the data from the DataFrame to the worksheet
+                for row_idx, row_data in df.iterrows():
+                    for col_idx, col_name in enumerate(column_names):
+                        worksheet.write(row_idx + 1, col_idx, row_data[col_name])
+
+                # Save the workbook to a BytesIO object
+                output = BytesIO()
+                workbook.close()
+                output.seek(0)
+
+                # Create a download button that downloads the file from the BytesIO object
+                st.download_button(
+                    label="Download Xlsx",
+                    data=output.getvalue(),
+                    file_name="output.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                )
 
 
 
@@ -174,37 +204,6 @@ def user_id():
                     for col_idx, key in enumerate(list(new_dict.keys())[row_idx*num_cols:(row_idx+1)*num_cols]):
                         # Get the recommendation for the current anime
                         result = new_dict[key]
-                        # Convert the dictionary to a DataFrame
-                        df = pd.DataFrame.from_dict(result)
-                        # Create a new workbook
-                        workbook = xlsxwriter.Workbook('output.xlsx')
-
-                        # Create a new worksheet
-                        worksheet = workbook.add_worksheet()
-
-                        # Write the column names to the first row of the worksheet
-                        column_names = list(df.columns)
-                        for col_idx, col_name in enumerate(column_names):
-                            worksheet.write(0, col_idx, col_name)
-
-                        # Write the data from the DataFrame to the worksheet
-                        for row_idx, row_data in df.iterrows():
-                            for col_idx, col_name in enumerate(column_names):
-                                worksheet.write(row_idx + 1, col_idx, row_data[col_name])
-
-                        # Save the workbook to a BytesIO object
-                        output = BytesIO()
-                        workbook.close()
-                        output.seek(0)
-
-                        # Create a download button that downloads the file from the BytesIO object
-                        st.download_button(
-                            label="Download Xlsx",
-                            data=output.getvalue(),
-                            file_name="output.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        )
-
                         # Get the cover image for the anime from the recommendation data
                         response = requests.get(result['cover'])
                         img = Image.open(BytesIO(response.content))
