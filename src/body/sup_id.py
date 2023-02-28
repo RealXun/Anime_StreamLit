@@ -167,15 +167,17 @@ def user_id():
                 # Create a new worksheet
                 worksheet = workbook.add_worksheet()
 
-                # Write the column names to the first row of the worksheet
-                column_names = list(df.columns)
-                for col_idx, col_name in enumerate(column_names):
+                # Write the column names to the worksheet
+                for col_idx, col_name in enumerate(df.columns):
                     worksheet.write(0, col_idx, col_name)
 
                 # Write the data from the DataFrame to the worksheet
                 for row_idx, row_data in df.iterrows():
-                    for col_idx, col_name in enumerate(column_names):
-                        worksheet.write(row_idx + 1, col_idx, row_data[col_name])
+                    for col_idx, col_name in enumerate(df.columns):
+                        cell_value = row_data[col_name]
+                        if isinstance(cell_value, (int, float)):
+                            cell_value = str(cell_value)
+                        worksheet.write(row_idx + 1, col_idx, cell_value)
 
                 # Save the workbook to a BytesIO object
                 workbook.close()
