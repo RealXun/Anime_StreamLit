@@ -176,19 +176,35 @@ def user_id():
                         result = new_dict[key]
                         # Convert the dictionary to a DataFrame
                         df = pd.DataFrame.from_dict(result)
-                        # Define a function to create a downloadable PDF file from a DataFrame
-                        def create_downloadable_pdf(df):
-                            output = BytesIO()
-                            writer = pd.ExcelWriter(output, engine='xlsxwriter')
-                            df.to_excel(writer, sheet_name='Sheet1', index=False)
-                            writer.save()
-                            output.seek(0)
-                            return base64.b64encode(output.getvalue()).decode()
-                        
-                        # Create a download button that generates a PDF file when clicked
-                        pdf_file = create_downloadable_pdf(df)
-                        href = f'<a href="data:application/octet-stream;base64,{pdf_file}" download="output.xlsx">Download PDF</a>'
-                        st.markdown(href, unsafe_allow_html=True)
+                        # Create a new workbook
+                        workbook = xlsxwriter.Workbook('output.xlsx')
+
+                        # Create a new worksheet
+                        worksheet = workbook.add_worksheet()
+
+                        # Write the column names to the first row of the worksheet
+                        column_names = list(df.columns)
+                        for col_idx, col_name in enumerate(column_names):
+                            worksheet.write(0, col_idx, col_name)
+
+                        # Write the data from the DataFrame to the worksheet
+                        for row_idx, row_data in df.iterrows():
+                            for col_idx, col_name in enumerate(column_names):
+                                worksheet.write(row_idx + 1, col_idx, row_data[col_name])
+
+                        # Save the workbook to a BytesIO object
+                        output = BytesIO()
+                        workbook.close()
+                        output.seek(0)
+
+                        # Create a download button that downloads the file from the BytesIO object
+                        st.download_button(
+                            label="Download Xlsx",
+                            data=output.getvalue(),
+                            file_name="output.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        )
+
                         # Get the cover image for the anime from the recommendation data
                         response = requests.get(result['cover'])
                         img = Image.open(BytesIO(response.content))
