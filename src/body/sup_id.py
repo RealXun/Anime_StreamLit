@@ -160,35 +160,21 @@ def user_id():
                         new_dict[di['name']][k]=di[k]
                 # Define the DataFrame
                 df = pd.DataFrame.from_dict(new_dict)
-
-                # Create a new workbook
-                workbook = xlsxwriter.Workbook('output.xlsx')
-
-                # Create a new worksheet
-                worksheet = workbook.add_worksheet()
-
-                # Write the column names to the worksheet
-                for col_idx, col_name in enumerate(df.columns):
-                    worksheet.write(0, col_idx, col_name)
-
-                # Write the data from the DataFrame to the worksheet
-                for row_idx, row_data in df.iterrows():
-                    for col_idx, col_name in enumerate(df.columns):
-                        cell_value = row_data[col_name]
-                        if isinstance(cell_value, (int, float)):
-                            cell_value = str(cell_value)
-                        worksheet.write(row_idx + 1, col_idx, cell_value)
-
-                # Save the workbook to a BytesIO object
-                workbook.close()
-
-                # Create a download button that downloads the file from the BytesIO object
-                st.download_button(
-                    label="Download Xlsx",
-                    data=output.getvalue(),
-                    file_name="output.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                )
+                def to_excel(df):
+                    output = BytesIO()
+                    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                    df.to_excel(writer, index=False, sheet_name='Sheet1')
+                    workbook = writer.book
+                    worksheet = writer.sheets['Sheet1']
+                    format1 = workbook.add_format({'num_format': '0.00'}) 
+                    worksheet.set_column('A:A', None, format1)  
+                    writer.save()
+                    processed_data = output.getvalue()
+                    return processed_data
+                df_xlsx = to_excel(df)
+                st.download_button(label='📥 Download Current Result',
+                                                data=df_xlsx ,
+                                                file_name= 'df_test.xlsx')
 
 
 
