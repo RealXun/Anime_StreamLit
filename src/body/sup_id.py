@@ -178,9 +178,7 @@ def user_id():
                         worksheet.write(row_idx + 1, col_idx, row_data[col_name])
 
                 # Save the workbook to a BytesIO object
-                output = BytesIO()
                 workbook.close()
-                output.seek(0)
 
                 # Create a download button that downloads the file from the BytesIO object
                 st.download_button(
