@@ -171,6 +171,18 @@ def uns_bara():
         with st.spinner('Generating recommendations...'):
             result = unsupervised_user_explicit_rating_based(to_search,number_of_recommendations,selected_genre,selected_type,method)
             if result is not None: 
+
+                # Define a dataframe from the result list
+                df = pd.DataFrame(result)
+
+                # Call the function to create a excel file
+                df_xlsx = to_excel(df)
+
+                # Button to download the excel file
+                st.download_button(label='📥 Download Recommendations',
+                                                data=df_xlsx ,
+                                                file_name= 'Recommendations.xlsx')
+
                 # If the recommendation results are not empty, create a new dictionary to store them
                 new_dict={}
                 for di in result:
@@ -181,16 +193,6 @@ def uns_bara():
                         if k =='name': continue
                         new_dict[di['name']][k]=di[k]
 
-                # Define a dataframe from the dictionary
-                df = pd.DataFrame.from_dict(new_dict)
-
-                # Call the function to create a excel file
-                df_xlsx = to_excel(df)
-
-                # Button to download the excel file
-                st.download_button(label='📥 Download Recommendations',
-                                                data=df_xlsx ,
-                                                file_name= 'Recommendations.xlsx')
 
                 # Determine how many rows and columns are needed to display the recommendations
                 num_cols = 5
