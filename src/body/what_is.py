@@ -47,7 +47,7 @@ def what_is():
     anime = pd.read_csv(raw_data + "/" + "anime.csv")
 
     # find the anime_id of the selected anime
-    selected_anime_id = anime.loc[anime['name'] == selected_name, 'anime_id'].values[0]
+    selected_anime_id = anime.loc[anime['english_title'] == selected_name, 'anime_id'].values[0]
 
     user_rating  = st.text_input("Write the rating") # create a text input for the user to enter the ID of the user they want recommendations for
     try:
