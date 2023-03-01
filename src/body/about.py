@@ -43,7 +43,20 @@ def it_is_about():
     st.markdown(""" <style> .font {
         font-size:40px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
-    st.write("The goal of this project is that according to the user's anime viewing history we can recommend a list of anime that suits their tastes.\nIn order to do this we are going to create 3 types or recommendation system")
+    st.write("The goal of this project to create 3 types of Anime recommendation system.\n\
+             But, what is a Anime recommendation system? is a type of recommendation system \
+             that is specifically designed to suggest Anime titles to users based on their \
+             preferences. This system uses various algorithms and data analysis techniques \
+             to analyze user behavior, interests, and interactions with different Anime titles,\
+              and then recommends titles that the user may be interested in watching.\n\
+             The system typically works by analyzing a user's viewing history and rating\
+              history to determine their preferences. It may also consider other factors\
+              such as the user's demographic information, the popularity of the Anime title,\
+              and the similarity between different Anime titles.\n\
+             Once the system has analyzed this data, it generates a list of recommended Anime \
+             titles for the user to watch. These recommendations may be based on user ratings \
+             and viewing habits, as well as other factors such as the similarity between different\
+              Anime titles or the popularity of a particular title.")
 
 
 
