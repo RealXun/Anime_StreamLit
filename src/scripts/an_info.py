@@ -86,6 +86,9 @@ def info():
         if new_dict[selected_name]['source']:
             st.write(f"**Source:** {new_dict[selected_name]['source']}")
 
+        if new_dict[selected_name]['df_copy.head(2)']:
+            st.write(f"**Released Year:** {new_dict[selected_name]['df_copy.head(2)']}") 
+
         if (new_dict[selected_name]['duration']):
             st.write(f"**Duration:** {new_dict[selected_name]['duration']}")
         else:
