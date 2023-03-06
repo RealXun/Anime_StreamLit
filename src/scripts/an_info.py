@@ -72,7 +72,7 @@ def info():
             st.write(f"**English name:** {new_dict[selected_name]['english_title']}")
 
         if new_dict[selected_name]['romanji']:
-            st.write(f"**English name:** {new_dict[selected_name]['romanji']}")
+            st.write(f"**Romanji name:** {new_dict[selected_name]['romanji']}")
 
         if new_dict[selected_name]['japanses_title']:
             st.write(f"**Jananese name:** {new_dict[selected_name]['japanses_title']}")
