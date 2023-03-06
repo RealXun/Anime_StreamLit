@@ -58,6 +58,27 @@ def it_is_about():
              and viewing habits, as well as other factors such as the similarity between different\
               Anime titles or the popularity of a particular title.")
 
+    st.markdown(""" <style> .font {
+        font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
+        </style> """, unsafe_allow_html=True)
+    st.markdown('<p class="font">Exploratoy Data Analysis</p>', unsafe_allow_html=True)
+    st.write("Exploratory Data Analysis (EDA) is an important step in the machine learning pipeline because\
+              it helps you understand the data you are working with. EDA is the process of exploring and\
+              summarizing the main characteristics of a dataset in order to gain insights and identify patterns\
+              that may be useful in creating a machine learning model.\
+             \nSome reasons why doing EDA before creating a machine learning model is important include:\
+             \n-Identify data quality issues\
+             \n-Understand the relationships between variables\
+             \n-Identify patterns and trends\
+             \n-Visualize the data\
+                In summary, EDA is an important step in the machine learning pipeline because it helps you\
+             understand the data you are working with, identify data quality issues, and identify patterns\
+             and trends that may be useful in creating a machine learning model.")
+    path_to_html = body_folder + "/" + "EDA_Anime.html" 
+    # Read file and keep in variable
+    with open(path_to_html,'r', encoding='utf-8') as f: 
+        html_data = f.read()
+        st.components.v1.html(html_data,height=81350)
 
 
     st.markdown(""" <style> .font {
