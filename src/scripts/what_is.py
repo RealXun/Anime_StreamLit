@@ -16,7 +16,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
-body_folder = (PROJECT_ROOT + "/" + "body")
+scripts_folder = (PROJECT_ROOT + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "scripts")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")
@@ -27,16 +28,9 @@ cover_images = (images + "/" + "Cover_images")
 
 
 
-
-def about_me():
+def what_is():
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
 
-    st.markdown(""" <style> .font {
-        font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
-        </style> """, unsafe_allow_html=True)
-
-    st.markdown('<p class="font">Hi there!!👋 Take a look at my repositories and let\'s get in touch!</p>', unsafe_allow_html=True)
-
-    with open(body_folder + "/" + "me_text.md",'r', encoding='utf-8') as f:
+    with open(files_folder + "/" + "what_is.md",'r', encoding='utf-8') as f:
         st.markdown(f.read(), unsafe_allow_html=True)

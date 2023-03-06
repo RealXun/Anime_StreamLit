@@ -19,7 +19,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
-body_folder = (PROJECT_ROOT + "/" + "body")
+scripts_folder = (PROJECT_ROOT + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "scripts")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")

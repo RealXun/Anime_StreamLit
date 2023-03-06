@@ -18,7 +18,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
-body_folder = (PROJECT_ROOT + "/" + "body")
+scripts_folder = (PROJECT_ROOT + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "scripts")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")
@@ -43,7 +44,7 @@ def eda_info():
 
     st.markdown('<p class="font">Exploratoy Data Analysis</p>', unsafe_allow_html=True)
 
-    path_to_html = body_folder + "/" + "EDA_Anime.html" 
+    path_to_html = files_folder + "/" + "EDA_Anime.html" 
     # Read file and keep in variable
     with open(path_to_html,'r', encoding='utf-8') as f: 
         html_data = f.read()

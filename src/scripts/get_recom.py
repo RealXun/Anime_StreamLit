@@ -13,10 +13,10 @@ import glob
 import io
 import codecs
 from streamlit_option_menu import option_menu
-from body import un_based_rate
-from body import un_based_feat
-from body import sup_id
-from body import about
+from scripts import un_based_rate
+from scripts import un_based_feat
+from scripts import sup_id
+from scripts import about
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -24,7 +24,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
-body_folder = (PROJECT_ROOT + "/" + "body")
+scripts_folder = (PROJECT_ROOT + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "scripts")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")

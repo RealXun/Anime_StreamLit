@@ -10,15 +10,14 @@ from PIL import Image
 import requests
 from io import BytesIO
 import glob
-import joblib
-
 
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__), 
                   os.pardir)
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
-body_folder = (PROJECT_ROOT + "/" + "body")
+scripts_folder = (PROJECT_ROOT + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "scripts")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")
@@ -30,10 +29,7 @@ cover_images = (images + "/" + "Cover_images")
 
 
 
-def explore_data():
-    import streamlit as st
-    import pandas as pd
-
+def about_me():
     #Add the cover image for the cover page. Used a little trick to center the image
              # To display the header text using css style
 
@@ -43,6 +39,5 @@ def explore_data():
 
     st.markdown('<p class="font">Hi there!!👋 Take a look at my repositories and let\'s get in touch!</p>', unsafe_allow_html=True)
 
-    # Opening cleaned df using Pickle
-    anime_df = joblib.load(raw_data + "/" + "anime_eda.pkl")
-    st.dataframe(anime_df)
+    with open(files_folder + "/" + "me_text.md",'r', encoding='utf-8') as f:
+        st.markdown(f.read(), unsafe_allow_html=True)
