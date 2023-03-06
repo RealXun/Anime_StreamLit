@@ -60,10 +60,8 @@ def info():
 
     # Display the cover image in the left column
     with col1:
-        if new_dict[selected_name]['cover']: 
-            response = requests.get(new_dict[selected_name]['cover'])     
-            img = Image.open(BytesIO(response.content))
-            st.image(img, use_column_width=True)
+        if new_dict[selected_name]['english_title']:
+            st.write(f"**English name:** {new_dict[selected_name]['english_title']}")
 
     # Display the anime information in the right column
     with col2:
