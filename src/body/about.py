@@ -67,10 +67,10 @@ def it_is_about():
               summarizing the main characteristics of a dataset in order to gain insights and identify patterns\
               that may be useful in creating a machine learning model.\
              \nSome reasons why doing EDA before creating a machine learning model is important include:\n\
-             \n     -Identify data quality issues\
-             \n     -Understand the relationships between variables\
-             \n     -Identify patterns and trends\
-             \n     -Visualize the data\
+             \n     - Identify data quality issues\
+             \n     - Understand the relationships between variables\
+             \n     - Identify patterns and trends\
+             \n     - Visualize the data\
              \n\nIn summary, EDA is an important step in the machine learning pipeline because it helps you\
              understand the data you are working with, identify data quality issues, and identify patterns\
              and trends that may be useful in creating a machine learning model.")
