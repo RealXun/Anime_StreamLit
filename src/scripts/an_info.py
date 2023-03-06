@@ -71,6 +71,9 @@ def info():
         if new_dict[selected_name]['english_title']:
             st.write(f"**English name:** {new_dict[selected_name]['english_title']}")
 
+        if new_dict[selected_name]['romanji']:
+            st.write(f"**English name:** {new_dict[selected_name]['romanji']}")
+
         if new_dict[selected_name]['japanses_title']:
             st.write(f"**Jananese name:** {new_dict[selected_name]['japanses_title']}")
 
@@ -88,8 +91,8 @@ def info():
         else:
             st.write("**Duration:** N/A")
 
-        if (new_dict[selected_name]['episodes']):
-            st.write(f"**Nº of episodes:** {new_dict[selected_name]['episodes']}")
+        if (new_dict[selected_name]['n_episodes']):
+            st.write(f"**Nº of episodes:** {new_dict[selected_name]['n_episodes']}")
         else:
             st.write("**Nº of episodes:** N/A")
 
