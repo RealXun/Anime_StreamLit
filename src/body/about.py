@@ -74,11 +74,12 @@ def it_is_about():
                 In summary, EDA is an important step in the machine learning pipeline because it helps you\
              understand the data you are working with, identify data quality issues, and identify patterns\
              and trends that may be useful in creating a machine learning model.")
-    path_to_html = body_folder + "/" + "EDA_Anime.html" 
-    # Read file and keep in variable
-    with open(path_to_html,'r', encoding='utf-8') as f: 
-        html_data = f.read()
-        st.components.v1.html(html_data,height=81350)
+    with st.expander("See the process."):    
+        path_to_html = body_folder + "/" + "EDA_Anime.html" 
+        # Read file and keep in variable
+        with open(path_to_html,'r', encoding='utf-8') as f: 
+            html_data = f.read()
+            st.components.v1.html(html_data,height=81350)
 
 
     st.markdown(""" <style> .font {
