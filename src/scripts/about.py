@@ -76,7 +76,7 @@ def it_is_about():
              understand the data you are working with, identify data quality issues, and identify patterns\
              and trends that may be useful in creating a machine learning model.")
     with st.expander("See the process."):    
-        path_to_html = body_folder + "/" + "EDA_Anime.html" 
+        path_to_html = files_folder + "/" + "EDA_Anime.html" 
         # Read file and keep in variable
         with open(path_to_html,'r', encoding='utf-8') as f: 
             html_data = f.read()
@@ -94,7 +94,7 @@ def it_is_about():
         The kNN algorithm works by finding the k most similar users to a target user based \
         on their ratings. Once the k most similar users have been identified, \the algorithm recommends anime that have high ratings among those users.")
     with st.expander("See the process."):
-        path_to_html = body_folder + "/" + "unsupervised_user_explicit_rating_based_recommendation_system.html" 
+        path_to_html = files_folder + "/" + "unsupervised_user_explicit_rating_based_recommendation_system.html" 
         # Read file and keep in variable
         with open(path_to_html,'r', encoding='utf-8') as f: 
             html_data = f.read()
@@ -120,7 +120,7 @@ def it_is_about():
         rely on user feedback to make recommendations. However, it may be less effective in situations where users have diverse interests or where there\
         are not enough attributes to accurately capture the essence of the items being recommended.")
     with st.expander("See the process."):
-        path_to_html = body_folder + "/" + "unsupervised_content_based_filtered_filtered.html" 
+        path_to_html = files_folder + "/" + "unsupervised_content_based_filtered_filtered.html" 
         # Read file and keep in variable
         with open(path_to_html,'r', encoding='utf-8') as f: 
             html_data = f.read()
@@ -135,7 +135,7 @@ def it_is_about():
     st.write("Supervised collaborative filtering based on ratings using the SVD (Singular Value Decomposition) method involves using a labeled dataset of\
         user ratings to train a model that can predict the ratings that a user would give to items that they haven't yet rated.")
     with st.expander("See the process."):
-        path_to_html = body_folder + "/" + "supervised_user_based_collaborative_filtering.html" 
+        path_to_html = files_folder + "/" + "supervised_user_based_collaborative_filtering.html" 
         # Read file and keep in variable
         with open(path_to_html,'r', encoding='utf-8') as f: 
             html_data = f.read()
