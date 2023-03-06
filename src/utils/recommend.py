@@ -70,7 +70,7 @@ def names_unique():
     '''
     Return a list of unique names in the column 'english_title'
     '''
-    anime = pd.read_csv(raw_data + "/" + "anime.csv")
+    anime = pd.read_csv(raw_data + "/" + "anime_2023.csv")
     names = anime['english_title'].unique().tolist()
     return names
 
