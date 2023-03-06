@@ -24,7 +24,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 data_folder = (PROJECT_ROOT + "/" + "data")
 scripts_folder = (PROJECT_ROOT + "/" + "scripts")
-files_folder = (scripts_folder + "/" + "scripts")
+files_folder = (scripts_folder + "/" + "files")
 
 saved_models_folder = (data_folder + "/" + "saved_models")
 raw_data = (data_folder + "/" + "_raw")
