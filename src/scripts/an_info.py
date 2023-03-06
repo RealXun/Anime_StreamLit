@@ -54,60 +54,60 @@ def info():
             for k in anime.keys():
                 if k =='name': continue
                 new_dict[anime['english_title']][k] = anime[k]
-    st.write(f"**English name:** {new_dict}")
-    ## Set up the layout with two columns
-    #col1, col2 = st.columns([1, 2])
-#
-    ## Display the cover image in the left column
-    #with col1:
-    #    
-    #    if new_dict[selected_name]['cover']: 
-    #        response = requests.get(new_dict[selected_name]['cover'])     
-    #        img = Image.open(BytesIO(response.content))
-    #        st.image(img, use_column_width=True)
-#
-    ## Display the anime information in the right column
-    #with col2:
-    #    if new_dict[selected_name]['english_title']:
-    #        st.write(f"**English name:** {new_dict[selected_name]['english_title']}")
-#
-    #    if new_dict[selected_name]['japanses_title']:
-    #        st.write(f"**Jananese name:** {new_dict[selected_name]['japanses_title']}")
-#
-    #    if new_dict[selected_name]['genre']:
-    #        st.write(f"**Genre:** {new_dict[selected_name]['genre']}")
-#
-    #    if new_dict[selected_name]['type']:
-    #        st.write(f"**Type:** {new_dict[selected_name]['type']}")
-#
-    #    if new_dict[selected_name]['source']:
-    #        st.write(f"**Source:** {new_dict[selected_name]['source']}")
-#
-    #    if (new_dict[selected_name]['duration']):
-    #        st.write(f"**Duration:** {new_dict[selected_name]['duration']}")
-    #    else:
-    #        st.write("**Duration:** N/A")
-#
-    #    if (new_dict[selected_name]['episodes']):
-    #        st.write(f"**Nº of episodes:** {new_dict[selected_name]['episodes']}")
-    #    else:
-    #        st.write("**Nº of episodes:** N/A")
-#
-    #    if (new_dict[selected_name]['rating']):
-    #        st.write(f"**Rating:** {new_dict[selected_name]['rating']}")
-#
-    #    if not math.isnan(new_dict[selected_name]['score']):
-    #        st.write(f"**Score:** {new_dict[selected_name]['score']}/10")
-    #    else:
-    #        st.write("**Score:** N/A")
-#
-    #    if not math.isnan(new_dict[selected_name]['rank']):
-    #        st.write(f"**Ranking:** {new_dict[selected_name]['rank']}")
-    #    else:
-    #        st.write("**Ranking:** N/A")
-#
-    #    if new_dict[selected_name]['synopsis']:
-    #        st.write(f"**Synopsis:** {new_dict[selected_name]['synopsis']}")
-#
-    #    if new_dict[selected_name]['anime_id']:               
-    #        st.write(f"**Id in MyAnimelist Website:** {new_dict[selected_name]['anime_id']}")
+
+    # Set up the layout with two columns
+    col1, col2 = st.columns([1, 2])
+
+    # Display the cover image in the left column
+    with col1:
+        
+        if new_dict[selected_name]['cover']: 
+            response = requests.get(new_dict[selected_name]['cover'])     
+            img = Image.open(BytesIO(response.content))
+            st.image(img, use_column_width=True)
+
+    # Display the anime information in the right column
+    with col2:
+        if new_dict[selected_name]['english_title']:
+            st.write(f"**English name:** {new_dict[selected_name]['english_title']}")
+
+        if new_dict[selected_name]['japanses_title']:
+            st.write(f"**Jananese name:** {new_dict[selected_name]['japanses_title']}")
+
+        if new_dict[selected_name]['genre']:
+            st.write(f"**Genre:** {new_dict[selected_name]['genre']}")
+
+        if new_dict[selected_name]['type']:
+            st.write(f"**Type:** {new_dict[selected_name]['type']}")
+
+        if new_dict[selected_name]['source']:
+            st.write(f"**Source:** {new_dict[selected_name]['source']}")
+
+        if (new_dict[selected_name]['duration']):
+            st.write(f"**Duration:** {new_dict[selected_name]['duration']}")
+        else:
+            st.write("**Duration:** N/A")
+
+        if (new_dict[selected_name]['episodes']):
+            st.write(f"**Nº of episodes:** {new_dict[selected_name]['episodes']}")
+        else:
+            st.write("**Nº of episodes:** N/A")
+
+        if (new_dict[selected_name]['rating']):
+            st.write(f"**Rating:** {new_dict[selected_name]['rating']}")
+
+        if not math.isnan(new_dict[selected_name]['score']):
+            st.write(f"**Score:** {new_dict[selected_name]['score']}/10")
+        else:
+            st.write("**Score:** N/A")
+
+        if not math.isnan(new_dict[selected_name]['rank']):
+            st.write(f"**Ranking:** {new_dict[selected_name]['rank']}")
+        else:
+            st.write("**Ranking:** N/A")
+
+        if new_dict[selected_name]['synopsis']:
+            st.write(f"**Synopsis:** {new_dict[selected_name]['synopsis']}")
+
+        if new_dict[selected_name]['anime_id']:               
+            st.write(f"**Id in MyAnimelist Website:** {new_dict[selected_name]['anime_id']}")
