@@ -132,8 +132,22 @@ def it_is_about():
         font-size:20px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
     st.markdown('<p class="font">Supervised Collaborative Filtering based on ratings Using SVD method</p>', unsafe_allow_html=True)
-    st.write("Supervised collaborative filtering based on ratings using the SVD (Singular Value Decomposition) method involves using a labeled dataset of\
-        user ratings to train a model that can predict the ratings that a user would give to items that they haven't yet rated.")
+    st.write("Supervised Collaborative Filtering based on ratings is a recommendation system method that predicts user preferences\
+              based on the ratings of similar users, along with additional data sources. It is called supervised because it relies\
+              on a training dataset to learn the patterns of user behavior.\
+             \n\nThe user-item matrix in Collaborative Filtering represents the users' ratings for various items. In Supervised\
+              Collaborative Filtering based on ratings, the model is trained on the historical data of user-item interactions,\
+              along with additional data sources such as demographic information, search queries, or purchase history. The model\
+              learns the patterns of user behavior and uses this information to predict user preferences for items that they have\
+             not yet interacted with.\
+             \n\nSingular Value Decomposition (SVD) is a matrix factorization technique used in Collaborative Filtering to reduce\
+              the dimensionality of the user-item matrix. SVD can decompose a large matrix into smaller matrices that capture the\
+              underlying relationships between users and items. In Supervised Collaborative Filtering based on ratings using SVD,\
+              the user-item matrix is decomposed into three smaller matrices: U, S, and V. U represents the users' preferences,\
+              S represents the singular values, and V represents the items' features.\
+             \n\nThe model is trained on a training dataset and evaluated on a testing dataset. The performance is evaluated using\
+              metrics such as Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Precision, Recall, and F1-score.\
+              The SVD-based Supervised Collaborative Filtering method can be implemented using libraries such as Surprise in Python. As we do below")
     with st.expander("See the process."):
         path_to_html = files_folder + "/" + "supervised_user_based_collaborative_filtering.html" 
         # Read file and keep in variable
