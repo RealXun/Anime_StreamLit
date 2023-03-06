@@ -91,8 +91,8 @@ def info():
         else:
             st.write("**Duration:** N/A")
 
-        if (new_dict[selected_name]['n_episodes']):
-            st.write(f"**Nº of episodes:** {new_dict[selected_name]['n_episodes']}")
+        if (new_dict[selected_name]['episodes']):
+            st.write(f"**Nº of episodes:** {new_dict[selected_name]['episodes']}")
         else:
             st.write("**Nº of episodes:** N/A")
 
