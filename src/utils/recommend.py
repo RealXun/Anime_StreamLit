@@ -379,7 +379,8 @@ def reco(name, n, df):
     #pivot_df = pd.read_csv(processed_data + "/" + "pivot_user_based_unsupervised.zip")# load anime df
     
     # Load the pivot table which stores the user rating data.
-    pivot_df =  pd.read_pickle(processed_data + "/" + "pivot_user_based_unsupervised.pkl")
+    with open(processed_data + "/" + "pivot_user_based_unsupervised.pkl", "rb") as file:
+        pivot_df = pickle.load(file)
 
     # Get the index of the anime given the name of the anime.
     indl = from_title_to_index(name, df)
