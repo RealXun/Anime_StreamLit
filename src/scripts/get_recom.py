@@ -49,7 +49,7 @@ def get_the_recom():
 
             
     selected2 = option_menu(
-        None, ["Recommmend Based on ratings", "Recommmend Based on Features", "Recommmend Using user ID"], 
+        None, ["Recommmend Based on Features", "Recommmend Using user ID"], 
         icons=['123', 'list-ul', 'credit-card-2-front'], 
         menu_icon="cast", 
         default_index=0, 
