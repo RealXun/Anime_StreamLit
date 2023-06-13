@@ -47,7 +47,7 @@ def to_excel(df):
     worksheet.set_column('A:A', None, format1)  
     
     # Save the Excel file and get its contents as bytes
-    writer.save()
+    writer.close()
     processed_data = output.getvalue()
     
     # Return the Excel file contents as bytes
